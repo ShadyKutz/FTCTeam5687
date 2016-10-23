@@ -2,6 +2,7 @@ package com.team5687.primitives;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.team5687.helpers.Logger;
 
 public class Motor
 {
@@ -21,9 +22,26 @@ public class Motor
         _motor.setPower(0);
     }
 
-    public void Move(double power)
+    public void MoveForward(double power)
     {
+        _motor.setDirection(_direction);
         if(power > 0 && power <= 100)
             _motor.setPower(power);
+        else
+            Logger.getInstance().WriteMessage("Invalid Power passed to Motor::MoveForward()");
+    }
+
+    public void MoveBackward(double power)
+    {
+        if(_direction == DcMotorSimple.Direction.FORWARD)
+            _motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        else
+            _motor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        if(power > 0 && power <= 100)
+            _motor.setPower(power);
+        else
+            Logger.getInstance().WriteMessage("Invalid Power passed to Motor::MoveBackward()");
+
     }
 }
