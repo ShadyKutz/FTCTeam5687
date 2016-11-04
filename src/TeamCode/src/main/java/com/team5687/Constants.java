@@ -10,6 +10,7 @@ public class Constants {
     public static String SWEEPER_MOTOR = "sweeper";
 
     public static String PUSHER_SERVO = "pusher_servo";
+    public static String GATE_SERVO = "gate";
 
     public static String FRONT_RANGE_SENSOR = "sensor_range";
 
