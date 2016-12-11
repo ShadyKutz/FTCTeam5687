@@ -18,7 +18,7 @@ public class TeleOpTest extends OpMode {
 
 
     JoystickController _Drive = new JoystickController();
-    SpinnerController _spin = new SpinnerController();
+
     PusherController _pusher = new PusherController();
 
 
@@ -29,7 +29,6 @@ public class TeleOpTest extends OpMode {
         Logger.getInstance().WriteMessage("TeleOpTest::Init()");
         _Drive = new JoystickController();
         _Drive.Init(hardwareMap, gamepad1);
-        _spin.Init(hardwareMap, gamepad1);
         _pusher.Init(hardwareMap, gamepad1);
 
     }

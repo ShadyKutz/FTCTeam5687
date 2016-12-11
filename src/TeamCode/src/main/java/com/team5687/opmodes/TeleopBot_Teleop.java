@@ -22,16 +22,16 @@ public class TeleopBot_Teleop extends OpMode {
     @Override
     public void init() {
         _Drive = new JoystickController();
+        _spin = new SpinnerController();
         _Drive.Init(hardwareMap, gamepad1);
         _spin.Init(hardwareMap, gamepad1);
-       _gate.Init(hardwareMap, gamepad1);
     }
 
     @Override
     public void loop() {
         _Drive.Loop();
         _spin.Loop();
-        _gate.Loop();
+
 
     }
 }
