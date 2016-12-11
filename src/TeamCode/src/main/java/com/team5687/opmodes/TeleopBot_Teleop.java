@@ -32,6 +32,5 @@ public class TeleopBot_Teleop extends OpMode {
         _Drive.Loop();
         _spin.Loop();
 
-
     }
 }
