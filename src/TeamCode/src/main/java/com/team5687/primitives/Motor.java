@@ -71,8 +71,8 @@ public class Motor
         //int value = (int)counts;
         int targetCount = _motor.getCurrentPosition() + value;
 
-        _motor.setPower(speed);
         _motor.setTargetPosition(targetCount);
+        _motor.setPower(100);
         //SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
 
     }

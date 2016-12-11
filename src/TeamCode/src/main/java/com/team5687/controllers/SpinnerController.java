@@ -8,6 +8,7 @@ import com.team5687.Constants;
 
 public class SpinnerController {
     private Boolean _isActive = false;
+    private Boolean isfoward = false;
 
     private DcMotor _motor;
     private Gamepad _gamepad;
@@ -19,14 +20,32 @@ public class SpinnerController {
     }
 
     public void Loop() {
-        if(_gamepad.left_bumper)
+        if (_gamepad.left_bumper) {
             _isActive = true;
-        else if(_gamepad.right_bumper)
-            _isActive = false;
+            isfoward = true;
+        }
+        else if (_gamepad.right_bumper)
+        _isActive = false;
 
-        if(_isActive)
-            _motor.setPower(1);
+        if (_gamepad.dpad_down) {
+            isfoward = false;
+            _isActive = true;
+        }
+        else if (_gamepad.right_bumper)
+        _isActive = false;
+
+
+
+
+
+
+        if(_isActive && isfoward)
+            _motor.setPower(.6);
+        else if (_isActive && isfoward == false)
+            _motor.setPower(-.6);
         else
             _motor.setPower(0);
+
+
     }
 }

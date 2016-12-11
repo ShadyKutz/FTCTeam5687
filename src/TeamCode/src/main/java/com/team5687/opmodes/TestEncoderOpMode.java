@@ -32,7 +32,7 @@ public class TestEncoderOpMode extends OpMode {
         _left = new Motor(DcMotorSimple.Direction.REVERSE, hardwareMap.dcMotor.get(Constants.LEFT_DRIVE_MOTOR), true);
         _right = new Motor(DcMotorSimple.Direction.REVERSE, hardwareMap.dcMotor.get(Constants.RIGHT_DRIVE_MOTOR), true);
 
-        //_right.SetEncoderDirection(DcMotorSimple.Direction.REVERSE);
+        _right.SetEncoderDirection(DcMotorSimple.Direction.REVERSE);
         _left.SetEncoderDirection(DcMotorSimple.Direction.FORWARD);
 
         _left.Stop();
@@ -44,8 +44,8 @@ public class TestEncoderOpMode extends OpMode {
 
     @Override
     public void loop() {
-        int inches = 30;
-        int targetPower = 50;
+        int inches = 65;
+        double targetPower = 0;
         if(!_left.IsBusy() && !_right.IsBusy() && !_done) {
             _left.SetTargetEncoderPosition(targetPower, inches*COUNTS_PER_INCH);
             _right.SetTargetEncoderPosition(targetPower, inches*COUNTS_PER_INCH);
