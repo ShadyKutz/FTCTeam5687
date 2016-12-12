@@ -22,7 +22,7 @@ public class Motor
         _direction = direction;
         _motor.setDirection(direction);
         _motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        _motor.setMaxSpeed(1120);
+        _motor.setMaxSpeed(3000);
         // Will check if we are using encoders, and adjust accordingly
         SetEncoderMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }

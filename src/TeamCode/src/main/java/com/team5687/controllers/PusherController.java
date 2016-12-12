@@ -7,7 +7,7 @@ import com.team5687.Constants;
 import com.team5687.helpers.Logger;
 
 public class PusherController {
-    private final double MID = 0.3;
+    private final double MID = 0.36;
     private final double LEFT = 0.6;
     private final double RIGHT = 0.1;
 

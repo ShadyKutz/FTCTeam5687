@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.team5687.controllers.GateController;
 import com.team5687.controllers.JoystickController;
-
+import com.team5687.controllers.ArmController;
 import com.team5687.controllers.SpinnerController;
 import com.team5687.helpers.Logger;
 
@@ -15,20 +15,24 @@ import com.team5687.helpers.Logger;
  */
 @TeleOp(name = "TeleBot_Teleop", group = "Test")
 public class TeleopBot_Teleop extends OpMode {
+    ArmController _Arm = new ArmController();
     JoystickController _Drive = new JoystickController();
     SpinnerController _spin = new SpinnerController();
     GateController _gate = new GateController();
 
     @Override
     public void init() {
+        _Arm = new ArmController();
         _Drive = new JoystickController();
         _spin = new SpinnerController();
+        _Arm.Init(hardwareMap, gamepad1);
         _Drive.Init(hardwareMap, gamepad1);
         _spin.Init(hardwareMap, gamepad1);
     }
 
     @Override
     public void loop() {
+        _Arm.Loop();
         _Drive.Loop();
         _spin.Loop();
 
