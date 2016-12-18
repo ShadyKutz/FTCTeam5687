@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.LightSensor;
 import com.team5687.Constants;
 import com.team5687.helpers.Logger;
+import com.team5687.primitives.CompassAndroid;
 import com.team5687.primitives.Motor;
 
 import org.firstinspires.ftc.robotcore.external.Const;
@@ -48,6 +49,7 @@ public class BaseBeaconAutonmous extends OpMode {
     private ColorSensor _rightColorSensor;
     private Motor _left;
     private Motor _right;
+    private CompassAndroid _compass;
     //endregion
 
     private State _currentState = State.START;
@@ -61,8 +63,11 @@ public class BaseBeaconAutonmous extends OpMode {
 
     @Override
     public void init() {
-        SetupMotors();
-        SetupGyro();
+        _compass = new CompassAndroid(hardwareMap.appContext);
+        _compass.Init();
+        Logger.getInstance().WriteMessage(hardwareMap.appContext == null ? "No App Context" : "Got an app context");
+        //SetupMotors();
+        //SetupGyro();
         //SetupLightSensor();
         //SetupColorSensor();
     }
@@ -73,9 +78,17 @@ public class BaseBeaconAutonmous extends OpMode {
         // get the heading info.
         // the Modern Robotics' gyro sensor keeps
         // track of the current heading for the Z axis only.
-        heading = _gyro.getRotationFraction();
-        Logger.getInstance().WriteMessage(_gyro.toString());
+        //heading = _gyro.getRotationFraction();
+        //Logger.getInstance().WriteMessage(_gyro.toString());
+        for(int i = 0; i < 3; i++)
+            telemetry.addData(Integer.toString(i), "%.2f", _compass._values[i]);
         telemetry.update();
+    }
+
+    @Override
+    public void stop()
+    {
+        _compass.Stop();
     }
 
 //region Setup Code for Motors, Gryo, Light Sensor, Color Sensor, Ultrasonic
