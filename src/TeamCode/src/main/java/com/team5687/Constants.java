@@ -8,6 +8,8 @@ public class Constants {
     public static String LEFT_DRIVE_MOTOR = "left_drive";
     public static String RIGHT_DRIVE_MOTOR = "right_drive";
     public static String SWEEPER_MOTOR = "sweeper";
+    public static String LEFT_LIFT_MOTOR = "left_lift";
+    public static String RIGHT_LIFT_MOTOR = "right_lift";
     public static String PUSHER_SERVO = "pusher";
     public static String LEFT_ARM = "leftarm";
     public static String RIGHT_ARM = "rightarm";

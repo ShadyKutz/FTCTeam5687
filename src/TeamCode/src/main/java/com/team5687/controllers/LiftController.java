@@ -12,18 +12,17 @@ import com.team5687.Constants;
 import com.team5687.helpers.Logger;
 
 
-public class JoystickController {
+public class LiftController {
 
     private DcMotor _rightMotor; // here as place holders for the loop function.
     private DcMotor _leftMotor;
-    private Servo LeftArm;
-    private Servo RighArm;
+
 
     private Gamepad _gamepad;
 
     public void Init(HardwareMap map, Gamepad gamepad) {
-        _leftMotor = map.dcMotor.get(Constants.LEFT_DRIVE_MOTOR);
-        _rightMotor = map.dcMotor.get(Constants.RIGHT_DRIVE_MOTOR);
+        _leftMotor = map.dcMotor.get(Constants.LEFT_LIFT_MOTOR);
+        _rightMotor = map.dcMotor.get(Constants.RIGHT_LIFT_MOTOR);
 
 
         _gamepad = gamepad;
@@ -40,10 +39,4 @@ public class JoystickController {
     // this is what starts all the motors and servos.
 
 }
-
-
-
-
-
-
 
