@@ -24,7 +24,8 @@ public class JoystickController {
     public void Init(HardwareMap map, Gamepad gamepad) {
         _leftMotor = map.dcMotor.get(Constants.LEFT_DRIVE_MOTOR);
         _rightMotor = map.dcMotor.get(Constants.RIGHT_DRIVE_MOTOR);
-
+        RighArm = map.servo.get(Constants.LEFT_ARM);
+        LeftArm = map.servo.get(Constants.RIGHT_ARM);
 
         _gamepad = gamepad;
     }

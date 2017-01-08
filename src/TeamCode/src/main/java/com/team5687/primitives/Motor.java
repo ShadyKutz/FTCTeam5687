@@ -6,6 +6,8 @@ import com.team5687.helpers.Logger;
 
 import java.util.Set;
 
+import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_WITHOUT_ENCODER;
+
 public class Motor
 {
     private DcMotorSimple.Direction _direction;
@@ -55,7 +57,7 @@ public class Motor
         if(_useEncoders)
             _motor.setMode(mode);
         else
-            _motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            _motor.setMode(RUN_WITHOUT_ENCODER);
     }
 
 
@@ -63,15 +65,17 @@ public class Motor
         _motor.setPower(speed);
     }
 
-    public void SetTargetEncoderPosition(double speed , double counts) {
+    public void SetTargetEncoderPosition(int encoderTicksPerSecond , double ticks) {
         if(!_useEncoders)
             throw new RuntimeException("Motor not configured to use encoders");
 
-        int value = _encoderDirection == DcMotorSimple.Direction.FORWARD ? (int)counts : (int)-counts;
+
+        int value = _encoderDirection == DcMotorSimple.Direction.FORWARD ? (int)ticks : (int)-ticks;
         //int value = (int)counts;
         int targetCount = _motor.getCurrentPosition() + value;
 
         _motor.setTargetPosition(targetCount);
+        _motor.setMaxSpeed(encoderTicksPerSecond);
         _motor.setPower(100);
         //SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
 
@@ -85,6 +89,7 @@ public class Motor
 
     public void MoveForward(double power)
     {
+        SetEncoderMode(RUN_WITHOUT_ENCODER);
         _motor.setDirection(_direction);
         if(power > 0 && power <= 100)
             _motor.setPower(power);
@@ -94,6 +99,7 @@ public class Motor
 
     public void MoveBackward(double power)
     {
+        SetEncoderMode(RUN_WITHOUT_ENCODER);
         if(_direction == DcMotorSimple.Direction.FORWARD)
             _motor.setDirection(DcMotorSimple.Direction.REVERSE);
         else

@@ -53,7 +53,6 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 @Autonomous(name = "Sensor: HT color", group = "Sensor")
-@Disabled
 public class SensorHTColor extends LinearOpMode {
 
   ColorSensor colorSensor;  // Hardware Device Object
@@ -80,7 +79,7 @@ public class SensorHTColor extends LinearOpMode {
     boolean bLedOn = true;
 
     // get a reference to our ColorSensor object.
-    colorSensor = hardwareMap.colorSensor.get("sensor_color");
+    colorSensor = hardwareMap.colorSensor.get("leftcolor");
 
     // turn the LED on in the beginning, just so user will know that the sensor is active.
     colorSensor.enableLed(bLedOn);

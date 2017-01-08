@@ -7,12 +7,13 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
  * Created by stephen on 15/12/16.
  */
 
-@Autonomous(name = "Red Beacon", group = "Real")
+@Autonomous(name = "Red (R TURN, L BEACON)", group = "Real")
 public class RedBeaconAutonomous extends BaseBeaconAutonmous {
     public RedBeaconAutonomous()
     {
-        super(AllianceColor.RED);
+        super(AllianceColor.RED, BeaconSide.LEFT);
     }
 
 }
+
 

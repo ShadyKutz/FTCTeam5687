@@ -41,7 +41,7 @@ public class TestEncoderOpMode extends OpMode {
     @Override
     public void loop() {
         int inches = 65;
-        double targetPower = 0;
+        int targetPower = 0;
         if(!_left.IsBusy() && !_right.IsBusy() && !_done) {
             _left.SetTargetEncoderPosition(targetPower, GeneralHelpers.CalculateDistanceEncode(inches));
             _right.SetTargetEncoderPosition(targetPower, GeneralHelpers.CalculateDistanceEncode(inches));
