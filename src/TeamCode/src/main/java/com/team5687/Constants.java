@@ -5,6 +5,7 @@ package com.team5687;
  */
 
 public class Constants {
+
     public static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: TETRIX Motor Encoder
     public static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     public static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
@@ -24,6 +25,8 @@ public class Constants {
     public static final String RIGHT_COLOR_SENSOR = "rightcolor";
     public static final String LEFT_DRIVE_MOTOR = "left_drive";
     public static final String RIGHT_DRIVE_MOTOR = "right_drive";
+    public static final String LEFT_LIFT_MOTOR = "left_lift";
+    public static final String RIGHT_LIFT_MOTOR = "right_lift";
     public static final String SWEEPER_MOTOR = "sweeper";
     public static final String PUSHER_SERVO = "pusher";
     public static final String LEFT_ARM = "leftarm";
