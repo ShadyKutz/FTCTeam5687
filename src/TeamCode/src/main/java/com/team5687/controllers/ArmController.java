@@ -21,17 +21,19 @@ public class ArmController {
     private Servo _rightArm;
     private Gamepad _gamepad;
 
-    public void Init(HardwareMap map, Gamepad gampad2) {
+    public void Init(HardwareMap map, Gamepad gampad1) {
         _leftArm = map.servo.get(Constants.LEFT_ARM);
         _rightArm = map.servo.get(Constants.RIGHT_ARM);
 
 
-        _gamepad = gampad2;
+        _gamepad = gampad1;
+        _leftArm.setPosition(scoopHold);
     }
 
     public void Loop() {
         _valueRight = neutralpush;
-        if (_gamepad.x) {
+
+        if (_gamepad.left_stick_button) {
             _valueLeft = backDump;
 
         }
