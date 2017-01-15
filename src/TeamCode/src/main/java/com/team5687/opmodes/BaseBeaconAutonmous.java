@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 import com.team5687.Constants;
 import com.team5687.helpers.GeneralHelpers;
 import com.team5687.helpers.Logger;
@@ -55,11 +56,14 @@ public class BaseBeaconAutonmous extends OpMode {
 
         STOPPED
     }
+
+    private int _generalCounter;
     //region Hardware Fields
     private HiTechnicNxtGyroSensor _gyro;
     private LightSensor _lightSensor;
-    private ColorSensor _leftColorSensor;
-    private ColorSensor _rightColorSensor;
+    //private ColorSensor _leftColorSensor;
+    //private ColorSensor _rightColorSensor;
+    private UltrasonicSensor _ultrasonic;
     private Motor _left;
     private Motor _right;
     private Servo _pusherServer;
@@ -86,12 +90,30 @@ public class BaseBeaconAutonmous extends OpMode {
         SetupServos();
         //SetupGyro();
         SetupLightSensor();
-        SetupColorSensor();
+        //SetupColorSensor();
+        SetupUltrasonic();
         _currentState = State.START;
     }
 
     @Override
     public void loop() {
+
+
+        // Code to turn the robot LEFT, just an example
+//        if(!_temp) {
+//            _temp = true;
+//
+//            double ticks = GeneralHelpers.CalculateDistanceEncode(100);
+//            double leftTicksPerSecond = (ticks / 5);
+//            double rightTicksPerSecond = (ticks / 10);
+//            double ratio = rightTicksPerSecond / leftTicksPerSecond;
+//
+//            _left.SetTargetEncoderPosition((int)leftTicksPerSecond, ticks);
+//            _right.SetTargetEncoderPosition((int)rightTicksPerSecond, ticks * ratio);
+//            _left.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            _right.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        }
+
         // USE THIS CODE TO CALIBRATE THE LINE SENSOR< YOU WANT THE getLightDetected() VALUE
 //        String message = String.format("%d.%d.%d.%d, %d.%d.%d.%d, %.2f %.2f",
 //                _leftColorSensor.red(),
@@ -133,6 +155,7 @@ public class BaseBeaconAutonmous extends OpMode {
     // This method is used to determine the next state
     private State GetNextState(State current)
     {
+
         switch(current)
         {
             // Starts here, robot is stopped
@@ -141,17 +164,19 @@ public class BaseBeaconAutonmous extends OpMode {
 
                     // Moving from start to the left or right based on color to the first line
             case MOVE_TO_FIRST_BEACON_LINE:
+                _generalCounter = 0;
                 return State.MOVING_DOWN_FIRST_BEACON_LINE;
 
                     // Hit the first line, now moving down the line towards the wall
             case MOVING_DOWN_FIRST_BEACON_LINE:
-                return State.PRESSING_FIRST_BEACON;
+                return State.STOPPED;
 
             case PRESSING_FIRST_BEACON:
                 return State.MOVING_TO_SECOND_BEACON_LINE;
 
                     // first beacon has been pressed, moving to the second line
             case MOVING_TO_SECOND_BEACON_LINE:
+                _generalCounter = 0;
                 return State.MOVING_DOWN_SECOND_BEACON_LINE;
 
                     // moving down the second line towards the wall
@@ -230,6 +255,8 @@ public class BaseBeaconAutonmous extends OpMode {
                 break;
 
             case STOPPED:
+                _left.Stop();
+                _right.Stop();
                 Logger.getInstance().WriteMessage("State Stopped - complete");
                 break;
         }
@@ -282,28 +309,31 @@ public class BaseBeaconAutonmous extends OpMode {
 
     private void MoveToFirstBeacon() {
 
+
+        Motor insideMotor = _color == AllianceColor.BLUE ? _left : _right;
+        Motor otherMotor = _color == AllianceColor.BLUE ? _right : _left;
         double light = _lightSensor.getLightDetected();
         if(light > Constants.LINE_DETECTION_MINIMUM) {
             //Logger.getInstance().WriteMessage("Found Line " + light);
 
 
-            _left.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            _left.Stop();
+            insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            insideMotor.Stop();
 
-            _right.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            _right.Stop();
+            otherMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            otherMotor.Stop();
 
             _currentState = GetNextState(_currentState); // Move to the next state
         }
         else {
-            //Logger.getInstance().WriteMessage("No Line " + light);
+            Logger.getInstance().WriteMessage("No Line " + light);
             if(!_left.IsBusy() && !_right.IsBusy())
             {
                 double ticks = GeneralHelpers.CalculateDistanceEncode(100);
-                _left.SetTargetEncoderPosition((int)(ticks / 10), ticks);
-                _right.SetTargetEncoderPosition((int)(ticks / 10), ticks);
-                _left.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-                _right.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+                insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(5), ticks);
+                otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(5), ticks);
+                insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+                otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
         }
 
@@ -311,30 +341,42 @@ public class BaseBeaconAutonmous extends OpMode {
 
     private void MovingDownBeaconLine() {
         // IF the color we want to press is on the left
-        _pusherServer.setPosition(Constants.PUSHER_SERVO_MIN);
+        if(_side == BeaconSide.LEFT)
+            _pusherServer.setPosition(Constants.PUSHER_SERVO_MIN);
+        else
+            _pusherServer.setPosition(Constants.PUSHER_SERVO_MAX);
 
         double light = _lightSensor.getLightDetected();
+        double distance = _ultrasonic.getUltrasonicLevel();
         Motor insideMotor = _color == AllianceColor.BLUE ? _left : _right;
         Motor otherMotor = _color == AllianceColor.BLUE ? _right : _left;
 
 
-        if(light > Constants.LINE_DETECTION_MINIMUM) {
+        if(light < Constants.LINE_DETECTION_MINIMUM) { // no line found, so slow down the inside motor till we find the line
             // We want to slow down the inside motor here
-            Logger.getInstance().WriteMessage(GetStateName(_currentState) + " Line Detected");
+            Logger.getInstance().WriteMessage(GetStateName(_currentState) + ",No Line Detected," + light);
             double ticks = GeneralHelpers.CalculateDistanceEncode(100);
 
-            otherMotor.SetTargetEncoderPosition((int)(ticks / 50), ticks);
-            insideMotor.SetTargetEncoderPosition((int)(ticks / 55), ticks);
+            otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(3), ticks);
+            insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(0.01), ticks);
 
             otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+            //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
         else {
-            Logger.getInstance().WriteMessage(GetStateName(_currentState) + " No Line Detected");
+            Logger.getInstance().WriteMessage(GetStateName(_currentState) + ",Line Detected," + light + "," + distance);
             double ticks = GeneralHelpers.CalculateDistanceEncode(100);
+            if(distance < 15.0) {
+                if(_generalCounter > 2)
+                    _currentState = GetNextState(_currentState);
+                else
+                    _generalCounter ++;
+                ticks = ticks * -1; // go in reverse
+            }
 
-            otherMotor.SetTargetEncoderPosition((int)(ticks / 55), ticks);
-            insideMotor.SetTargetEncoderPosition((int)(ticks / 50), ticks);
+            otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(3), ticks);
+            insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(3), ticks);
 
             otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -345,19 +387,23 @@ public class BaseBeaconAutonmous extends OpMode {
 
 //region Setup Code for Motors, Gryo, Light Sensor, Color Sensor, Ultrasonic
 
-    private void SetupColorSensor() {
+    /*private void SetupColorSensor() {
         _leftColorSensor = hardwareMap.colorSensor.get(Constants.LEFT_COLOR_SENSOR);
         _rightColorSensor = hardwareMap.colorSensor.get(Constants.RIGHT_COLOR_SENSOR);
         Logger.getInstance().WriteMessage("Left Color " + _leftColorSensor.getConnectionInfo());
         Logger.getInstance().WriteMessage("Right Color " + _rightColorSensor.getConnectionInfo());
         _leftColorSensor.enableLed(true);
         _rightColorSensor.enableLed(true);
+    }*/
+
+    private void SetupUltrasonic() {
+        _ultrasonic = hardwareMap.ultrasonicSensor.get(Constants.DISTANCE);
     }
 
     private void SetupLightSensor() {
         _lightSensor = hardwareMap.lightSensor.get(Constants.LIGHT_SENSOR);
         Logger.getInstance().WriteMessage("Light Sensor " + _lightSensor.getConnectionInfo());
-        //_lightSensor.enableLed(true);
+        _lightSensor.enableLed(true);
     }
 
     private void SetupGyro() {
@@ -369,8 +415,8 @@ public class BaseBeaconAutonmous extends OpMode {
         _left = new Motor(DcMotorSimple.Direction.REVERSE, hardwareMap.dcMotor.get(Constants.LEFT_DRIVE_MOTOR), true);
         _right = new Motor(DcMotorSimple.Direction.REVERSE, hardwareMap.dcMotor.get(Constants.RIGHT_DRIVE_MOTOR), true);
 
-        _right.SetEncoderDirection(DcMotorSimple.Direction.REVERSE);
-        _left.SetEncoderDirection(DcMotorSimple.Direction.FORWARD);
+        _right.SetEncoderDirection(DcMotorSimple.Direction.FORWARD);
+        _left.SetEncoderDirection(DcMotorSimple.Direction.REVERSE);
 
         _left.Stop();
         _right.Stop();
