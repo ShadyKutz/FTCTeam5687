@@ -3,6 +3,7 @@ package com.team5687.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.team5687.controllers.JoystickController;
+import com.team5687.controllers.LiftController;
 import com.team5687.controllers.PusherController;
 import com.team5687.controllers.SpinnerController;
 import com.team5687.helpers.Logger;
@@ -19,7 +20,7 @@ public class TeleOpTest extends OpMode {
 
     JoystickController _Drive = new JoystickController();
 
-    PusherController _pusher = new PusherController();
+    LiftController _Lift   = new LiftController();
 
 
     @Override
@@ -29,13 +30,15 @@ public class TeleOpTest extends OpMode {
         Logger.getInstance().WriteMessage("TeleOpTest::Init()");
         _Drive = new JoystickController();
         _Drive.Init(hardwareMap, gamepad1);
-        _pusher.Init(hardwareMap, gamepad1);
+        _Lift.Init(hardwareMap, gamepad1);
+
 
     }
 
     @Override
     public void loop() {
         _Drive.Loop();
-        _pusher.Loop();
+        _Lift.Loop();
+
     }
 }

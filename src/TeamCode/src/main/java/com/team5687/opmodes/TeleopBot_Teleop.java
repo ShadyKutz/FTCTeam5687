@@ -25,7 +25,7 @@ public class TeleopBot_Teleop extends OpMode {
         _Arm = new ArmController();
         _Drive = new JoystickController();
         _spin = new SpinnerController();
-        _Arm.Init(hardwareMap, gamepad1);
+        _Arm.Init(hardwareMap, gamepad2);
         _Drive.Init(hardwareMap, gamepad1);
         _spin.Init(hardwareMap, gamepad1);
     }

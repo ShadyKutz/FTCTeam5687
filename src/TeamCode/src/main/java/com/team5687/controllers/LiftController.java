@@ -16,6 +16,7 @@ public class LiftController {
 
     private DcMotor _rightMotor; // here as place holders for the loop function.
     private DcMotor _leftMotor;
+    private DcMotor _arm;
 
 
     private Gamepad _gamepad;
@@ -23,6 +24,7 @@ public class LiftController {
     public void Init(HardwareMap map, Gamepad gamepad) {
         _leftMotor = map.dcMotor.get(Constants.LEFT_LIFT_MOTOR);
         _rightMotor = map.dcMotor.get(Constants.RIGHT_LIFT_MOTOR);
+        _arm = map.dcMotor.get(Constants.ARM_MOTOR);
 
 
         _gamepad = gamepad;
@@ -31,8 +33,40 @@ public class LiftController {
     public void Loop() {
         //Logger.getInstance().WriteMessage("leftstick"  + _gamepad.left_stick_y);
         //Logger.getInstance().WriteMessage("rightstick'" +  _gamepad.right_stick_y);
-        _rightMotor.setPower(-_gamepad.left_stick_y);
-        _leftMotor.setPower(_gamepad.right_stick_y);
+        if (_gamepad.right_bumper)
+        {
+            _rightMotor.setPower(100);
+        }
+        else if (_gamepad.left_bumper)
+        {
+            _leftMotor.setPower(-100);
+        }
+        else if (_gamepad.left_trigger > 0)
+        {
+            _leftMotor.setPower(100);
+        }
+        else if (_gamepad.right_trigger>0)
+        {
+            _rightMotor.setPower(-100);
+        }
+        else
+        {
+            _rightMotor.setPower(0);
+            _leftMotor.setPower(0);
+        }
+
+        if (_gamepad.x)
+        {
+            _arm.setPower(.75);
+        }
+        else if (_gamepad.b)
+        {
+            _arm.setPower(-.75);
+        }
+        else
+        {
+            _arm.setPower(0);
+        }
 
 
     }

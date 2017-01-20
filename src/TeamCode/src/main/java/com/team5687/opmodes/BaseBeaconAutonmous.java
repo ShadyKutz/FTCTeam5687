@@ -330,8 +330,8 @@ public class BaseBeaconAutonmous extends OpMode {
             if(!_left.IsBusy() && !_right.IsBusy())
             {
                 double ticks = GeneralHelpers.CalculateDistanceEncode(100);
-                insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(5), ticks);
-                otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(5), ticks);
+                insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(7), ticks);
+                otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(7), ticks);
                 insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
                 otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
@@ -357,8 +357,8 @@ public class BaseBeaconAutonmous extends OpMode {
             Logger.getInstance().WriteMessage(GetStateName(_currentState) + ",No Line Detected," + light);
             double ticks = GeneralHelpers.CalculateDistanceEncode(100);
 
-            otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(3), ticks);
-            insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(0.01), ticks);
+            otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(1.5), ticks);
+            insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(-.1), ticks);
 
             otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -367,7 +367,7 @@ public class BaseBeaconAutonmous extends OpMode {
         else {
             Logger.getInstance().WriteMessage(GetStateName(_currentState) + ",Line Detected," + light + "," + distance);
             double ticks = GeneralHelpers.CalculateDistanceEncode(100);
-            if(distance < 15.0) {
+            if(distance < 9) {
                 if(_generalCounter > 2)
                     _currentState = GetNextState(_currentState);
                 else
@@ -375,8 +375,8 @@ public class BaseBeaconAutonmous extends OpMode {
                 ticks = ticks * -1; // go in reverse
             }
 
-            otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(3), ticks);
-            insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(3), ticks);
+            otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(4.4), ticks);
+            insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(4), ticks);
 
             otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);

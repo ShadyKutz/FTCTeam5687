@@ -25,8 +25,8 @@ public class TestEncoderOpMode extends OpMode {
     @Override
     public void init() {
         Logger.getInstance().SetTelemetry(telemetry);
-        _left = new Motor(DcMotorSimple.Direction.REVERSE, hardwareMap.dcMotor.get(Constants.LEFT_DRIVE_MOTOR), true);
-        _right = new Motor(DcMotorSimple.Direction.REVERSE, hardwareMap.dcMotor.get(Constants.RIGHT_DRIVE_MOTOR), true);
+        _right = new Motor(DcMotorSimple.Direction.REVERSE, hardwareMap.dcMotor.get(Constants.LEFT_DRIVE_MOTOR), true);
+        _left = new Motor(DcMotorSimple.Direction.REVERSE, hardwareMap.dcMotor.get(Constants.RIGHT_DRIVE_MOTOR), true);
 
         _right.SetEncoderDirection(DcMotorSimple.Direction.REVERSE);
         _left.SetEncoderDirection(DcMotorSimple.Direction.FORWARD);

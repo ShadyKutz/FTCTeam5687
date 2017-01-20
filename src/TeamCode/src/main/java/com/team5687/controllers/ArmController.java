@@ -27,7 +27,8 @@ public class ArmController {
 
 
         _gamepad = gampad1;
-        _leftArm.setPosition(scoopHold);
+       _valueLeft = Holding;
+
     }
 
     public void Loop() {
@@ -43,6 +44,18 @@ public class ArmController {
             _valueLeft = scoopHold;
         else if (_gamepad.a)
             _valueLeft = Holding;
+        if(_gamepad.left_bumper)
+        {
+            _valueRight = .6;
+        }
+        else if (_gamepad.right_bumper)
+        {
+            _valueRight = .1;
+        }
+        else
+        {
+            _valueRight = neutralpush;
+        }
 
 
 
