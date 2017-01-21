@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 public class RightRedBeaconAutonomous extends BaseBeaconAutonmous {
     public RightRedBeaconAutonomous()
     {
-        super(AllianceColor.RED, BeaconSide.RIGHT);
+        super(AllianceColor.Right, BeaconSide.RIGHT);
     }
 
 }

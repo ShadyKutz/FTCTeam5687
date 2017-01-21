@@ -14,8 +14,8 @@ import com.team5687.primitives.Motor;
  * Created by stephen on 4/12/16.
  */
 
-@Autonomous(name = "Encoder Test", group = "Test")
-public class TestEncoderOpMode extends OpMode {
+@Autonomous(name = "rightramp", group = "Test")
+public class Rightramp extends OpMode {
 
 
     Motor _left;
@@ -40,7 +40,7 @@ public class TestEncoderOpMode extends OpMode {
 
     @Override
     public void loop() {
-        int inches = 68;
+        int inches = -30;
         int targetPower = 3600;
 
 
@@ -51,6 +51,21 @@ public class TestEncoderOpMode extends OpMode {
             _right.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             _done = 1;
         }
+        if(!_left.IsBusy() && !_right.IsBusy() && _done == 1) {
+            _left.SetTargetEncoderPosition(targetPower, GeneralHelpers.CalculateDistanceEncode(15));
+            _right.SetTargetEncoderPosition(targetPower, GeneralHelpers.CalculateDistanceEncode(-15));
+            _left.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+            _right.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+            _done = 2;
+        }
+        if(!_left.IsBusy() && !_right.IsBusy() && _done == 2) {
+            _left.SetTargetEncoderPosition(targetPower, GeneralHelpers.CalculateDistanceEncode(-30));
+            _right.SetTargetEncoderPosition(targetPower, GeneralHelpers.CalculateDistanceEncode(-30));
+            _left.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+            _right.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+            _done = 3;
+        }
+
 
 
         /*if(_left.GetEncoderPosition() < _right.GetEncoderPosition() && _left.GetEncoderPosition() < _left.GetTargetEncoderPosition()) {
@@ -93,3 +108,4 @@ public class TestEncoderOpMode extends OpMode {
         Logger.getInstance().WriteMessage(message);
     }
 }
+

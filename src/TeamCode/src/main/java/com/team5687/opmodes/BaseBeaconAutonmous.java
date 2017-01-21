@@ -18,6 +18,7 @@ import com.team5687.helpers.Logger;
 import com.team5687.primitives.CompassAndroid;
 import com.team5687.primitives.Motor;
 
+import org.firstinspires.ftc.robotcontroller.external.samples.ConceptNullOp;
 import org.firstinspires.ftc.robotcore.external.Const;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
@@ -26,8 +27,8 @@ import static java.lang.Thread.sleep;
 
 public class BaseBeaconAutonmous extends OpMode {
     public enum AllianceColor {
-        RED,
-        BLUE
+        Left,
+        Right
     }
 
     public enum BeaconSide {
@@ -58,9 +59,11 @@ public class BaseBeaconAutonmous extends OpMode {
     }
 
     private int _generalCounter;
+    private int _generalCounter2;
     //region Hardware Fields
     private HiTechnicNxtGyroSensor _gyro;
-    private LightSensor _lightSensor;
+    private LightSensor _frontLightSensor;
+    private LightSensor _backLightSensor;
     //private ColorSensor _leftColorSensor;
     //private ColorSensor _rightColorSensor;
     private UltrasonicSensor _ultrasonic;
@@ -171,6 +174,7 @@ public class BaseBeaconAutonmous extends OpMode {
             case MOVING_DOWN_FIRST_BEACON_LINE:
                 return State.STOPPED;
 
+
             case PRESSING_FIRST_BEACON:
                 return State.MOVING_TO_SECOND_BEACON_LINE;
 
@@ -256,7 +260,9 @@ public class BaseBeaconAutonmous extends OpMode {
 
             case STOPPED:
                 _left.Stop();
+                _left.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 _right.Stop();
+                _right.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 Logger.getInstance().WriteMessage("State Stopped - complete");
                 break;
         }
@@ -308,12 +314,13 @@ public class BaseBeaconAutonmous extends OpMode {
     }
 
     private void MoveToFirstBeacon() {
+        double distance = _ultrasonic.getUltrasonicLevel();
 
-
-        Motor insideMotor = _color == AllianceColor.BLUE ? _left : _right;
-        Motor otherMotor = _color == AllianceColor.BLUE ? _right : _left;
-        double light = _lightSensor.getLightDetected();
-        if(light > Constants.LINE_DETECTION_MINIMUM) {
+        Motor insideMotor = _color == AllianceColor.Left ? _left : _right;
+        Motor otherMotor = _color == AllianceColor.Left ? _right : _left;
+        double lightFront = _frontLightSensor.getLightDetected();
+        double lightBack = _backLightSensor.getLightDetected();
+        if(lightBack > Constants.LINE_DETECTION_MINIMUM) {
             //Logger.getInstance().WriteMessage("Found Line " + light);
 
 
@@ -326,57 +333,117 @@ public class BaseBeaconAutonmous extends OpMode {
             _currentState = GetNextState(_currentState); // Move to the next state
         }
         else {
-            Logger.getInstance().WriteMessage("No Line " + light);
+            Logger.getInstance().WriteMessage("No Line " + lightFront + "Distance" + distance);
             if(!_left.IsBusy() && !_right.IsBusy())
             {
-                double ticks = GeneralHelpers.CalculateDistanceEncode(100);
-                insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(7), ticks);
-                otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(7), ticks);
+                double ticks = GeneralHelpers.CalculateDistanceEncode(90);
+                insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(6), ticks);
+                otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(6), ticks);
                 insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
                 otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+                _generalCounter2 = 0;
             }
         }
 
     }
 
-    private void MovingDownBeaconLine() {
+    public void MovingDownBeaconLine() {
         // IF the color we want to press is on the left
         if(_side == BeaconSide.LEFT)
             _pusherServer.setPosition(Constants.PUSHER_SERVO_MIN);
         else
             _pusherServer.setPosition(Constants.PUSHER_SERVO_MAX);
 
-        double light = _lightSensor.getLightDetected();
+        double lightFront = _frontLightSensor.getLightDetected();
+        double lightBack = _backLightSensor.getLightDetected();
         double distance = _ultrasonic.getUltrasonicLevel();
-        Motor insideMotor = _color == AllianceColor.BLUE ? _left : _right;
-        Motor otherMotor = _color == AllianceColor.BLUE ? _right : _left;
+        Motor insideMotor = _color == AllianceColor.Left ? _left : _right;
+        Motor otherMotor = _color == AllianceColor.Left ? _right : _left;
 
 
-        if(light < Constants.LINE_DETECTION_MINIMUM) { // no line found, so slow down the inside motor till we find the line
+        if(lightFront < Constants.LINE_DETECTION_MINIMUM && _color == AllianceColor.Left && _generalCounter2 <1 ) { // no line found, so slow down the inside motor till we find the line
             // We want to slow down the inside motor here
-            Logger.getInstance().WriteMessage(GetStateName(_currentState) + ",No Line Detected," + light);
-            double ticks = GeneralHelpers.CalculateDistanceEncode(100);
-
-            otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(1.5), ticks);
-            insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(-.1), ticks);
+            Logger.getInstance().WriteMessage(GetStateName(_currentState) + ",No Line Detected," + lightFront);
+            double outTicks = GeneralHelpers.CalculateDistanceEncode(100);
+            double inTicks = GeneralHelpers.CalculateDistanceEncode(-100);
+            otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(1.6), outTicks);
+            insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(2.7), inTicks);
 
             otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
-        else {
-            Logger.getInstance().WriteMessage(GetStateName(_currentState) + ",Line Detected," + light + "," + distance);
-            double ticks = GeneralHelpers.CalculateDistanceEncode(100);
-            if(distance < 9) {
-                if(_generalCounter > 2)
-                    _currentState = GetNextState(_currentState);
-                else
-                    _generalCounter ++;
-                ticks = ticks * -1; // go in reverse
-            }
 
-            otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(4.4), ticks);
-            insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(4), ticks);
+        }
+
+       else if(lightFront < Constants.LINE_DETECTION_MINIMUM && _color == AllianceColor.Right && _generalCounter2 <1 ) { // no line found, so slow down the inside motor till we find the line
+            // We want to slow down the inside motor here
+            Logger.getInstance().WriteMessage(GetStateName(_currentState) + ",No Line Detected," + lightFront);
+
+            double outTicks = GeneralHelpers.CalculateDistanceEncode(100);
+            double inTicks = GeneralHelpers.CalculateDistanceEncode(-100);
+            otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(2), outTicks);
+            insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(1.5), inTicks);
+
+            otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+            //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+
+        }
+        else if(lightFront < Constants.LINE_DETECTION_MINIMUM && _color == AllianceColor.Left && _generalCounter2 ==2 ) { // no line found, so slow down the inside motor till we find the line
+            // We want to slow down the inside motor here
+            Logger.getInstance().WriteMessage(GetStateName(_currentState) + ",No Line Detected," + lightFront);
+
+            double outTicks = GeneralHelpers.CalculateDistanceEncode(100);
+            double inTicks = GeneralHelpers.CalculateDistanceEncode(100);
+            otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(0), outTicks);
+            insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(1.3), inTicks);
+
+            otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+            //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+
+        }
+        else if(lightFront < Constants.LINE_DETECTION_MINIMUM && _color == AllianceColor.Right && _generalCounter2 ==2) { // no line found, so slow down the inside motor till we find the line
+            // We want to slow down the inside motor here
+            Logger.getInstance().WriteMessage(GetStateName(_currentState) + ",No Line Detected," + lightFront);
+
+            double outTicks = GeneralHelpers.CalculateDistanceEncode(100);
+            double inTicks = GeneralHelpers.CalculateDistanceEncode(100);
+            otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(0), outTicks);
+            insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(1.3), inTicks);
+
+            otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+            //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+
+        }
+
+        else {
+            Logger.getInstance().WriteMessage(GetStateName(_currentState) + ",Line Detected," + lightFront + "Distance" + distance);
+            double ticks = GeneralHelpers.CalculateDistanceEncode(100);
+            distance = _ultrasonic.getUltrasonicLevel();
+            _generalCounter2 ++;
+            if (distance <10) {
+
+                if (_generalCounter > 2 ) {
+                    _currentState = GetNextState(_currentState);
+                }
+                else
+                {
+                    _generalCounter++;
+                    ticks = ticks *-1;
+                }
+
+
+            }
+            otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(5), ticks);
+            insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(5), ticks);
 
             otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -398,12 +465,16 @@ public class BaseBeaconAutonmous extends OpMode {
 
     private void SetupUltrasonic() {
         _ultrasonic = hardwareMap.ultrasonicSensor.get(Constants.DISTANCE);
+
     }
 
     private void SetupLightSensor() {
-        _lightSensor = hardwareMap.lightSensor.get(Constants.LIGHT_SENSOR);
-        Logger.getInstance().WriteMessage("Light Sensor " + _lightSensor.getConnectionInfo());
-        _lightSensor.enableLed(true);
+        _frontLightSensor = hardwareMap.lightSensor.get(Constants.LIGHT_SENSOR);
+        Logger.getInstance().WriteMessage("Light Sensor " + _frontLightSensor.getConnectionInfo());
+        _frontLightSensor.enableLed(true);
+        _backLightSensor = hardwareMap.lightSensor.get(Constants.LIGHT_SENSOR_BACK);
+        Logger.getInstance().WriteMessage("BackSensor " + _backLightSensor.getConnectionInfo());
+        _backLightSensor.enableLed(true);
     }
 
     private void SetupGyro() {

@@ -15,7 +15,7 @@ public class Constants {
 
     // If we read a value higher than this from the ground sensor, the robot will think it's found the line
     // (may need to do some calibration if this is inaccurate)
-    public static final double LINE_DETECTION_MINIMUM  = 0.4;
+    public static final double LINE_DETECTION_MINIMUM  = 0.36;
 
     public static final double PUSHER_SERVO_MAX = 0.6;
     public static final double PUSHER_SERVO_MIN = 0.1;
@@ -36,6 +36,7 @@ public class Constants {
     public static final String FRONT_RANGE_SENSOR = "sensor_range";
     public static final String BACK_RANGE_SENSOR = "sensor2_range";
     public static final String LIGHT_SENSOR = "sensor_range";
+    public static final String LIGHT_SENSOR_BACK = "sensor2_range";
     public static final String DISTANCE = "distance";
 
 }
