@@ -33,21 +33,30 @@ public class LiftController {
     public void Loop() {
         //Logger.getInstance().WriteMessage("leftstick"  + _gamepad.left_stick_y);
         //Logger.getInstance().WriteMessage("rightstick'" +  _gamepad.right_stick_y);
-        if (_gamepad.right_bumper)
+        if (_gamepad.right_bumper) {
+            _rightMotor.setPower(100);
+        } else if (_gamepad.left_bumper) {
+            _leftMotor.setPower(-100);
+        } else if (_gamepad.left_trigger > 0) {
+            _leftMotor.setPower(100);
+        } else if (_gamepad.right_trigger > 0) {
+            _rightMotor.setPower(-100);
+        }
+
+        else
+        {
+            _rightMotor.setPower(0);
+            _leftMotor.setPower(0);
+        }
+        if (_gamepad.dpad_up)
         {
             _rightMotor.setPower(100);
-        }
-        else if (_gamepad.left_bumper)
-        {
             _leftMotor.setPower(-100);
         }
-        else if (_gamepad.left_trigger > 0)
-        {
-            _leftMotor.setPower(100);
-        }
-        else if (_gamepad.right_trigger>0)
+        else if (_gamepad.dpad_down)
         {
             _rightMotor.setPower(-100);
+            _leftMotor.setPower(100);
         }
         else
         {
@@ -55,21 +64,18 @@ public class LiftController {
             _leftMotor.setPower(0);
         }
 
-        if (_gamepad.x)
-        {
+
+        if (_gamepad.x) {
             _arm.setPower(.75);
-        }
-        else if (_gamepad.b)
-        {
+        } else if (_gamepad.b) {
             _arm.setPower(-.75);
-        }
-        else
-        {
+        } else {
             _arm.setPower(0);
         }
 
 
     }
+}
     // this is what starts all the motors and servos.
 
-}
+
