@@ -14,8 +14,8 @@ import com.team5687.primitives.Motor;
  * Created by stephen on 4/12/16.
  */
 
-@Autonomous(name = "B-BOT-LEFT-RAMP", group = "Test")
-public class Rampmode extends OpMode {
+@Autonomous(name = "B-BOT-BALL-DELAY", group = "Test")
+public class B_BOT_BALL_DELAY extends OpMode {
 
 
     Motor _left;
@@ -40,32 +40,25 @@ public class Rampmode extends OpMode {
 
     @Override
     public void loop() {
-        int inches = -30;
+        int counter =0;
+        int inches = 68;
         int targetPower = 3600;
 
+        if(!_left.IsBusy() && !_right.IsBusy() && _done == 0 && counter < 300) {
+            _left.Stop();
+            _right.Stop();
+            counter++;
+            _done = 1;
 
-        if(!_left.IsBusy() && !_right.IsBusy() && _done == 0) {
+        }
+
+        if(!_left.IsBusy() && !_right.IsBusy() && _done == 1) {
             _left.SetTargetEncoderPosition(targetPower, GeneralHelpers.CalculateDistanceEncode(inches));
             _right.SetTargetEncoderPosition(targetPower, GeneralHelpers.CalculateDistanceEncode(inches));
             _left.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             _right.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            _done = 1;
-        }
-        if(!_left.IsBusy() && !_right.IsBusy() && _done == 1) {
-            _left.SetTargetEncoderPosition(targetPower, GeneralHelpers.CalculateDistanceEncode(-15));
-            _right.SetTargetEncoderPosition(targetPower, GeneralHelpers.CalculateDistanceEncode(15));
-            _left.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            _right.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             _done = 2;
         }
-        if(!_left.IsBusy() && !_right.IsBusy() && _done == 2) {
-            _left.SetTargetEncoderPosition(targetPower, GeneralHelpers.CalculateDistanceEncode(-30));
-            _right.SetTargetEncoderPosition(targetPower, GeneralHelpers.CalculateDistanceEncode(-30));
-            _left.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            _right.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            _done = 3;
-        }
-
 
 
         /*if(_left.GetEncoderPosition() < _right.GetEncoderPosition() && _left.GetEncoderPosition() < _left.GetTargetEncoderPosition()) {
@@ -108,4 +101,3 @@ public class Rampmode extends OpMode {
         Logger.getInstance().WriteMessage(message);
     }
 }
-

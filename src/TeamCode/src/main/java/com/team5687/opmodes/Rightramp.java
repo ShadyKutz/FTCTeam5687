@@ -14,7 +14,7 @@ import com.team5687.primitives.Motor;
  * Created by stephen on 4/12/16.
  */
 
-@Autonomous(name = "rightramp", group = "Test")
+@Autonomous(name = "B-BOT-RIGHT-RIGHT_RAMP", group = "Test")
 public class Rightramp extends OpMode {
 
 

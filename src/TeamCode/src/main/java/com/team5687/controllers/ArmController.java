@@ -8,7 +8,7 @@ import com.team5687.helpers.Logger;
 
 public class ArmController {
 
-    private final double backDump = 1;
+    private final double backDump = .95;
     private final double Holding = 0.53;
     private final double frontDump = 0.12;
     private final double scoopHold = 0.36;
@@ -34,7 +34,7 @@ public class ArmController {
     public void Loop() {
         _valueRight = neutralpush;
 
-        if (_gamepad.left_stick_button) {
+        if (_gamepad.x) {
             _valueLeft = backDump;
 
         }
@@ -44,6 +44,8 @@ public class ArmController {
             _valueLeft = scoopHold;
         else if (_gamepad.a)
             _valueLeft = Holding;
+        else if (_gamepad.dpad_up)
+            _valueLeft = .83;
         if(_gamepad.left_bumper)
         {
             _valueRight = .6;

@@ -18,12 +18,12 @@ import java.util.Timer;
  * Created by stephen on 4/12/16.
  */
 
-@Autonomous(name = "A-BOT-RIGHT-RAMP", group = "real")
-public class timerauto extends LinearOpMode {
+@Autonomous(name = "A-BOT-BALL-DELAY", group = "real")
+public class A_BOT_BALL_DELAY extends LinearOpMode {
 
 
     Motor _left;
-   Motor _right;
+    Motor _right;
     int _done =0;
     ElapsedTime runtime = new ElapsedTime();
 
@@ -53,31 +53,23 @@ public class timerauto extends LinearOpMode {
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
 
         // Step 1:  Drive forward for 3 seconds
-        _right.SetSpeed(.5);
-        _left.SetSpeed(.5);
+        _right.SetSpeed(0);
+        _left.SetSpeed(0);
         runtime.reset();
-        while ((runtime.seconds() < 3.0)&& opModeIsActive()) {
+        while ((runtime.seconds() < 10)&& opModeIsActive()) {
 
         }
 
         // Step 2:  Spin right for 1.3 seconds
-        _right.SetSpeed(-5);
+        _right.SetSpeed(.5);
         _left.SetSpeed(.5);
         runtime.reset();
         while ( (runtime.seconds() < 1.3)&& opModeIsActive()) {
 
         }
 
-        // Step 3:  Drive Backwards for 1 Second
-        _right.SetSpeed(-.5);
-        _left.SetSpeed(-.5);
-        runtime.reset();
-        while ((runtime.seconds() < 1.0)&& opModeIsActive()) {
 
-        }
-        sleep(1000);
 
 
     }
 }
-

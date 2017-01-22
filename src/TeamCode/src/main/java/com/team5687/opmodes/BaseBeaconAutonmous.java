@@ -64,8 +64,8 @@ public class BaseBeaconAutonmous extends OpMode {
     private HiTechnicNxtGyroSensor _gyro;
     private LightSensor _frontLightSensor;
     private LightSensor _backLightSensor;
-    //private ColorSensor _leftColorSensor;
-    //private ColorSensor _rightColorSensor;
+    private ColorSensor _leftColorSensor;
+    private ColorSensor _rightColorSensor;
     private UltrasonicSensor _ultrasonic;
     private Motor _left;
     private Motor _right;
@@ -93,7 +93,7 @@ public class BaseBeaconAutonmous extends OpMode {
         SetupServos();
         //SetupGyro();
         SetupLightSensor();
-        //SetupColorSensor();
+        SetupColorSensor();
         SetupUltrasonic();
         _currentState = State.START;
     }
@@ -229,7 +229,7 @@ public class BaseBeaconAutonmous extends OpMode {
                 break;
 
             case PRESSING_FIRST_BEACON:
-                LogNotImplementedState(state);
+                PressingFirstBeacon();
                 break;
 
             // first beacon has been pressed, moving to the second line
@@ -449,19 +449,53 @@ public class BaseBeaconAutonmous extends OpMode {
             insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
     }
+private void PressingFirstBeacon(){
+    int counter =0;
+    int counter2 = 0;
+    int BlueMin = 0;
+    int RedMin = 0;
+
+
+    if( _rightColorSensor.blue() > BlueMin && _leftColorSensor.red()> RedMin && counter <2)
+   {
+       _pusherServer.setPosition(Constants.PUSHER_SERVO_MAX);
+       counter ++;
+   }
+   else if ( _rightColorSensor.blue() > BlueMin && _leftColorSensor.red()> RedMin && counter <2)
+   {
+       _pusherServer.setPosition(.3);
+       counter --;
+   }
+    else if (_rightColorSensor.red() > RedMin && _leftColorSensor.blue()> BlueMin && counter2 < 2)
+   {
+       _pusherServer.setPosition(Constants.PUSHER_SERVO_MIN);
+       counter2 ++;
+   }
+   else if (_rightColorSensor.red() > RedMin && _leftColorSensor.blue()> BlueMin && counter2 > 2)
+   {
+       _pusherServer.setPosition(.3);
+       counter2 --;
+   }
+    else if (_rightColorSensor.red() > 1 && _leftColorSensor.red()> 2 || _rightColorSensor.blue() > 1 && _leftColorSensor.blue()> 2)
+   {
+       _currentState = GetNextState(_currentState);
+   }
+
+}
+
 
     //endregion
 
 //region Setup Code for Motors, Gryo, Light Sensor, Color Sensor, Ultrasonic
 
-    /*private void SetupColorSensor() {
+    private void SetupColorSensor() {
         _leftColorSensor = hardwareMap.colorSensor.get(Constants.LEFT_COLOR_SENSOR);
         _rightColorSensor = hardwareMap.colorSensor.get(Constants.RIGHT_COLOR_SENSOR);
         Logger.getInstance().WriteMessage("Left Color " + _leftColorSensor.getConnectionInfo());
         Logger.getInstance().WriteMessage("Right Color " + _rightColorSensor.getConnectionInfo());
         _leftColorSensor.enableLed(true);
         _rightColorSensor.enableLed(true);
-    }*/
+    }
 
     private void SetupUltrasonic() {
         _ultrasonic = hardwareMap.ultrasonicSensor.get(Constants.DISTANCE);

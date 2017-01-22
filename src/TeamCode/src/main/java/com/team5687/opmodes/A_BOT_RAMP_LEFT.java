@@ -18,12 +18,12 @@ import java.util.Timer;
  * Created by stephen on 4/12/16.
  */
 
-@Autonomous(name = "A-BOT-RIGHT-RAMP", group = "real")
-public class timerauto extends LinearOpMode {
+@Autonomous(name = "A-BOT-LEFT-RAMP", group = "real")
+public class A_BOT_RAMP_LEFT extends LinearOpMode {
 
 
     Motor _left;
-   Motor _right;
+    Motor _right;
     int _done =0;
     ElapsedTime runtime = new ElapsedTime();
 
@@ -80,4 +80,3 @@ public class timerauto extends LinearOpMode {
 
     }
 }
-

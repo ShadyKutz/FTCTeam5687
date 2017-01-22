@@ -14,7 +14,7 @@ import com.team5687.primitives.Motor;
  * Created by stephen on 4/12/16.
  */
 
-@Autonomous(name = "Encoder Test", group = "Test")
+@Autonomous(name = "B-BOT-BALL (no delay)", group = "Test")
 public class TestEncoderOpMode extends OpMode {
 
 
