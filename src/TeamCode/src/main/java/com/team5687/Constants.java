@@ -40,5 +40,6 @@ public class Constants {
     public static final String LIGHT_SENSOR = "sensor_range";
     public static final String LIGHT_SENSOR_BACK = "sensor2_range";
     public static final String DISTANCE = "distance";
+    public static final String DISTANCELEFT = "left";
 
 }

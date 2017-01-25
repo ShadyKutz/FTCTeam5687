@@ -41,25 +41,17 @@ public class LiftController {
             _leftMotor.setPower(100);
         } else if (_gamepad.right_trigger > 0) {
             _rightMotor.setPower(-100);
-        }
-
-        else
-        {
+        } else {
             _rightMotor.setPower(0);
             _leftMotor.setPower(0);
         }
-        if (_gamepad.dpad_up)
-        {
+        if (_gamepad.dpad_up) {
             _rightMotor.setPower(100);
             _leftMotor.setPower(-100);
-        }
-        else if (_gamepad.dpad_down)
-        {
+        } else if (_gamepad.dpad_down) {
             _rightMotor.setPower(-100);
             _leftMotor.setPower(100);
-        }
-        else
-        {
+        } else {
             _rightMotor.setPower(0);
             _leftMotor.setPower(0);
         }
@@ -73,9 +65,11 @@ public class LiftController {
             _arm.setPower(0);
         }
 
+}
+
 
     }
-}
+
     // this is what starts all the motors and servos.
 
 
