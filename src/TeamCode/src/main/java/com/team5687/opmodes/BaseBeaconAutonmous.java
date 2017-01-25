@@ -431,11 +431,11 @@ public class BaseBeaconAutonmous extends OpMode {
             otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            if (distance <10 || distanceLeft <10)
+            if (distance <10 || distanceLeft < 10)
             {
-                _currentState = GetNextState(_currentState);
                 _generalCounter2 = 3;
             }
+
         }
         else if (_generalCounter2 == 2 && difference > .5)
         {
@@ -448,9 +448,8 @@ public class BaseBeaconAutonmous extends OpMode {
             otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            if (distance <10 || distanceLeft <10)
+            if (distance <10 || distanceLeft < 10)
             {
-                _currentState = GetNextState(_currentState);
                 _generalCounter2 = 3;
             }
         }
@@ -469,7 +468,6 @@ public class BaseBeaconAutonmous extends OpMode {
                 else
                 {
                     _generalCounter++;
-                    ticks = ticks *-1;
                 }
 
 
@@ -487,7 +485,7 @@ private void PressingFirstBeacon(){
     int BlueMin = 0;
     int RedMin = 0;
 
-
+    Logger.getInstance().WriteMessage(GetStateName(_currentState) + " COLORS blue," + _rightColorSensor.blue() + "Colors red" +_rightColorSensor.red());
     if( _rightColorSensor.blue() > BlueMin && _leftColorSensor.red()> RedMin && counter <2)
    {
        _pusherServer.setPosition(Constants.PUSHER_SERVO_MAX);

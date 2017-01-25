@@ -4,6 +4,7 @@ package com.team5687.controllers;
  * Created by RedDragon on 10/25/2016.
  */
 
+import com.qualcomm.robotcore.eventloop.EventLoop;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -41,11 +42,8 @@ public class LiftController {
             _leftMotor.setPower(100);
         } else if (_gamepad.right_trigger > 0) {
             _rightMotor.setPower(-100);
-        } else {
-            _rightMotor.setPower(0);
-            _leftMotor.setPower(0);
         }
-        if (_gamepad.dpad_up) {
+        else if (_gamepad.dpad_up) {
             _rightMotor.setPower(100);
             _leftMotor.setPower(-100);
         } else if (_gamepad.dpad_down) {
@@ -58,14 +56,21 @@ public class LiftController {
 
 
         if (_gamepad.x) {
-            _arm.setPower(.75);
+            _arm.setPower(.95);
         } else if (_gamepad.b) {
-            _arm.setPower(-.75);
-        } else {
+            _arm.setPower(-.45);
+        }
+        else if (_gamepad.a)
+        {
             _arm.setPower(0);
         }
+        else if (_gamepad.y)
+        {
+            _arm.setPower(.3);
+        }
 
-}
+
+    }
 
 
     }
