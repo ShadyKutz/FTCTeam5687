@@ -40,7 +40,7 @@ public class TestEncoderOpMode extends OpMode {
 
     @Override
     public void loop() {
-        int inches = 68;
+        int inches = -68;
         int targetPower = 3600;
 
 
