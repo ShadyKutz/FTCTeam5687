@@ -33,6 +33,7 @@ package org.firstinspires.ftc.robotcontroller.external.samples;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import com.qualcomm.ftccommon.DbgLog;
@@ -43,6 +44,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
 import com.qualcomm.robotcore.hardware.DigitalChannelController;
+
+
 
 /*
  *
@@ -111,7 +114,7 @@ public class SensorAdafruitRGB extends LinearOpMode {
     cdim.setDigitalChannelMode(LED_CHANNEL, DigitalChannelController.Mode.OUTPUT);
 
     // get a reference to our ColorSensor object.
-    sensorRGB = hardwareMap.colorSensor.get("sensor_color");
+    sensorRGB = hardwareMap.colorSensor.get("sensor_range");
 
     // turn the LED on in the beginning, just so user will know that the sensor is active.
     cdim.setDigitalChannelState(LED_CHANNEL, bLedOn);
