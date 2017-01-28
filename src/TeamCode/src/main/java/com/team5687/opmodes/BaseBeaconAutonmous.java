@@ -65,7 +65,6 @@ public class BaseBeaconAutonmous extends OpMode {
     private LightSensor _frontLightSensor;
     private LightSensor _backLightSensor;
     private ColorSensor _leftColorSensor;
-    private ColorSensor _rightColorSensor;
     private UltrasonicSensor _ultrasonic;
     private UltrasonicSensor _ultrasonicLeft;
     private Motor _left;
@@ -159,7 +158,8 @@ public class BaseBeaconAutonmous extends OpMode {
     // This method is used to determine the next state
     private State GetNextState(State current)
     {
-
+        _generalCounter = 0;
+        _generalCounter2 = 0;
         switch(current)
         {
             // Starts here, robot is stopped
@@ -404,7 +404,8 @@ public class BaseBeaconAutonmous extends OpMode {
             // no line found, so slow down the inside motor till we find the line
             _generalCounter2 = 1;
 
-        } else if (_generalCounter2 == 1 && lightFront < Constants.LINE_DETECTION_MINIMUM && _color == AllianceColor.Left) {
+        }
+        else if (_generalCounter2 == 1 && lightFront < Constants.LINE_DETECTION_MINIMUM && _color == AllianceColor.Left) {
             // We want to slow down the inside motor here
             Logger.getInstance().WriteMessage(GetStateName(_currentState) + "Difference" + difference);
             double outTicks = GeneralHelpers.CalculateDistanceEncode(100);
@@ -527,10 +528,11 @@ public class BaseBeaconAutonmous extends OpMode {
             double ticks = GeneralHelpers.CalculateDistanceEncode(100);
             distance = _ultrasonic.getUltrasonicLevel();
             _generalCounter2 ++;
-            if (distance <14 || distanceLeft <14) {
+            if (distance <10 || distanceLeft <10) {
 
                 if (_generalCounter > 0 ) {
                     _currentState = GetNextState(_currentState);
+                    return;
                 }
                 else
                 {
@@ -546,77 +548,59 @@ public class BaseBeaconAutonmous extends OpMode {
             insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
     }
-    private void PressingFirstBeacon(){
-        int counter =0;
-        int counter2 = 0;
-        int BlueMin = 0;
-        int RedMin = 0;
-        double color_left_red = (_leftColorSensor.red()* 255) / 800;
-        double color_left_blue = (_leftColorSensor.blue()* 255) / 800;
-        double color_right_red = (_rightColorSensor.red()* 255) / 800;
-        double color_right_blue = (_rightColorSensor.blue()* 255) / 800;
-        Motor insideMotor = _color == AllianceColor.Left ? _left : _right;
-        Motor otherMotor = _color == AllianceColor.Left ? _right : _left;
+    private void PressingFirstBeacon()  {
+        double color_left_red = _leftColorSensor.red();
+        double color_left_blue = _leftColorSensor.blue();
 
 
-        double outTicks = GeneralHelpers.CalculateDistanceEncode(0);
-        double inTicks = GeneralHelpers.CalculateDistanceEncode(0);
-        otherMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(0), outTicks);
-        insideMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(0), inTicks);
+        double distance = _ultrasonic.getUltrasonicLevel();
 
-        otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-        //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+        if(distance <= 8.0) {
+            Motor insideMotor = _color == AllianceColor.Left ? _left : _right;
+            Motor otherMotor = _color == AllianceColor.Left ? _right : _left;
+            insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            otherMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+            telemetry.addData("LR", color_left_red);
+            telemetry.addData("LB", color_left_blue);
+            telemetry.addData("C", _generalCounter);
+            telemetry.update();
 
 
-        Logger.getInstance().WriteMessage(GetStateName(_currentState) + " COLORS blue," + color_left_blue + "Colors red" +color_left_red);
-        if(color_left_red > RedMin && color_right_blue > BlueMin && counter <2 && _color == AllianceColor.Left)
-        {
-            _pusherServer.setPosition(Constants.PUSHER_SERVO_MAX);
-            counter ++;
-        }
-        else if ( color_right_blue > BlueMin && color_left_red> RedMin && counter <2 && _color == AllianceColor.Left)
-        {
-            _pusherServer.setPosition(.3);
-            counter --;
-        }
-        else if (color_right_red > RedMin && color_left_blue> BlueMin && counter2 < 2&& _color == AllianceColor.Left)
-        {
-            _pusherServer.setPosition(Constants.PUSHER_SERVO_MIN);
-            counter2 ++;
-        }
-        else if (color_right_red > RedMin && color_left_blue> BlueMin && counter2 > 2 && _color == AllianceColor.Left)
-        {
-            _pusherServer.setPosition(.3);
-            counter2 --;
-        }
-        else if (color_left_red > RedMin && color_right_blue > BlueMin && counter <2 && _color == AllianceColor.Right)
-        {
-            _pusherServer.setPosition(Constants.PUSHER_SERVO_MIN);
-            counter ++;
-        }
-        else if ( color_right_blue > BlueMin && color_left_red> RedMin && counter <2 && _color == AllianceColor.Right)
-        {
-            _pusherServer.setPosition(.3);
-            counter --;
-        }
-        else if (color_right_red > RedMin && color_left_blue> BlueMin && counter2 < 2&& _color == AllianceColor.Right)
-        {
-            _pusherServer.setPosition(Constants.PUSHER_SERVO_MAX);
-            counter2 ++;
-        }
-        else if (color_right_red > RedMin && color_left_blue> BlueMin && counter2 > 2 && _color == AllianceColor.Right)
-        {
-            _pusherServer.setPosition(.3);
-            counter2 --;
-        }
+            double colorMin = _color == AllianceColor.Left ? Constants.LIGHT_SENSOR_RED_MIN : Constants.LIGHT_SENSOR_BLUE_MIN;
 
-        else if (color_right_red > 1 && color_left_red> 2 ||color_right_blue > 1 &&color_left_blue> 2)
-        {
-            _currentState = GetNextState(_currentState);
-            _pusherServer.setPosition(.3);
-        }
+            double leftPusher = Constants.PUSHER_SERVO_MAX;
+            double rightPusher = Constants.PUSHER_SERVO_MIN;
+            double pusherValue = 0.0;
+            if (_color == AllianceColor.Left) {
+                if (color_left_red > Constants.LIGHT_SENSOR_RED_MIN)
+                    pusherValue = leftPusher; // We need to push the left pusher side
+                else
+                    pusherValue = rightPusher;
+            } else {
+                if (color_left_blue > Constants.LIGHT_SENSOR_BLUE_MIN)
+                    pusherValue = leftPusher; // We need to push the left pusher side
+                else
+                    pusherValue = rightPusher;
+            }
 
+            _generalCounter++;
+            if (_generalCounter < 3 && _generalCounter >= 0)
+                _pusherServer.setPosition(pusherValue);
+            else {
+                _pusherServer.setPosition(0);
+                if(_generalCounter >= 2) {
+                    // this happens only at servo swap
+                    _generalCounter = -3;
+                    _generalCounter2++;
+                }
+
+            }
+            if (_generalCounter2 > 2) {
+                _currentState = GetNextState(_currentState);
+            }
+
+        }
     }
 
     private void MoveToSecondBeacon()
@@ -814,8 +798,6 @@ public class BaseBeaconAutonmous extends OpMode {
         int RedMin = 0;
         double color_left_red = (_leftColorSensor.red()* 255) / 800;
         double color_left_blue = (_leftColorSensor.blue()* 255) / 800;
-        double color_right_red = (_rightColorSensor.red()* 255) / 800;
-        double color_right_blue = (_rightColorSensor.blue()* 255) / 800;
         Motor insideMotor = _color == AllianceColor.Left ? _left : _right;
         Motor otherMotor = _color == AllianceColor.Left ? _right : _left;
 
@@ -830,7 +812,7 @@ public class BaseBeaconAutonmous extends OpMode {
         insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
-        Logger.getInstance().WriteMessage(GetStateName(_currentState) + " COLORS blue," + color_left_blue + "Colors red" +color_left_red);
+        /*Logger.getInstance().WriteMessage(GetStateName(_currentState) + " COLORS blue," + color_left_blue + "Colors red" +color_left_red);
         if(color_left_blue > BlueMin && color_right_red > RedMin && counter <2)
         {
             _pusherServer.setPosition(Constants.PUSHER_SERVO_MAX);
@@ -854,7 +836,7 @@ public class BaseBeaconAutonmous extends OpMode {
         else if (color_right_red > 1 && color_left_red> 2 ||color_right_blue > 1 &&color_left_blue> 2)
         {
             _currentState = GetNextState(_currentState);
-        }
+        }*/
     }
 
 
@@ -864,8 +846,7 @@ public class BaseBeaconAutonmous extends OpMode {
 
     private void SetupColorSensor() {
         _leftColorSensor = hardwareMap.colorSensor.get(Constants.LEFT_COLOR_SENSOR);
-        _rightColorSensor = hardwareMap.colorSensor.get(Constants.RIGHT_COLOR_SENSOR);
-
+//        _rightColorSensor = hardwareMap.colorSensor.get(Constants.RIGHT_COLOR_SENSOR);
     }
 
 

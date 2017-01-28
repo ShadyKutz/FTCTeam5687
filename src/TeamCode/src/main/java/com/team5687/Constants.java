@@ -15,10 +15,13 @@ public class Constants {
 
     // If we read a value higher than this from the ground sensor, the robot will think it's found the line
     // (may need to do some calibration if this is inaccurate)
-    public static final double LINE_DETECTION_MINIMUM  = 0.31;
+    public static final double LINE_DETECTION_MINIMUM  = 0.36;
 
     public static final double PUSHER_SERVO_MAX = 0.6;
     public static final double PUSHER_SERVO_MIN = 0.1;
+
+    public static final double LIGHT_SENSOR_RED_MIN = 800;
+    public static final double LIGHT_SENSOR_BLUE_MIN = 900;
 
     public static final String GYRO = "gyro";
     public static final String LEFT_COLOR_SENSOR = "leftcolor";

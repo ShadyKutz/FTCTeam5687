@@ -80,6 +80,7 @@ import com.team5687.Constants;
 public class COLOR_TEST extends LinearOpMode {
 
     ColorSensor sensorRGB;
+    ColorSensor sensorRGB2;
    // DeviceInterfaceModule cdim;
 
     // we assume that the LED pin of the RGB sensor is connected to
@@ -116,7 +117,7 @@ public class COLOR_TEST extends LinearOpMode {
 
         // get a reference to our ColorSensor object.
         sensorRGB = hardwareMap.colorSensor.get(Constants.LEFT_COLOR_SENSOR);
-
+        sensorRGB2 = hardwareMap.colorSensor.get(Constants.RIGHT_COLOR_SENSOR);
         // turn the LED on in the beginning, just so user will know that the sensor is active.
      //   cdim.setDigitalChannelState(LED_CHANNEL, bLedOn);
 
@@ -145,12 +146,10 @@ public class COLOR_TEST extends LinearOpMode {
             Color.RGBToHSV((sensorRGB.red() * 255) / 800, (sensorRGB.green() * 255) / 800, (sensorRGB.blue() * 255) / 800, hsvValues);
 
             // send the info back to driver station using telemetry function.
-            telemetry.addData("LED", bLedOn ? "On" : "Off");
-            telemetry.addData("Clear", sensorRGB.alpha());
-            telemetry.addData("Red  ", sensorRGB.red());
-            telemetry.addData("Green", sensorRGB.green());
-            telemetry.addData("Blue ", sensorRGB.blue());
-            telemetry.addData("Hue", hsvValues[0]);
+            telemetry.addData("LRed  ", sensorRGB.red());
+            telemetry.addData("LBlue ", sensorRGB.blue());
+            telemetry.addData("RRed  ", sensorRGB2.red());
+            telemetry.addData("RBlue ", sensorRGB2.blue());
 
             // change the background color to match the color detected by the RGB sensor.
             // pass a reference to the hue, saturation, and value array as an argument
