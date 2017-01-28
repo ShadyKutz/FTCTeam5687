@@ -45,7 +45,7 @@ public class ArmController {
         else if (_gamepad.a)
             _valueLeft = Holding;
         else if (_gamepad.dpad_up)
-            _valueLeft = .83;
+            _valueLeft = .78;
         if(_gamepad.left_bumper)
         {
             _valueRight = .6;

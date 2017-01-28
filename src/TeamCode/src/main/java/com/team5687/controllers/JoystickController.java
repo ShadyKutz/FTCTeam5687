@@ -2,14 +2,14 @@ package com.team5687.controllers;
 
 /**
  * Created by RedDragon on 10/25/2016.
- */
-
-import com.qualcomm.robotcore.hardware.DcMotor;
+ */import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.team5687.Constants;
 import com.team5687.helpers.Logger;
+
+
 
 
 public class JoystickController {

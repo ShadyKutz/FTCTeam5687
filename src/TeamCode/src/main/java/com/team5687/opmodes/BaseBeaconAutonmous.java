@@ -94,7 +94,7 @@ public class BaseBeaconAutonmous extends OpMode {
         SetupServos();
         //SetupGyro();
         SetupLightSensor();
-       // SetupColorSensor();
+        SetupColorSensor();
         SetupUltrasonic();
         _currentState = State.START;
     }
@@ -341,8 +341,8 @@ public class BaseBeaconAutonmous extends OpMode {
             if(!_left.IsBusy() && !_right.IsBusy())
             {
                 double ticks = GeneralHelpers.CalculateDistanceEncode(90);
-                insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(7), ticks);
-                otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(7), ticks);
+                insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(12), ticks);
+                otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(12), ticks);
                 insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
                 otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
                 _generalCounter2 = 0;
@@ -484,8 +484,19 @@ private void PressingFirstBeacon(){
     int counter2 = 0;
     int BlueMin = 0;
     int RedMin = 0;
+    Motor insideMotor = _color == AllianceColor.Left ? _left : _right;
+    Motor otherMotor = _color == AllianceColor.Left ? _right : _left;
 
-    Logger.getInstance().WriteMessage(GetStateName(_currentState) + " COLORS blue," + _rightColorSensor.blue() + "Colors red" +_rightColorSensor.red());
+
+
+    double outTicks = GeneralHelpers.CalculateDistanceEncode(100);
+    double inTicks = GeneralHelpers.CalculateDistanceEncode(-100);
+    otherMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(0), outTicks);
+    insideMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(0), inTicks);
+
+    otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+    //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);  Logger.getInstance().WriteMessage(GetStateName(_currentState) + " COLORS blue," + _rightColorSensor.blue() + "Colors red" +_rightColorSensor.red());
     if( _rightColorSensor.blue() > BlueMin && _leftColorSensor.red()> RedMin && counter <2)
    {
        _pusherServer.setPosition(Constants.PUSHER_SERVO_MAX);
