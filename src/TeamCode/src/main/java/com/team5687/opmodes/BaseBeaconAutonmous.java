@@ -366,13 +366,13 @@ public class BaseBeaconAutonmous extends OpMode {
         {
             distance = _ultrasonic.getUltrasonicLevel();
             distanceLeft = _ultrasonicLeft.getUltrasonicLevel();
-            difference = distance-distanceLeft;
+            difference = _ultrasonic.getUltrasonicLevel() - _ultrasonicLeft.getUltrasonicLevel();
         }
         else if (_color == AllianceColor.Left)
         {
             distance = _ultrasonic.getUltrasonicLevel();
             distanceLeft = _ultrasonicLeft.getUltrasonicLevel();
-            difference = distance-distanceLeft;
+            difference = _ultrasonic.getUltrasonicLevel() - _ultrasonicLeft.getUltrasonicLevel();
         }
 
 
@@ -410,8 +410,8 @@ public class BaseBeaconAutonmous extends OpMode {
             Logger.getInstance().WriteMessage(GetStateName(_currentState) + "Difference" + difference);
             double outTicks = GeneralHelpers.CalculateDistanceEncode(100);
             double inTicks = GeneralHelpers.CalculateDistanceEncode(-100);
-            otherMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(2), outTicks);
-            insideMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(3), inTicks);
+            otherMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(1), outTicks);
+            insideMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(1.5), inTicks);
 
             otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -423,9 +423,9 @@ public class BaseBeaconAutonmous extends OpMode {
             // We want to slow down the inside motor here
             Logger.getInstance().WriteMessage(GetStateName(_currentState) + "Difference" + difference);
             double outTicks = GeneralHelpers.CalculateDistanceEncode(100);
-            double inTicks = GeneralHelpers.CalculateDistanceEncode(-100);
+            double inTicks = GeneralHelpers.CalculateDistanceEncode(100);
             otherMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(2.5), outTicks);
-            insideMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(0), inTicks);
+            insideMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(.3), inTicks);
 
             otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -445,7 +445,7 @@ public class BaseBeaconAutonmous extends OpMode {
             otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            if ( difference > -5 && difference < 5)
+            if ( difference < 10 && difference > -10)
             {
                 _generalCounter2 = 3;
             }
@@ -528,7 +528,7 @@ public class BaseBeaconAutonmous extends OpMode {
             double ticks = GeneralHelpers.CalculateDistanceEncode(100);
             distance = _ultrasonic.getUltrasonicLevel();
             _generalCounter2 ++;
-            if (distance <10 || distanceLeft <10) {
+            if (distance <11 || distanceLeft <11) {
 
                 if (_generalCounter > 0 ) {
                     _currentState = GetNextState(_currentState);
@@ -541,8 +541,8 @@ public class BaseBeaconAutonmous extends OpMode {
 
 
             }
-            otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(3), ticks);
-            insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(3), ticks);
+            otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(2), ticks);
+            insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(2), ticks);
 
             otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -669,7 +669,7 @@ public class BaseBeaconAutonmous extends OpMode {
         double lightBack = _backLightSensor.getLightDetected();
         double distance = _ultrasonic.getUltrasonicLevel();
         double distanceLeft = _ultrasonicLeft.getUltrasonicLevel();
-        double difference = distance-distanceLeft;
+        double difference = _ultrasonic.getUltrasonicLevel() - _ultrasonicLeft.getUltrasonicLevel();
         Motor insideMotor = _color == AllianceColor.Left ? _left : _right;
         Motor otherMotor = _color == AllianceColor.Left ? _right : _left;
 
@@ -715,7 +715,7 @@ public class BaseBeaconAutonmous extends OpMode {
             insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
-        } else if (_generalCounter2 == 1 && lightFront < Constants.LINE_DETECTION_MINIMUM) { // no line found, so slow down the inside motor till we find the line
+        } else if (_generalCounter2 == 1 && lightFront > Constants.LINE_DETECTION_MINIMUM) { // no line found, so slow down the inside motor till we find the line
 
             _generalCounter2 = 2;
             Logger.getInstance().WriteMessage(GetStateName(_currentState) + ",No Line Detected," + lightFront);
@@ -730,7 +730,7 @@ public class BaseBeaconAutonmous extends OpMode {
 
 
         }
-        else if (_generalCounter2 == 2 && difference < .2)
+        else if (_generalCounter2 == 2 && difference < 1)
         {
             Logger.getInstance().WriteMessage(GetStateName(_currentState) + ",No Line Detected," + lightFront);
             double outTicks = GeneralHelpers.CalculateDistanceEncode(100);
@@ -741,13 +741,13 @@ public class BaseBeaconAutonmous extends OpMode {
             otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            if (distance <15 || distanceLeft < 2)
+            if (distance <15 || distanceLeft < 15)
             {
                 _generalCounter2 = 3;
             }
 
         }
-        else if (_generalCounter2 == 2 && difference > .2)
+        else if (_generalCounter2 == 2 && difference > 1)
         {
             Logger.getInstance().WriteMessage(GetStateName(_currentState) + ",No Line Detected," + lightFront);
             double outTicks = GeneralHelpers.CalculateDistanceEncode(100);
@@ -758,7 +758,7 @@ public class BaseBeaconAutonmous extends OpMode {
             otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            if (distance <15|| distanceLeft < 20)
+            if (distance <15|| distanceLeft < 15)
             {
                 _generalCounter2 = 3;
             }
@@ -770,7 +770,7 @@ public class BaseBeaconAutonmous extends OpMode {
             double ticks = GeneralHelpers.CalculateDistanceEncode(100);
             distance = _ultrasonic.getUltrasonicLevel();
             _generalCounter2 ++;
-            if (distance <12 || distanceLeft <12) {
+            if (distance <14 || distanceLeft <14) {
 
                 if (_generalCounter > 0 ) {
                     _currentState = GetNextState(_currentState);

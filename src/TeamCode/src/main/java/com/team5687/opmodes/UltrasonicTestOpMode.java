@@ -21,7 +21,7 @@ public class UltrasonicTestOpMode  extends LinearOpMode {
         while(true) {
             double distance = _ultrasonic.getUltrasonicLevel();
             double  distanceLeft = _ultrasonicLeft.getUltrasonicLevel();
-            double difference = distance-distanceLeft;
+            double difference = _ultrasonic.getUltrasonicLevel() - _ultrasonicLeft.getUltrasonicLevel();
 
             telemetry.addData("d", distance);
             telemetry.addData("d_l", distance);

@@ -33,8 +33,8 @@ public class UltraAutonomous {
     public void Init(HardwareMap map) {
         _leftMotor = new Motor(DcMotorSimple.Direction.REVERSE, map.dcMotor.get(Constants.LEFT_DRIVE_MOTOR), false);
         _rightMotor = new Motor(DcMotorSimple.Direction.FORWARD, map.dcMotor.get(Constants.RIGHT_DRIVE_MOTOR), false);
-        _distance = map.get(UltrasonicSensor.class, Constants.BACK_RANGE_SENSOR);
-        _distance2 =map.get(UltrasonicSensor.class, Constants.FRONT_RANGE_SENSOR);
+        _distance = map.get(UltrasonicSensor.class, Constants.DISTANCE);
+        _distance2 =map.get(UltrasonicSensor.class, Constants.DISTANCELEFT);
         _state = State.MovingForward;
 
 
