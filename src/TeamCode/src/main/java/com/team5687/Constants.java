@@ -44,6 +44,7 @@ public class Constants {
     public static final String LIGHT_SENSOR_BACK = "sensor2_range";
     public static final String LED_TEST = "dim";
     public static final String DISTANCE = "distance";
-    public static final String DISTANCELEFT = "left";
+    public static final String DISTANCELEFT = "left"; // Not used for anything important
+    public static final String FLIPPER_MOTOR = "flipper";
 
 }

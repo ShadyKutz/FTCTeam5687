@@ -15,7 +15,7 @@ public class SpinnerController {
 
     public void Init(HardwareMap map, Gamepad gampad) {
         _motor = map.dcMotor.get(Constants.SWEEPER_MOTOR);
-        _motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        _motor.setDirection(DcMotorSimple.Direction.FORWARD);
         _gamepad = gampad;
     }
 
@@ -33,10 +33,6 @@ public class SpinnerController {
         }
         else if (_gamepad.right_bumper)
         _isActive = false;
-
-
-
-
 
 
         if(_isActive && isfoward)

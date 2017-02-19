@@ -6,6 +6,7 @@ package com.team5687.controllers;
 
 import com.qualcomm.robotcore.eventloop.EventLoop;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -25,6 +26,8 @@ public class LiftController {
     public void Init(HardwareMap map, Gamepad gamepad) {
         _leftMotor = map.dcMotor.get(Constants.LEFT_LIFT_MOTOR);
         _rightMotor = map.dcMotor.get(Constants.RIGHT_LIFT_MOTOR);
+        _leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        _rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         _arm = map.dcMotor.get(Constants.ARM_MOTOR);
 
 

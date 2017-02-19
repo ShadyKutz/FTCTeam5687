@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.UltrasonicSensor;
+import com.qualcomm.robotcore.hardware.configuration.Utility;
 import com.team5687.Constants;
 import com.team5687.helpers.GeneralHelpers;
 import com.team5687.helpers.Logger;
@@ -44,14 +45,6 @@ public class BaseBeaconAutonmous extends OpMode {
         MOVING_DOWN_FIRST_BEACON_LINE,
         // hit the wall, pressing the beacon until it's our color
         PRESSING_FIRST_BEACON,
-        // first beacon has been pressed, moving to the second line
-        MOVING_TO_SECOND_BEACON_LINE,
-        // moving down the second line towards the wall
-        MOVING_DOWN_SECOND_BEACON_LINE,
-        // pressing second beacon until it's our color
-        PRESSING_SECOND_BEACON,
-        // finished both beacons, moving back to center line (red / blue lines)
-        MOVING_TO_CENTER_LINE,
         // Moving towards the center plate, knocking the ball off and stopping on the pad
         MOVING_TO_CENTER_BALL,
 
@@ -66,7 +59,7 @@ public class BaseBeaconAutonmous extends OpMode {
     private LightSensor _backLightSensor;
     private ColorSensor _leftColorSensor;
     private UltrasonicSensor _ultrasonic;
-    private UltrasonicSensor _ultrasonicLeft;
+    //private UltrasonicSensor _ultrasonicLeft;
     private Motor _left;
     private Motor _right;
     private Servo _pusherServer;
@@ -177,24 +170,6 @@ public class BaseBeaconAutonmous extends OpMode {
 
 
             case PRESSING_FIRST_BEACON:
-                return State.STOPPED;
-
-            // first beacon has been pressed, moving to the second line
-            case MOVING_TO_SECOND_BEACON_LINE:
-                _generalCounter = 0;
-                return State.MOVING_DOWN_SECOND_BEACON_LINE;
-
-            // moving down the second line towards the wall
-            case MOVING_DOWN_SECOND_BEACON_LINE:
-                return State.PRESSING_SECOND_BEACON;
-
-            // pressing second beacon until it's our color
-            case PRESSING_SECOND_BEACON:
-                return State.STOPPED;
-
-
-            // finished both beacons, moving back to center line (red / blue lines)
-            case MOVING_TO_CENTER_LINE:
                 return State.MOVING_TO_CENTER_BALL;
 
             // Moving towards the center plate, knocking the ball off and stopping on the pad
@@ -233,30 +208,9 @@ public class BaseBeaconAutonmous extends OpMode {
                 PressingFirstBeacon();
                 break;
 
-            // first beacon has been pressed, moving to the second line
-            case MOVING_TO_SECOND_BEACON_LINE:
-                MoveToSecondBeacon();
-                break;
-
-            // moving down the second line towards the wall
-            case MOVING_DOWN_SECOND_BEACON_LINE:
-                MovingDownSeocondBeacon();
-                break;
-
-            // pressing second beacon until it's our color
-            case PRESSING_SECOND_BEACON:
-                PressingSecondBeacon();
-                break;
-
-
-            // finished both beacons, moving back to center line (red / blue lines)
-            case MOVING_TO_CENTER_LINE:
-                LogNotImplementedState(state);
-                break;
-
             // Moving towards the center plate, knocking the ball off and stopping on the pad
             case MOVING_TO_CENTER_BALL:
-                LogNotImplementedState(state);
+                MoveToCenter();
                 break;
 
             case STOPPED:
@@ -287,22 +241,6 @@ public class BaseBeaconAutonmous extends OpMode {
 
             case PRESSING_FIRST_BEACON:
                 return "PRESSING_FIRST_BEACON";
-
-            // first beacon has been pressed, moving to the second line
-            case MOVING_TO_SECOND_BEACON_LINE:
-                return "MOVING_TO_SECOND_BEACON_LINE";
-
-            // moving down the second line towards the wall
-            case MOVING_DOWN_SECOND_BEACON_LINE:
-                return "MOVING_DOWN_SECOND_BEACON_LINE";
-
-            // pressing second beacon until it's our color
-            case PRESSING_SECOND_BEACON:
-                return "PRESSING_SECOND_BEACON";
-
-            // finished both beacons, moving back to center line (red / blue lines)
-            case MOVING_TO_CENTER_LINE:
-                return "MOVING_TO_CENTER_LINE";
 
             // Moving towards the center plate, knocking the ball off and stopping on the pad
             case MOVING_TO_CENTER_BALL:
@@ -365,14 +303,14 @@ public class BaseBeaconAutonmous extends OpMode {
         if (_color == AllianceColor.Right)
         {
             distance = _ultrasonic.getUltrasonicLevel();
-            distanceLeft = _ultrasonicLeft.getUltrasonicLevel();
-            difference = _ultrasonic.getUltrasonicLevel() - _ultrasonicLeft.getUltrasonicLevel();
+            //distanceLeft = _ultrasonicLeft.getUltrasonicLevel();
+            //difference = _ultrasonic.getUltrasonicLevel() - _ultrasonicLeft.getUltrasonicLevel();
         }
         else if (_color == AllianceColor.Left)
         {
             distance = _ultrasonic.getUltrasonicLevel();
-            distanceLeft = _ultrasonicLeft.getUltrasonicLevel();
-            difference = _ultrasonic.getUltrasonicLevel() - _ultrasonicLeft.getUltrasonicLevel();
+            //distanceLeft = _ultrasonicLeft.getUltrasonicLevel();
+            //difference = _ultrasonic.getUltrasonicLevel() - _ultrasonicLeft.getUltrasonicLevel();
         }
 
 
@@ -453,7 +391,7 @@ public class BaseBeaconAutonmous extends OpMode {
 
 
         }
-        else if (_generalCounter2 == 2 && difference < -.2 && _color == AllianceColor.Left)
+        /*else if (_generalCounter2 == 2 && difference < -.2 && _color == AllianceColor.Left)
         {
             Logger.getInstance().WriteMessage(GetStateName(_currentState) + "turning right" + difference);
             double outTicks = GeneralHelpers.CalculateDistanceEncode(100);
@@ -520,7 +458,7 @@ public class BaseBeaconAutonmous extends OpMode {
                 _generalCounter2 = 3;
             }
 
-        }
+        }*/
 
 
         else {
@@ -548,6 +486,7 @@ public class BaseBeaconAutonmous extends OpMode {
             insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
     }
+
     private void PressingFirstBeacon()  {
         double color_left_red = _leftColorSensor.red();
         double color_left_blue = _leftColorSensor.blue();
@@ -601,6 +540,13 @@ public class BaseBeaconAutonmous extends OpMode {
             }
 
         }
+    }
+
+    private void MoveToCenter() {
+        _left.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(1),GeneralHelpers.CalculateDistanceEncode(63));
+        _right.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(1),GeneralHelpers.CalculateDistanceEncode(63));
+        _left.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+        _right.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     private void MoveToSecondBeacon()
@@ -659,134 +605,6 @@ public class BaseBeaconAutonmous extends OpMode {
                 otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
                 _generalCounter2 = 0;
             }
-        }
-    }
-    private void MovingDownSeocondBeacon()
-    {
-
-
-        double lightFront = _frontLightSensor.getLightDetected();
-        double lightBack = _backLightSensor.getLightDetected();
-        double distance = _ultrasonic.getUltrasonicLevel();
-        double distanceLeft = _ultrasonicLeft.getUltrasonicLevel();
-        double difference = _ultrasonic.getUltrasonicLevel() - _ultrasonicLeft.getUltrasonicLevel();
-        Motor insideMotor = _color == AllianceColor.Left ? _left : _right;
-        Motor otherMotor = _color == AllianceColor.Left ? _right : _left;
-
-
-        if (lightBack < Constants.LINE_DETECTION_MINIMUM && _generalCounter2 < 1) {
-            // We want to slow down the inside motor here
-            Logger.getInstance().WriteMessage(GetStateName(_currentState) + ",No Line Detected," + lightFront);
-            double outTicks = GeneralHelpers.CalculateDistanceEncode(100);
-            double inTicks = GeneralHelpers.CalculateDistanceEncode(100);
-            otherMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(2.5), outTicks);
-            insideMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(2.5), inTicks);
-
-            otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            // no line found, so slow down the inside motor till we find the line
-
-
-        } else if (lightBack > Constants.LINE_DETECTION_MINIMUM && _generalCounter2 < 1) {
-            // We want to slow down the inside motor here
-            Logger.getInstance().WriteMessage(GetStateName(_currentState) + ",No Line Detected," + lightFront);
-            double outTicks = GeneralHelpers.CalculateDistanceEncode(100);
-            double inTicks = GeneralHelpers.CalculateDistanceEncode(-100);
-            otherMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(0), outTicks);
-            insideMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(0), inTicks);
-
-            otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            // no line found, so slow down the inside motor till we find the line
-            _generalCounter2 = 1;
-
-        } else if (_generalCounter2 == 1 && lightFront < Constants.LINE_DETECTION_MINIMUM) {
-            // We want to slow down the inside motor here
-            Logger.getInstance().WriteMessage(GetStateName(_currentState) + ",No Line Detected," + lightFront);
-            double outTicks = GeneralHelpers.CalculateDistanceEncode(100);
-            double inTicks = GeneralHelpers.CalculateDistanceEncode(-100);
-            otherMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(2), outTicks);
-            insideMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(3), inTicks);
-
-            otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-
-        } else if (_generalCounter2 == 1 && lightFront > Constants.LINE_DETECTION_MINIMUM) { // no line found, so slow down the inside motor till we find the line
-
-            _generalCounter2 = 2;
-            Logger.getInstance().WriteMessage(GetStateName(_currentState) + ",No Line Detected," + lightFront);
-            double outTicks = GeneralHelpers.CalculateDistanceEncode(100);
-            double inTicks = GeneralHelpers.CalculateDistanceEncode(-100);
-            otherMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(0), outTicks);
-            insideMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(0), inTicks);
-
-            otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-
-        }
-        else if (_generalCounter2 == 2 && difference < 1)
-        {
-            Logger.getInstance().WriteMessage(GetStateName(_currentState) + ",No Line Detected," + lightFront);
-            double outTicks = GeneralHelpers.CalculateDistanceEncode(100);
-            double inTicks = GeneralHelpers.CalculateDistanceEncode(100);
-            otherMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(0), outTicks);
-            insideMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(1), inTicks);
-
-            otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            if (distance <15 || distanceLeft < 15)
-            {
-                _generalCounter2 = 3;
-            }
-
-        }
-        else if (_generalCounter2 == 2 && difference > 1)
-        {
-            Logger.getInstance().WriteMessage(GetStateName(_currentState) + ",No Line Detected," + lightFront);
-            double outTicks = GeneralHelpers.CalculateDistanceEncode(100);
-            double inTicks = GeneralHelpers.CalculateDistanceEncode(-100);
-            otherMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(1), outTicks);
-            insideMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(0), inTicks);
-
-            otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            if (distance <15|| distanceLeft < 15)
-            {
-                _generalCounter2 = 3;
-            }
-        }
-
-
-        else {
-            Logger.getInstance().WriteMessage(GetStateName(_currentState) + ",Line Detected," + lightFront + "Distance" + distance);
-            double ticks = GeneralHelpers.CalculateDistanceEncode(100);
-            distance = _ultrasonic.getUltrasonicLevel();
-            _generalCounter2 ++;
-            if (distance <14 || distanceLeft <14) {
-
-                if (_generalCounter > 0 ) {
-                    _currentState = GetNextState(_currentState);
-                }
-                else
-                {
-                    _generalCounter++;
-                }
-
-
-            }
-            otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(2), ticks);
-            insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(2), ticks);
-
-            otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
     }
 
@@ -852,7 +670,7 @@ public class BaseBeaconAutonmous extends OpMode {
 
     private void SetupUltrasonic() {
         _ultrasonic = hardwareMap.ultrasonicSensor.get(Constants.DISTANCE);
-        _ultrasonicLeft = hardwareMap.ultrasonicSensor.get(Constants.DISTANCELEFT);
+        //_ultrasonicLeft = hardwareMap.ultrasonicSensor.get(Constants.DISTANCELEFT);
 
     }
 
@@ -883,7 +701,7 @@ public class BaseBeaconAutonmous extends OpMode {
 
     private void SetupServos()
     {
-        _pusherServer = hardwareMap.servo.get(Constants.RIGHT_ARM);
+        _pusherServer = hardwareMap.servo.get(Constants.PUSHER_SERVO);
     }
 
 //endregion
