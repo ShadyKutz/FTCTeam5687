@@ -12,11 +12,14 @@ public class SpinnerController {
 
     private DcMotor _motor;
     private Gamepad _gamepad;
+    private Gamepad _gamepad2;
 
-    public void Init(HardwareMap map, Gamepad gampad) {
+    public void Init(HardwareMap map, Gamepad gampad, Gamepad gampad2) {
         _motor = map.dcMotor.get(Constants.SWEEPER_MOTOR);
         _motor.setDirection(DcMotorSimple.Direction.FORWARD);
         _gamepad = gampad;
+        _gamepad2 = gampad2;
+
     }
 
     public void Loop() {
@@ -40,7 +43,7 @@ public class SpinnerController {
         else if (_isActive && isfoward == false)
             _motor.setPower(-.6);
         else
-            _motor.setPower(0);
+            _motor.setPower(_gamepad2.left_stick_y);
 
 
     }

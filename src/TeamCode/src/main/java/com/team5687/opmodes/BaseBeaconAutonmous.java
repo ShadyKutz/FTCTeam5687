@@ -279,8 +279,8 @@ public class BaseBeaconAutonmous extends OpMode {
             if(!_left.IsBusy() && !_right.IsBusy())
             {
                 double ticks = GeneralHelpers.CalculateDistanceEncode(90);
-                insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(10), ticks);
-                otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(10), ticks);
+                insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(9), ticks);
+                otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(9), ticks);
                 insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
                 otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
                 _generalCounter2 = 0;
@@ -319,8 +319,8 @@ public class BaseBeaconAutonmous extends OpMode {
             Logger.getInstance().WriteMessage(GetStateName(_currentState) + ",No Line Detected," + lightFront);
             double outTicks = GeneralHelpers.CalculateDistanceEncode(100);
             double inTicks = GeneralHelpers.CalculateDistanceEncode(100);
-            otherMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(2.5), outTicks);
-            insideMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(2.5), inTicks);
+            otherMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(2), outTicks);
+            insideMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(2), inTicks);
 
             otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -346,10 +346,10 @@ public class BaseBeaconAutonmous extends OpMode {
         else if (_generalCounter2 == 1 && lightFront < Constants.LINE_DETECTION_MINIMUM && _color == AllianceColor.Left) {
             // We want to slow down the inside motor here
             Logger.getInstance().WriteMessage(GetStateName(_currentState) + "Difference" + difference);
-            double outTicks = GeneralHelpers.CalculateDistanceEncode(100);
-            double inTicks = GeneralHelpers.CalculateDistanceEncode(-100);
-            otherMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(1), outTicks);
-            insideMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(1.5), inTicks);
+            double outTicks = GeneralHelpers.CalculateDistanceEncode(-100);
+            double inTicks = GeneralHelpers.CalculateDistanceEncode(100);
+            otherMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(1.8), outTicks);
+            insideMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(2.5), inTicks);
 
             otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -361,9 +361,9 @@ public class BaseBeaconAutonmous extends OpMode {
             // We want to slow down the inside motor here
             Logger.getInstance().WriteMessage(GetStateName(_currentState) + "Difference" + difference);
             double outTicks = GeneralHelpers.CalculateDistanceEncode(100);
-            double inTicks = GeneralHelpers.CalculateDistanceEncode(100);
-            otherMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(2.5), outTicks);
-            insideMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(.3), inTicks);
+            double inTicks = GeneralHelpers.CalculateDistanceEncode(-100);
+            otherMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(1.8), outTicks);
+            insideMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(2.5), inTicks);
 
             otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             //insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -479,8 +479,8 @@ public class BaseBeaconAutonmous extends OpMode {
 
 
             }
-            otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(2), ticks);
-            insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(2), ticks);
+            otherMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(2.2), ticks);
+            insideMotor.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(2.2), ticks);
 
             otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -494,7 +494,7 @@ public class BaseBeaconAutonmous extends OpMode {
 
         double distance = _ultrasonic.getUltrasonicLevel();
 
-        if(distance <= 8.0) {
+        if(distance <= 11.0) {
             Motor insideMotor = _color == AllianceColor.Left ? _left : _right;
             Motor otherMotor = _color == AllianceColor.Left ? _right : _left;
             insideMotor.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -524,18 +524,18 @@ public class BaseBeaconAutonmous extends OpMode {
             }
 
             _generalCounter++;
-            if (_generalCounter < 3 && _generalCounter >= 0)
+            if (_generalCounter < 2 && _generalCounter >= 0)
                 _pusherServer.setPosition(pusherValue);
             else {
-                _pusherServer.setPosition(0);
+                _pusherServer.setPosition(.5);
                 if(_generalCounter >= 2) {
                     // this happens only at servo swap
-                    _generalCounter = -3;
+                    _generalCounter = 0;
                     _generalCounter2++;
                 }
 
             }
-            if (_generalCounter2 > 2) {
+            if (_generalCounter2 > 1) {
                 _currentState = GetNextState(_currentState);
             }
 
@@ -543,8 +543,8 @@ public class BaseBeaconAutonmous extends OpMode {
     }
 
     private void MoveToCenter() {
-        _left.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(1),GeneralHelpers.CalculateDistanceEncode(63));
-        _right.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(1),GeneralHelpers.CalculateDistanceEncode(63));
+        _left.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(1),GeneralHelpers.CalculateDistanceEncode(-63));
+        _right.SetTargetEncoderPosition((int)GeneralHelpers.CalculateDistanceEncode(1),GeneralHelpers.CalculateDistanceEncode(-63));
         _left.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
         _right.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
     }

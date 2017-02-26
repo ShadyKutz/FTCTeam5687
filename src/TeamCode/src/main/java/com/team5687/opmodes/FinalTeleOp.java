@@ -26,7 +26,7 @@ public class FinalTeleOp extends OpMode {
         Logger.getInstance().WriteMessage("TeleOpTest::Init()");
         _drive = new JoystickController();
         _drive.Init(hardwareMap, gamepad1);
-        _spin.Init(hardwareMap, gamepad1);
+        _spin.Init(hardwareMap, gamepad1, gamepad2);
         _lift.Init(hardwareMap, gamepad2);
         _flipper.Init(hardwareMap);
     }
@@ -37,7 +37,7 @@ public class FinalTeleOp extends OpMode {
         _flipper.Loop();
         _spin.Loop();
         _lift.Loop();
-        if(gamepad2.dpad_left || gamepad2.dpad_right) {
+        if(gamepad1.dpad_left || gamepad1.dpad_right) {
             _flipper.LaunchBall();
         }
     }

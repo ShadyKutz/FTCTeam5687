@@ -65,7 +65,7 @@ public class LiftController {
         }
         else if (_gamepad.a)
         {
-            _arm.setPower(0);
+            _arm.setPower(_gamepad.right_stick_y);
         }
         else if (_gamepad.y)
         {

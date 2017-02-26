@@ -51,6 +51,22 @@ public class TestEncoderOpMode extends OpMode {
             _right.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
             _done = 1;
         }
+        if (!_left.IsBusy() && !_right.IsBusy()&&_done ==1)
+        {
+            _done++;
+            _left.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            _right.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            _left.SetEncoderMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            _right.SetEncoderMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+        if(!_left.IsBusy() && !_right.IsBusy() && _done == 2) {
+            _left.SetTargetEncoderPosition(targetPower, GeneralHelpers.CalculateDistanceEncode(200));
+            _right.SetTargetEncoderPosition(targetPower, GeneralHelpers.CalculateDistanceEncode(-200));
+            _left.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+            _right.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+            _done = 3;
+        }
+
 
 
         /*if(_left.GetEncoderPosition() < _right.GetEncoderPosition() && _left.GetEncoderPosition() < _left.GetTargetEncoderPosition()) {
