@@ -44,6 +44,8 @@ import com.team5687.controllers.FlipperController;
 import com.team5687.helpers.GeneralHelpers;
 import com.team5687.helpers.Logger;
 import com.team5687.primitives.Motor;
+import com.team5687.controllers.SpinnerController;
+
 
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
@@ -84,13 +86,14 @@ public class ballarmandflick extends LinearOpMode {
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final int     DRIVE_TICKS             = 15;
-    static final int     TURN_TICKS              = 15;
-    int LaunchState= 1;
+    static final int     DRIVE_TICKS             = 30;
+    static final int     TURN_TICKS              = 30;
    private Motor _left;
    private Motor _right;
+    private DcMotor _sweeper;
     private DcMotor FLIPPER_MOTOR;
     FlipperController _flipper = new FlipperController();
+    SpinnerController sweep = new SpinnerController();
     private enum State {
         Idle,
         Launching,
@@ -118,6 +121,8 @@ public class ballarmandflick extends LinearOpMode {
     public void Init(HardwareMap map) {
         _motor = map.dcMotor.get(Constants.FLIPPER_MOTOR);
         _motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        _sweeper = map.dcMotor.get(Constants.SWEEPER_MOTOR);
+        _sweeper.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
 
@@ -131,6 +136,9 @@ public class ballarmandflick extends LinearOpMode {
          * The init() method of the hardware class does all the work here
          */
         _flipper.Init(hardwareMap);
+
+
+
         _left = new Motor(DcMotorSimple.Direction.REVERSE, hardwareMap.dcMotor.get(Constants.LEFT_DRIVE_MOTOR), true);
         _right = new Motor(DcMotorSimple.Direction.REVERSE, hardwareMap.dcMotor.get(Constants.RIGHT_DRIVE_MOTOR), true);
 
@@ -162,8 +170,10 @@ public class ballarmandflick extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_TICKS,  5,  5, 5.0);
-        // S1: Forward 47 Inches with 5 Sec timeout
+     //   encoderDrive(DRIVE_TICKS,  5,  5, 5.0);
+        flipper(1);
+        sweep(3);
+        flipper(1);// S1: Forward 47 Inches with 5 Sec timeout
         encoderDrive(TURN_TICKS,   5, -5, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
         encoderDrive(DRIVE_TICKS, -5, -5, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
@@ -182,7 +192,57 @@ public class ballarmandflick extends LinearOpMode {
      *  2) Move runs out of time
      *  3) Driver stops the opmode running.
      */
+   public void flipper(int launch) {
+       if (opModeIsActive()) {
 
+
+           if (launch == 1) {
+               _motor.setPower(100);
+               runtime.reset();
+
+               while (opModeIsActive() &&
+                       (runtime.milliseconds() < 1500)) {
+
+                   telemetry.addData("Path2", "Running at %7d :%7d", 4, 4);
+                   telemetry.update();
+               }
+               _motor.setPower(-20);
+               runtime.reset();
+
+               while (opModeIsActive() &&
+                       (runtime.milliseconds() < 500)) {
+
+                   telemetry.addData("Path2", "Running at %7d :%7d", 4, 4);
+                   telemetry.update();
+               }
+               _motor.setPower(10);
+               runtime.reset();
+
+               while (opModeIsActive() &&
+                       (runtime.milliseconds() < 750)) {
+                   telemetry.addData("Path2", "Running at %7d :%7d", 4, 4);
+                   telemetry.update();
+               }
+               _motor.setPower(0);
+               launch++;
+           }
+
+       }
+   }
+
+    public void sweep(int time)
+    {
+        _sweeper.setPower(90);
+        runtime.reset();
+
+        while (opModeIsActive() &&
+                (runtime.seconds() < time)) {
+
+            telemetry.addData("Path2", "Running at %7d :%7d", 4, 4);
+            telemetry.update();
+        }
+        _motor.setPower(0);
+    }
     public void encoderDrive(int speed,
                              double leftInches, double rightInches,
                              double timeoutS) {
@@ -223,8 +283,8 @@ public class ballarmandflick extends LinearOpMode {
             }
 
             // Stop all motion;
-           _left.SetSpeed(0);
-           _right.SetSpeed(0);
+          //  _left.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+         //   _right.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
             // Turn off RUN_TO_POSITION
            _left.SetEncoderMode(DcMotor.RunMode.RUN_USING_ENCODER);
