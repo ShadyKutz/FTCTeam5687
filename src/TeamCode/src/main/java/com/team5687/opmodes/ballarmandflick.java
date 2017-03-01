@@ -1,405 +1,241 @@
+/*
+Copyright (c) 2016 Robert Atkinson
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted (subject to the limitations in the disclaimer below) provided that
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this
+list of conditions and the following disclaimer in the documentation and/or
+other materials provided with the distribution.
+
+Neither the name of Robert Atkinson nor the names of his contributors may be used to
+endorse or promote products derived from this software without specific prior
+written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESSFOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
+TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
 package com.team5687.opmodes;
 
-import com.qualcomm.hardware.hitechnic.HiTechnicNxtGyroSensor;
-import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.GyroSensor;
-import com.qualcomm.robotcore.hardware.HardwareDevice;
-import com.qualcomm.robotcore.hardware.LightSensor;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.UltrasonicSensor;
-import com.qualcomm.robotcore.hardware.configuration.Utility;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.team5687.Constants;
+import com.team5687.controllers.FlipperController;
 import com.team5687.helpers.GeneralHelpers;
 import com.team5687.helpers.Logger;
-import com.team5687.primitives.CompassAndroid;
 import com.team5687.primitives.Motor;
-import com.team5687.controllers.FlipperController;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.ConceptNullOp;
-import org.firstinspires.ftc.robotcore.external.Const;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+/**
+ * This file illustrates the concept of driving a path based on encoder counts.
+ * It uses the common Pushbot hardware class to define the drive on the robot.
+ * The code is structured as a LinearOpMode
+ *
+ * The code REQUIRES that you DO have encoders on the wheels,
+ *   otherwise you would use: PushbotAutoDriveByTime;
+ *
+ *  This code ALSO requires that the drive Motors have been configured such that a positive
+ *  power command moves them forwards, and causes the encoders to count UP.
+ *
+ *   The desired path in this example is:
+ *   - Drive forward for 48 inches
+ *   - Spin right for 12 Inches
+ *   - Drive Backwards for 24 inches
+ *   - Stop and close the claw.
+ *
+ *  The code is written using a method called: encoderDrive(speed, leftInches, rightInches, timeoutS)
+ *  that performs the actual movement.
+ *  This methods assumes that each movement is relative to the last stopping place.
+ *  There are other ways to perform encoder based moves, but this method is probably the simplest.
+ *  This code uses the RUN_TO_POSITION mode to enable the Motor controllers to generate the run profile
+ *
+ * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
+ * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
+ */
+@Autonomous(name = "flicktest", group = "Real")
 
-import static java.lang.Thread.sleep;
+public class ballarmandflick extends LinearOpMode {
 
-public class ballarmandflick extends OpMode {
-    public enum AllianceColor {
-        Left,
-        Right
+    /* Declare OpMode members. */
+      // Use a Pushbot's hardware
+    private ElapsedTime     runtime = new ElapsedTime();
+
+    static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
+    static final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // This is < 1.0 if geared UP
+    static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
+    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
+            (WHEEL_DIAMETER_INCHES * 3.1415);
+    static final int     DRIVE_TICKS             = 15;
+    static final int     TURN_TICKS              = 15;
+    int LaunchState= 1;
+   private Motor _left;
+   private Motor _right;
+    private DcMotor FLIPPER_MOTOR;
+    FlipperController _flipper = new FlipperController();
+    private enum State {
+        Idle,
+        Launching,
+        ReversingLaunch,
+        ResetingPosition,
+
     }
 
-    public enum BeaconSide {
-        LEFT, RIGHT
+    private static final int LAUNCH_TIME_IN_MS = 1500;
+    private static final int LAUNCH_POWER = 100;
+
+    private static final int REVERSING_LAUNCH_TIME_IN_MS = 750;
+    private static final int REVERSING_LAUNCH_POWER = 10;
+
+    private static final int RESET_POSITION_TIME_IN_MS = 750;
+    private static final int RESET_POSITION_POWER = 20;
+
+    private DcMotor _motor;
+
+    private ElapsedTime period  = new ElapsedTime();
+
+    private State _state = State.Idle;
+    private Boolean _needsLaunch = false;
+
+    public void Init(HardwareMap map) {
+        _motor = map.dcMotor.get(Constants.FLIPPER_MOTOR);
+        _motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    public enum State {
-        // Starts here, robot is stopped
-        START,
-        // Moving from start to the left or right based on color to the first line
-        MOVE_TO_LAUNCH,
-        // Hit the first line, now moving down the line towards the wall
-        LAUNCH,
-        // hit the wall, pressing the beacon until it's our color
-        MOVE_TO_BALL,
-        // Moving towards the center plate, knocking the ball off and stopping on the pad
 
-        STOPPED
-    }
-
-    private int _generalCounter;
-    private int _generalCounter2;
-    //region Hardware Fields
-    private HiTechnicNxtGyroSensor _gyro;
-    private LightSensor _frontLightSensor;
-    private LightSensor _backLightSensor;
-    private ColorSensor _leftColorSensor;
-    private UltrasonicSensor _ultrasonic;
-    //private UltrasonicSensor _ultrasonicLeft;
-    private Motor _left;
-    private Motor _right;
-    private Motor  _flipper;
-    private Motor _sweeper;
-    private Servo _pusherServer;
-    private CompassAndroid _compass;
-    FlipperController flipper = new FlipperController();
-    //endregion
-
-    private State _currentState = State.START;
-
-    private AllianceColor _color;
-    private BeaconSide _side;
-
-    protected ballarmandflick(AllianceColor color, BeaconSide side) {
-        _color = color;
-        _side = side;
-        Logger.getInstance().SetTelemetry(telemetry);
-    }
 
     @Override
-    public void init() {
-        _compass = new CompassAndroid(hardwareMap.appContext);
-        _compass.Init();
-        Logger.getInstance().WriteMessage(hardwareMap.appContext == null ? "No App Context" : "Got an app context");
-        SetupMotors();
-        SetupServos();
-        //SetupGyro();
-        SetupLightSensor();
-        SetupColorSensor();
-        SetupUltrasonic();
-        flipper.Init(hardwareMap);
-        _currentState = State.START;
+    public void runOpMode() {
+
+
+        /*
+         * Initialize the drive system variables.
+         * The init() method of the hardware class does all the work here
+         */
+        _flipper.Init(hardwareMap);
+        _left = new Motor(DcMotorSimple.Direction.REVERSE, hardwareMap.dcMotor.get(Constants.LEFT_DRIVE_MOTOR), true);
+        _right = new Motor(DcMotorSimple.Direction.REVERSE, hardwareMap.dcMotor.get(Constants.RIGHT_DRIVE_MOTOR), true);
+
+        _right.SetEncoderDirection(DcMotorSimple.Direction.FORWARD);
+        _left.SetEncoderDirection(DcMotorSimple.Direction.REVERSE);
+
+        _left.Stop();
+        _right.Stop();
+
+        // Send telemetry message to signify robot waiting;
+        telemetry.addData("Status", "Resetting Encoders");    //
+        telemetry.update();
+
+
+        idle();
+
+       _left.SetEncoderMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        _right.SetEncoderMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        // Send telemetry message to indicate successful Encoder reset
+        telemetry.addData("Path0",  "Starting at %7d :%7d",
+                _left.GetEncoderPosition(),
+                _right.GetEncoderPosition());
+        telemetry.update();
+
+
+        // Wait for the game to start (driver presses PLAY)
+        waitForStart();
+
+        // Step through each leg of the path,
+        // Note: Reverse movement is obtained by setting a negative distance (not speed)
+        encoderDrive(DRIVE_TICKS,  5,  5, 5.0);
+        // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(TURN_TICKS,   5, -5, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_TICKS, -5, -5, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+
+
+        sleep(1000);     // pause for servos to move
+
+        telemetry.addData("Path", "Complete");
+        telemetry.update();
     }
 
-    @Override
-    public void loop() {
+    /*
+     *  Method to perfmorm a relative move, based on encoder counts.
+     *  Encoders are not reset as the move is based on the current position.
+     *  Move will stop if any of three conditions occur:
+     *  1) Move gets to the desired position
+     *  2) Move runs out of time
+     *  3) Driver stops the opmode running.
+     */
+
+    public void encoderDrive(int speed,
+                             double leftInches, double rightInches,
+                             double timeoutS) {
+        int newLeftTarget;
+        int newRightTarget;
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
 
 
-        // Code to turn the robot LEFT, just an example
-//        if(!_temp) {
-//            _temp = true;
-//
-//            double ticks = GeneralHelpers.CalculateDistanceEncode(100);
-//            double leftTicksPerSecond = (ticks / 5);
-//            double rightTicksPerSecond = (ticks / 10);
-//            double ratio = rightTicksPerSecond / leftTicksPerSecond;
-//
-//            _left.SetTargetEncoderPosition((int)leftTicksPerSecond, ticks);
-//            _right.SetTargetEncoderPosition((int)rightTicksPerSecond, ticks * ratio);
-//            _left.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-//            _right.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        }
+            _left.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            _right.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            // Determine new target position, and pass to motor controller
+            newLeftTarget = _left.GetEncoderPosition() + (int)(leftInches * COUNTS_PER_INCH);
+            newRightTarget = _right.GetEncoderPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            _left.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(speed), newLeftTarget);
+           _right.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(speed), newRightTarget);
 
-        // USE THIS CODE TO CALIBRATE THE LINE SENSOR< YOU WANT THE getLightDetected() VALUE
-//        String message = String.format("%d.%d.%d.%d, %d.%d.%d.%d, %.2f %.2f",
-//                _leftColorSensor.red(),
-//                _leftColorSensor.green(),
-//                _leftColorSensor.blue(),
-//                _leftColorSensor.alpha(),
-//                _rightColorSensor.red(),
-//                _rightColorSensor.green(),
-//                _rightColorSensor.blue(),
-//                _rightColorSensor.alpha(),
-//                _lightSensor.getLightDetected(),
-//                _lightSensor.getRawLightDetected());
-        //Logger.getInstance().WriteMessage(message);
+            // Turn On RUN_TO_POSITION
+            _left.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+           _right.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-//        for(int i = 0; i < 3; i++)
-//            telemetry.addData(Integer.toString(i), "%.2f", _compass._values[i]);
-//
-//        telemetry.addData("State", GetStateName(_currentState));
-//        telemetry.update();
+            // reset the timeout time and start motion.
+            runtime.reset();
 
 
-        DoState(_currentState);
-    }
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeoutS) &&
+                    (_left.IsBusy()&& _right.IsBusy())) {
 
-    @Override
-    public void stop()
-    {
-        _compass.Stop();
-    }
+                // Display it for the driver.
+                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d",
+                      _left.GetEncoderPosition(),
+                        _right.GetEncoderPosition());
+                telemetry.update();
+            }
 
+            // Stop all motion;
+           _left.SetSpeed(0);
+           _right.SetSpeed(0);
 
-    private void LogNotImplementedState(State state)
-    {
-        Logger.getInstance().WriteMessage("NO METHOD FOR STATE:" + GetStateName(state));
-    }
+            // Turn off RUN_TO_POSITION
+           _left.SetEncoderMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            _right.SetEncoderMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-    //region States
-
-    // This method is used to determine the next state
-    private State GetNextState(State current)
-    {
-        _generalCounter = 0;
-        _generalCounter2 = 0;
-        switch(current)
-        {
-            // Starts here, robot is stopped
-            case START:
-                return State.MOVE_TO_LAUNCH;
-
-            // Moving from start to the left or right based on color to the first line
-            case MOVE_TO_LAUNCH:
-                _generalCounter = 0;
-                return State.LAUNCH;
-
-            // Hit the first line, now moving down the line towards the wall
-            case LAUNCH:
-                return State.MOVE_TO_BALL;
-
-
-            case MOVE_TO_BALL:
-                return State.STOPPED;
-
-            // Moving towards the center plate, knocking the ball off and stopping on the pad
-
-
-            case STOPPED:
-                return State.STOPPED;
-        }
-        Logger.getInstance().WriteMessage("No next state for state" + current);
-        return current;
-    }
-
-    // This is all the logic for determing with method to execute based on the state
-    private void DoState(State state)
-    {
-        switch(state)
-        {
-            // Starts here, robot is stopped
-            case START:
-                Logger.getInstance().WriteMessage("State Started");
-                _currentState = GetNextState(State.START);
-                break;
-
-            // Moving from start to the left or right based on color to the first line
-            case MOVE_TO_LAUNCH:
-                MoveToFirstBeacon();
-                break;
-
-            // Hit the first line, now moving down the line towards the wall
-            case LAUNCH:
-                MovingDownBeaconLine();
-                break;
-
-            case MOVE_TO_BALL:
-                PressingFirstBeacon();
-                break;
-
-            // Moving towards the center plate, knocking the ball off and stopping on the pad
-
-
-            case STOPPED:
-                _left.Stop();
-                _left.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                _right.Stop();
-                _right.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                Logger.getInstance().WriteMessage("State Stopped - complete");
-                break;
+            //  sleep(250);   // optional pause after each move
         }
     }
-
-    // This is a handy method to return a name for a state
-    private String GetStateName(State state) {
-        switch(state)
-        {
-            // Starts here, robot is stopped
-            case START:
-                return "Start";
-
-            // Moving from start to the left or right based on color to the first line
-            case MOVE_TO_LAUNCH:
-                return "MOVE_TO_LAUNCH";
-
-            // Hit the first line, now moving down the line towards the wall
-            case LAUNCH:
-                return "LAUNCH";
-
-            case MOVE_TO_BALL:
-                return "MOVE_TO_BALL";
-
-            // Moving towards the center plate, knocking the ball off and stopping on the pad
-
-
-            case STOPPED:
-                return "STOPPED";
-        }
-        return "UNKNOWN STATE" + state;
-    }
-
-    private void MoveToFirstBeacon() {
-        double distance = _ultrasonic.getUltrasonicLevel();
-        _generalCounter2 = 0;
-
-        Motor insideMotor = _color == AllianceColor.Left ? _left : _right;
-        Motor otherMotor = _color == AllianceColor.Left ? _right : _left;
-        double lightFront = _frontLightSensor.getLightDetected();
-        double lightBack = _backLightSensor.getLightDetected();
-        if (_generalCounter2 <1) {
-
-            double ticks = GeneralHelpers.CalculateDistanceEncode(20);
-            insideMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(9), ticks);
-            otherMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(9), ticks);
-            insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
-        if (_generalCounter2 ==1) {
-
-            double outTicks = GeneralHelpers.CalculateDistanceEncode(-5);
-            double inTicks = GeneralHelpers.CalculateDistanceEncode(5);
-            insideMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(9), inTicks);
-            otherMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(9), outTicks);
-            insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
-
-        if(!_left.IsBusy() && !_right.IsBusy())
-        {
-            _generalCounter2 ++;
-
-        }
-        if (_generalCounter2 ==2)
-        {
-            _currentState = GetNextState(_currentState);
-        }
-
-
-    }
-
-    public void MovingDownBeaconLine() {
-        _generalCounter= 0;
-        int count =0;
-        double color_left_red = _leftColorSensor.red();
-        double color_left_blue = _leftColorSensor.blue();
-        double distance = _ultrasonic.getUltrasonicLevel();
-        if (_generalCounter == 0)
-        {
-            flipper.LaunchBall();
-            _generalCounter++;
-        }
-        if (_generalCounter==1 && count < 50)
-        {
-            _sweeper.SetSpeed(100);
-            count++;
-        }
-        else if (count > 45 && _generalCounter ==1)
-        {
-            _generalCounter = 2;
-        }
-        if (_generalCounter == 2)
-        {
-            flipper.LaunchBall();
-            _generalCounter++;
-        }
-        if (_generalCounter ==3)
-        {
-            _currentState = GetNextState(_currentState);
-        }
-
-
-    }
-
-    private void PressingFirstBeacon()  {
-
-        double distance = _ultrasonic.getUltrasonicLevel();
-        _generalCounter2 = 0;
-
-        Motor insideMotor = _color == AllianceColor.Left ? _left : _right;
-        Motor otherMotor = _color == AllianceColor.Left ? _right : _left;
-        double lightFront = _frontLightSensor.getLightDetected();
-        double lightBack = _backLightSensor.getLightDetected();
-        if (_generalCounter2 <1) {
-
-            double ticks = GeneralHelpers.CalculateDistanceEncode(20);
-            insideMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(9), ticks);
-            otherMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(9), ticks);
-            insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
-        if (_generalCounter2 ==1) {
-
-            double outTicks = GeneralHelpers.CalculateDistanceEncode(-5);
-            double inTicks = GeneralHelpers.CalculateDistanceEncode(5);
-            insideMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(9), inTicks);
-            otherMotor.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(9), outTicks);
-            insideMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-            otherMotor.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
-
-        if(!_left.IsBusy() && !_right.IsBusy())
-        {
-            _generalCounter2 ++;
-
-        }
-        if (_generalCounter2 ==2)
-        {
-            _currentState = GetNextState(_currentState);
-        }
-
-    }
-
-
-
-    //endregion
-
-//region Setup Code for Motors, Gryo, Light Sensor, Color Sensor, Ultrasonic
-
-    private void SetupColorSensor() {
-        _leftColorSensor = hardwareMap.colorSensor.get(Constants.LEFT_COLOR_SENSOR);
-//        _rightColorSensor = hardwareMap.colorSensor.get(Constants.RIGHT_COLOR_SENSOR);
-    }
-
-
-    private void SetupUltrasonic() {
-        _ultrasonic = hardwareMap.ultrasonicSensor.get(Constants.DISTANCE);
-        //_ultrasonicLeft = hardwareMap.ultrasonicSensor.get(Constants.DISTANCELEFT);
-
-    }
-
-    private void SetupLightSensor() {
-        _frontLightSensor = hardwareMap.lightSensor.get(Constants.LIGHT_SENSOR);
-        Logger.getInstance().WriteMessage("Light Sensor " + _frontLightSensor.getConnectionInfo());
-        _frontLightSensor.enableLed(true);
-        _backLightSensor = hardwareMap.lightSensor.get(Constants.LIGHT_SENSOR_BACK);
-        Logger.getInstance().WriteMessage("BackSensor " + _backLightSensor.getConnectionInfo());
-        _backLightSensor.enableLed(true);
-    }
-
-    private void SetupGyro() {
-        _gyro = (HiTechnicNxtGyroSensor) hardwareMap.gyroSensor.get(Constants.GYRO);
-        Logger.getInstance().WriteMessage(_gyro.status());
-    }
-
     private void SetupMotors() {
         _left = new Motor(DcMotorSimple.Direction.REVERSE, hardwareMap.dcMotor.get(Constants.LEFT_DRIVE_MOTOR), true);
         _right = new Motor(DcMotorSimple.Direction.REVERSE, hardwareMap.dcMotor.get(Constants.RIGHT_DRIVE_MOTOR), true);
-        _flipper = new Motor(DcMotorSimple.Direction.FORWARD, hardwareMap.dcMotor.get(Constants.FLIPPER_MOTOR),true);
-        _sweeper = new Motor(DcMotorSimple.Direction.FORWARD, hardwareMap.dcMotor.get(Constants.SWEEPER_MOTOR),true);
 
         _right.SetEncoderDirection(DcMotorSimple.Direction.FORWARD);
         _left.SetEncoderDirection(DcMotorSimple.Direction.REVERSE);
@@ -407,11 +243,4 @@ public class ballarmandflick extends OpMode {
         _left.Stop();
         _right.Stop();
     }
-
-    private void SetupServos()
-    {
-        _pusherServer = hardwareMap.servo.get(Constants.PUSHER_SERVO);
-    }
-
-//endregion
 }

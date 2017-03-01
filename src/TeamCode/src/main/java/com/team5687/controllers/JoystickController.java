@@ -5,6 +5,7 @@ package com.team5687.controllers;
  */import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.PWMOutput;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.team5687.Constants;
 import com.team5687.helpers.Logger;
@@ -18,6 +19,8 @@ public class JoystickController {
     private DcMotor _leftMotor;
     private Servo LeftArm;
     private Servo RighArm;
+    private double Multiplier;
+    private int counter;
 
     private Gamepad _gamepad;
 
@@ -30,10 +33,23 @@ public class JoystickController {
     }
 
     public void Loop() {
+        if (counter ==-1)
+        {
+            Multiplier =.5;
+        }
+        else if (counter ==1)
+        {
+            Multiplier =1;
+        }
+        if(_gamepad.a)
+        {
+            counter=counter*-1;
+        }
+
         //Logger.getInstance().WriteMessage("leftstick"  + _gamepad.left_stick_y);
         //Logger.getInstance().WriteMessage("rightstick'" +  _gamepad.right_stick_y);
-        _leftMotor.setPower(-_gamepad.right_stick_y);
-        _rightMotor.setPower(_gamepad.left_stick_y);
+        _leftMotor.setPower(-_gamepad.right_stick_y* Multiplier);
+        _rightMotor.setPower(_gamepad.left_stick_y*Multiplier);
 
 
     }
