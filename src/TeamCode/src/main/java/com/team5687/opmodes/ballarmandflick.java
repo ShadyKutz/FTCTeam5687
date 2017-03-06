@@ -73,59 +73,44 @@ import com.team5687.controllers.SpinnerController;
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-@Autonomous(name = "flicktest", group = "Real")
+@Autonomous(name = "BLUE_FLICK_AND_PARK", group = "Real")
 
 public class ballarmandflick extends LinearOpMode {
-
-    /* Declare OpMode members. */
-      // Use a Pushbot's hardware
-    private ElapsedTime     runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final int     DRIVE_TICKS             = 30;
-    static final int     TURN_TICKS              = 30;
-   private Motor _left;
-   private Motor _right;
-    private DcMotor _sweeper;
-    private DcMotor FLIPPER_MOTOR;
-    FlipperController _flipper = new FlipperController();
-    SpinnerController sweep = new SpinnerController();
-    private enum State {
-        Idle,
-        Launching,
-        ReversingLaunch,
-        ResetingPosition,
-
-    }
-
+    static final double    DRIVE_TICKS             = .5;
+    static final double     TURN_TICKS              = .3;
     private static final int LAUNCH_TIME_IN_MS = 1500;
     private static final int LAUNCH_POWER = 100;
-
     private static final int REVERSING_LAUNCH_TIME_IN_MS = 750;
     private static final int REVERSING_LAUNCH_POWER = 10;
-
     private static final int RESET_POSITION_TIME_IN_MS = 750;
     private static final int RESET_POSITION_POWER = 20;
-
+    FlipperController _flipper = new FlipperController();
+    SpinnerController sweep = new SpinnerController();
+    /* Declare OpMode members. */
+      // Use a Pushbot's hardware
+    private ElapsedTime     runtime = new ElapsedTime();
+   private DcMotor _left;
+   private DcMotor _right;
+    private DcMotor _sweeper;
+    private DcMotor FLIPPER_MOTOR;
     private DcMotor _motor;
-
     private ElapsedTime period  = new ElapsedTime();
 
-    private State _state = State.Idle;
-    private Boolean _needsLaunch = false;
 
     public void Init(HardwareMap map) {
+        _left = map.dcMotor.get(Constants.LEFT_DRIVE_MOTOR);
+        _right = map.dcMotor.get(Constants.RIGHT_DRIVE_MOTOR);
         _motor = map.dcMotor.get(Constants.FLIPPER_MOTOR);
         _motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         _sweeper = map.dcMotor.get(Constants.SWEEPER_MOTOR);
         _sweeper.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
-
-
 
     @Override
     public void runOpMode() {
@@ -135,18 +120,14 @@ public class ballarmandflick extends LinearOpMode {
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
          */
-        _flipper.Init(hardwareMap);
+
+        Init(hardwareMap);
 
 
+        _right.setDirection(DcMotorSimple.Direction.FORWARD);
+        _left.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        _left = new Motor(DcMotorSimple.Direction.REVERSE, hardwareMap.dcMotor.get(Constants.LEFT_DRIVE_MOTOR), true);
-        _right = new Motor(DcMotorSimple.Direction.REVERSE, hardwareMap.dcMotor.get(Constants.RIGHT_DRIVE_MOTOR), true);
 
-        _right.SetEncoderDirection(DcMotorSimple.Direction.FORWARD);
-        _left.SetEncoderDirection(DcMotorSimple.Direction.REVERSE);
-
-        _left.Stop();
-        _right.Stop();
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
@@ -155,14 +136,15 @@ public class ballarmandflick extends LinearOpMode {
 
         idle();
 
-       _left.SetEncoderMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        _right.SetEncoderMode(DcMotor.RunMode.RUN_USING_ENCODER);
+       _left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        _right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
         telemetry.addData("Path0",  "Starting at %7d :%7d",
-                _left.GetEncoderPosition(),
-                _right.GetEncoderPosition());
+                _left.getCurrentPosition(),
+                _right.getCurrentPosition());
         telemetry.update();
+
 
 
         // Wait for the game to start (driver presses PLAY)
@@ -170,12 +152,13 @@ public class ballarmandflick extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-     //   encoderDrive(DRIVE_TICKS,  5,  5, 5.0);
+        encoderDrive(DRIVE_TICKS,  14,  14, 5.0);
+        encoderDrive(TURN_TICKS, 6,-6,5.0);
         flipper(1);
-        sweep(3);
+        sweep(6);
         flipper(1);// S1: Forward 47 Inches with 5 Sec timeout
-        encoderDrive(TURN_TICKS,   5, -5, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        encoderDrive(DRIVE_TICKS, -5, -5, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+        encoderDrive(TURN_TICKS,   -6, 6, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_TICKS, 7, 7, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
 
         sleep(1000);     // pause for servos to move
@@ -195,44 +178,22 @@ public class ballarmandflick extends LinearOpMode {
    public void flipper(int launch) {
        if (opModeIsActive()) {
 
+           _motor.setPower(1);
+           sleep(700);
+           _motor.setPower(-.2);
+           sleep(300);
+           _motor.setPower(0);
+           sleep(500);
 
-           if (launch == 1) {
-               _motor.setPower(100);
-               runtime.reset();
 
-               while (opModeIsActive() &&
-                       (runtime.milliseconds() < 1500)) {
-
-                   telemetry.addData("Path2", "Running at %7d :%7d", 4, 4);
-                   telemetry.update();
-               }
-               _motor.setPower(-20);
-               runtime.reset();
-
-               while (opModeIsActive() &&
-                       (runtime.milliseconds() < 500)) {
-
-                   telemetry.addData("Path2", "Running at %7d :%7d", 4, 4);
-                   telemetry.update();
-               }
-               _motor.setPower(10);
-               runtime.reset();
-
-               while (opModeIsActive() &&
-                       (runtime.milliseconds() < 750)) {
-                   telemetry.addData("Path2", "Running at %7d :%7d", 4, 4);
-                   telemetry.update();
-               }
-               _motor.setPower(0);
-               launch++;
-           }
 
        }
    }
 
+
     public void sweep(int time)
     {
-        _sweeper.setPower(90);
+        _sweeper.setPower(1);
         runtime.reset();
 
         while (opModeIsActive() &&
@@ -241,9 +202,10 @@ public class ballarmandflick extends LinearOpMode {
             telemetry.addData("Path2", "Running at %7d :%7d", 4, 4);
             telemetry.update();
         }
-        _motor.setPower(0);
+        _sweeper.setPower(0);
     }
-    public void encoderDrive(int speed,
+
+    public void encoderDrive(double speed,
                              double leftInches, double rightInches,
                              double timeoutS) {
         int newLeftTarget;
@@ -252,55 +214,44 @@ public class ballarmandflick extends LinearOpMode {
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
-
-            _left.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            _right.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             // Determine new target position, and pass to motor controller
-            newLeftTarget = _left.GetEncoderPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newRightTarget = _right.GetEncoderPosition() + (int)(rightInches * COUNTS_PER_INCH);
-            _left.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(speed), newLeftTarget);
-           _right.SetTargetEncoderPosition((int) GeneralHelpers.CalculateDistanceEncode(speed), newRightTarget);
+            newLeftTarget = _left.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
+            newRightTarget = _right.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            _left.setTargetPosition(newLeftTarget);
+            _right.setTargetPosition(newRightTarget);
 
             // Turn On RUN_TO_POSITION
-            _left.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-           _right.SetEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+            _left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            _right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // reset the timeout time and start motion.
             runtime.reset();
-
+            _left.setPower(Math.abs(speed));
+            _right.setPower(Math.abs(speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (_left.IsBusy()&& _right.IsBusy())) {
+                    (_left.isBusy() && _right.isBusy())) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
                 telemetry.addData("Path2",  "Running at %7d :%7d",
-                      _left.GetEncoderPosition(),
-                        _right.GetEncoderPosition());
+                        _left.getCurrentPosition(),
+                        _right.getCurrentPosition());
                 telemetry.update();
             }
 
             // Stop all motion;
-          //  _left.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-         //   _right.SetEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            _left.setPower(0);
+            _right.setPower(0);
 
             // Turn off RUN_TO_POSITION
-           _left.SetEncoderMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            _right.SetEncoderMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-            //  sleep(250);   // optional pause after each move
+            _left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            _right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
-    private void SetupMotors() {
-        _left = new Motor(DcMotorSimple.Direction.REVERSE, hardwareMap.dcMotor.get(Constants.LEFT_DRIVE_MOTOR), true);
-        _right = new Motor(DcMotorSimple.Direction.REVERSE, hardwareMap.dcMotor.get(Constants.RIGHT_DRIVE_MOTOR), true);
 
-        _right.SetEncoderDirection(DcMotorSimple.Direction.FORWARD);
-        _left.SetEncoderDirection(DcMotorSimple.Direction.REVERSE);
+  
 
-        _left.Stop();
-        _right.Stop();
-    }
 }
