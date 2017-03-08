@@ -124,8 +124,8 @@ public class ballarmandflick extends LinearOpMode {
         Init(hardwareMap);
 
 
-        _right.setDirection(DcMotorSimple.Direction.FORWARD);
-        _left.setDirection(DcMotorSimple.Direction.REVERSE);
+        _right.setDirection(DcMotorSimple.Direction.REVERSE);
+        _left.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
 
@@ -153,11 +153,11 @@ public class ballarmandflick extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         encoderDrive(DRIVE_TICKS,  14,  14, 5.0);
-        encoderDrive(TURN_TICKS, 6,-6,5.0);
+        encoderDrive(TURN_TICKS, -6,6,5.0);
         flipper(1);
         sweep(6);
         flipper(1);// S1: Forward 47 Inches with 5 Sec timeout
-        encoderDrive(TURN_TICKS,   -6, 6, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(TURN_TICKS,   6, -6, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
         encoderDrive(DRIVE_TICKS, 7, 7, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
 

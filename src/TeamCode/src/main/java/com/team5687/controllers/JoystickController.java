@@ -33,23 +33,12 @@ public class JoystickController {
     }
 
     public void Loop() {
-        if (counter ==-1)
-        {
-            Multiplier =.5;
-        }
-        else if (counter ==1)
-        {
-            Multiplier =1;
-        }
-        if(_gamepad.a)
-        {
-            counter=counter*-1;
-        }
+
 
         //Logger.getInstance().WriteMessage("leftstick"  + _gamepad.left_stick_y);
         //Logger.getInstance().WriteMessage("rightstick'" +  _gamepad.right_stick_y);
-        _leftMotor.setPower(-_gamepad.right_stick_y* Multiplier);
-        _rightMotor.setPower(_gamepad.left_stick_y*Multiplier);
+        _leftMotor.setPower(-_gamepad.right_stick_y);
+        _rightMotor.setPower(_gamepad.left_stick_y);
 
 
     }

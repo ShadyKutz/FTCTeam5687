@@ -124,8 +124,8 @@ public class FLIPPER_BLUE extends LinearOpMode {
         Init(hardwareMap);
 
 
-        _right.setDirection(DcMotorSimple.Direction.FORWARD);
-        _left.setDirection(DcMotorSimple.Direction.REVERSE);
+        _right.setDirection(DcMotorSimple.Direction.REVERSE);
+        _left.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
 
