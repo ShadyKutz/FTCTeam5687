@@ -1,6 +1,7 @@
 package com.team5687.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -13,7 +14,7 @@ import com.team5687.primitives.Motor;
 /**
  * Created by stephen on 4/12/16.
  */
-
+@Disabled
 @Autonomous(name = "B-BOT-BALL-DELAY", group = "Test")
 public class B_BOT_BALL_DELAY extends OpMode {
 

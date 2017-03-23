@@ -76,6 +76,8 @@ import com.team5687.Constants;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 @Autonomous(name = "Sensor: AdafruitRGB22232", group = "Sensor")
+@Disabled
+
 //@Disabled                            // Comment this out to add to the opmode list
 public class COLOR_TEST extends LinearOpMode {
 

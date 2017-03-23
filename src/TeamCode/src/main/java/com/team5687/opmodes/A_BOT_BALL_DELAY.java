@@ -1,6 +1,7 @@
 package com.team5687.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -17,6 +18,7 @@ import java.util.Timer;
 /**
  * Created by stephen on 4/12/16.
  */
+@Disabled
 
 @Autonomous(name = "A-BOT-BALL-DELAY", group = "real")
 public class A_BOT_BALL_DELAY extends LinearOpMode {
