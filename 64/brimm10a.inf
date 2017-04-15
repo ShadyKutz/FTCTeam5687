@@ -1,0 +1,2413 @@
+;=======================================================================
+;  Brother Scanner Setup File
+;  Copyright (c)  2012 Brother Industries,LTD.
+;  FileName   :   brimm10a.inf
+;  Function   :   Scanner(Image)
+;  I/F        :   USB
+;  OS         :   Windows 2000 / XP / Vista / 7 / 8
+;  Model      :   DCP-7055
+;                 DCP-7057
+;                 DCP-7060D
+;                 DCP-7065DN
+;                 DCP-7070DW
+;                 FAX-7860DW
+;                 HL-2280DW
+;                 MFC-7360
+;                 MFC-7360N
+;                 MFC-7362N
+;                 MFC-7460DN
+;                 MFC-7470D
+;                 MFC-7860DN
+;                 MFC-7860DW
+;                 DCP-7055W
+;                 DCP-7057W
+;                 MFC-7365DN
+;=======================================================================
+[Version]
+Signature="$Windows NT$"
+Class=Image
+ClassGUID={6bdd1fc6-810f-11d0-bec7-08002be2092f}
+Provider=%Provider%
+DriverPackageType=PlugAndPlay
+DriverPackageDisplayName=%DriverPackageDisplayName%
+DriverVer=04/04/2013,01.01.19.19
+CatalogFile= brimm10a.cat
+
+[Manufacturer]
+%Manufact%=MODEL,NTx86.5.1.1,NTamd64.5.2.1,NTx86.6.0.1,NTamd64.6.0.1,NTx86.5.1,NTamd64.5.2
+
+[MODEL]
+%DCP7055.USB.SCN%   = DCP7055.USB.SCN.W2K,   USB\VID_04F9&PID_0248&MI_01
+%DCP7057.USB.SCN%   = DCP7057.USB.SCN.W2K,   USB\VID_04F9&PID_0273&MI_01
+%DCP7060D.USB.SCN%  = DCP7060D.USB.SCN.W2K,  USB\VID_04F9&PID_0249&MI_01
+%DCP7065DN.USB.SCN% = DCP7065DN.USB.SCN.W2K, USB\VID_04F9&PID_024A&MI_01
+%DCP7070DW.USB.SCN% = DCP7070DW.USB.SCN.W2K, USB\VID_04F9&PID_0277&MI_01
+%FAX7860DW.USB.SCN% = FAX7860DW.USB.SCN.W2K, USB\VID_04F9&PID_0275&MI_01
+%HL2280DW.USB.SCN%  = HL2280DW.USB.SCN.W2K,  USB\VID_04F9&PID_0272&MI_01
+%MFC7360.USB.SCN%   = MFC7360.USB.SCN.W2K,   USB\VID_04F9&PID_024D&MI_01
+%MFC7360N.USB.SCN%  = MFC7360N.USB.SCN.W2K,  USB\VID_04F9&PID_0270&MI_01
+%MFC7362N.USB.SCN%  = MFC7362N.USB.SCN.W2K,  USB\VID_04F9&PID_028B&MI_01
+%MFC7460DN.USB.SCN% = MFC7460DN.USB.SCN.W2K, USB\VID_04F9&PID_024E&MI_01
+%MFC7470D.USB.SCN%  = MFC7470D.USB.SCN.W2K,  USB\VID_04F9&PID_0271&MI_01
+%MFC7860DN.USB.SCN% = MFC7860DN.USB.SCN.W2K, USB\VID_04F9&PID_024C&MI_01
+%MFC7860DW.USB.SCN% = MFC7860DW.USB.SCN.W2K, USB\VID_04F9&PID_024F&MI_01
+%DCP7055W.USB.SCN%  = DCP7055W.USB.SCN.W2K,  USB\VID_04F9&PID_02CE&MI_01
+%DCP7057W.USB.SCN%  = DCP7057W.USB.SCN.W2K,  USB\VID_04F9&PID_02CF&MI_01
+%MFC7365DN.USB.SCN% = MFC7365DN.USB.SCN.W2K, USB\VID_04F9&PID_0318&MI_01
+
+[MODEL.NTx86.5.1.1]
+%DCP7055.USB.SCN%   = DCP7055.USB.SCN.WXP32,   USB\VID_04F9&PID_0248&MI_01
+%DCP7057.USB.SCN%   = DCP7057.USB.SCN.WXP32,   USB\VID_04F9&PID_0273&MI_01
+%DCP7060D.USB.SCN%  = DCP7060D.USB.SCN.WXP32,  USB\VID_04F9&PID_0249&MI_01
+%DCP7065DN.USB.SCN% = DCP7065DN.USB.SCN.WXP32, USB\VID_04F9&PID_024A&MI_01
+%DCP7070DW.USB.SCN% = DCP7070DW.USB.SCN.WXP32, USB\VID_04F9&PID_0277&MI_01
+%FAX7860DW.USB.SCN% = FAX7860DW.USB.SCN.WXP32, USB\VID_04F9&PID_0275&MI_01
+%HL2280DW.USB.SCN%  = HL2280DW.USB.SCN.WXP32,  USB\VID_04F9&PID_0272&MI_01
+%MFC7360.USB.SCN%   = MFC7360.USB.SCN.WXP32,   USB\VID_04F9&PID_024D&MI_01
+%MFC7360N.USB.SCN%  = MFC7360N.USB.SCN.WXP32,  USB\VID_04F9&PID_0270&MI_01
+%MFC7362N.USB.SCN%  = MFC7362N.USB.SCN.WXP32,  USB\VID_04F9&PID_028B&MI_01
+%MFC7460DN.USB.SCN% = MFC7460DN.USB.SCN.WXP32, USB\VID_04F9&PID_024E&MI_01
+%MFC7470D.USB.SCN%  = MFC7470D.USB.SCN.WXP32,  USB\VID_04F9&PID_0271&MI_01
+%MFC7860DN.USB.SCN% = MFC7860DN.USB.SCN.WXP32, USB\VID_04F9&PID_024C&MI_01
+%MFC7860DW.USB.SCN% = MFC7860DW.USB.SCN.WXP32, USB\VID_04F9&PID_024F&MI_01
+%DCP7055W.USB.SCN%  = DCP7055W.USB.SCN.WXP32,  USB\VID_04F9&PID_02CE&MI_01
+%DCP7057W.USB.SCN%  = DCP7057W.USB.SCN.WXP32,  USB\VID_04F9&PID_02CF&MI_01
+%MFC7365DN.USB.SCN% = MFC7365DN.USB.SCN.WXP32, USB\VID_04F9&PID_0318&MI_01
+
+[MODEL.NTamd64.5.2.1]
+%DCP7055.USB.SCN%   = DCP7055.USB.SCN.WXP64,   USB\VID_04F9&PID_0248&MI_01
+%DCP7057.USB.SCN%   = DCP7057.USB.SCN.WXP64,   USB\VID_04F9&PID_0273&MI_01
+%DCP7060D.USB.SCN%  = DCP7060D.USB.SCN.WXP64,  USB\VID_04F9&PID_0249&MI_01
+%DCP7065DN.USB.SCN% = DCP7065DN.USB.SCN.WXP64, USB\VID_04F9&PID_024A&MI_01
+%DCP7070DW.USB.SCN% = DCP7070DW.USB.SCN.WXP64, USB\VID_04F9&PID_0277&MI_01
+%FAX7860DW.USB.SCN% = FAX7860DW.USB.SCN.WXP64, USB\VID_04F9&PID_0275&MI_01
+%HL2280DW.USB.SCN%  = HL2280DW.USB.SCN.WXP64,  USB\VID_04F9&PID_0272&MI_01
+%MFC7360.USB.SCN%   = MFC7360.USB.SCN.WXP64,   USB\VID_04F9&PID_024D&MI_01
+%MFC7360N.USB.SCN%  = MFC7360N.USB.SCN.WXP64,  USB\VID_04F9&PID_0270&MI_01
+%MFC7362N.USB.SCN%  = MFC7362N.USB.SCN.WXP64,  USB\VID_04F9&PID_028B&MI_01
+%MFC7460DN.USB.SCN% = MFC7460DN.USB.SCN.WXP64, USB\VID_04F9&PID_024E&MI_01
+%MFC7470D.USB.SCN%  = MFC7470D.USB.SCN.WXP64,  USB\VID_04F9&PID_0271&MI_01
+%MFC7860DN.USB.SCN% = MFC7860DN.USB.SCN.WXP64, USB\VID_04F9&PID_024C&MI_01
+%MFC7860DW.USB.SCN% = MFC7860DW.USB.SCN.WXP64, USB\VID_04F9&PID_024F&MI_01
+%DCP7055W.USB.SCN%  = DCP7055W.USB.SCN.WXP64,  USB\VID_04F9&PID_02CE&MI_01
+%DCP7057W.USB.SCN%  = DCP7057W.USB.SCN.WXP64,  USB\VID_04F9&PID_02CF&MI_01
+%MFC7365DN.USB.SCN% = MFC7365DN.USB.SCN.WXP64, USB\VID_04F9&PID_0318&MI_01
+
+[MODEL.NTx86.6.0.1]
+%DCP7055.USB.SCN%   = DCP7055.USB.SCN,   USB\VID_04F9&PID_0248&MI_01
+%DCP7057.USB.SCN%   = DCP7057.USB.SCN,   USB\VID_04F9&PID_0273&MI_01
+%DCP7060D.USB.SCN%  = DCP7060D.USB.SCN,  USB\VID_04F9&PID_0249&MI_01
+%DCP7065DN.USB.SCN% = DCP7065DN.USB.SCN, USB\VID_04F9&PID_024A&MI_01
+%DCP7070DW.USB.SCN% = DCP7070DW.USB.SCN, USB\VID_04F9&PID_0277&MI_01
+%FAX7860DW.USB.SCN% = FAX7860DW.USB.SCN, USB\VID_04F9&PID_0275&MI_01
+%HL2280DW.USB.SCN%  = HL2280DW.USB.SCN,  USB\VID_04F9&PID_0272&MI_01
+%MFC7360.USB.SCN%   = MFC7360.USB.SCN,   USB\VID_04F9&PID_024D&MI_01
+%MFC7360N.USB.SCN%  = MFC7360N.USB.SCN,  USB\VID_04F9&PID_0270&MI_01
+%MFC7362N.USB.SCN%  = MFC7362N.USB.SCN,  USB\VID_04F9&PID_028B&MI_01
+%MFC7460DN.USB.SCN% = MFC7460DN.USB.SCN, USB\VID_04F9&PID_024E&MI_01
+%MFC7470D.USB.SCN%  = MFC7470D.USB.SCN,  USB\VID_04F9&PID_0271&MI_01
+%MFC7860DN.USB.SCN% = MFC7860DN.USB.SCN, USB\VID_04F9&PID_024C&MI_01
+%MFC7860DW.USB.SCN% = MFC7860DW.USB.SCN, USB\VID_04F9&PID_024F&MI_01
+%DCP7055W.USB.SCN%  = DCP7055W.USB.SCN,  USB\VID_04F9&PID_02CE&MI_01
+%DCP7057W.USB.SCN%  = DCP7057W.USB.SCN,  USB\VID_04F9&PID_02CF&MI_01
+%MFC7365DN.USB.SCN% = MFC7365DN.USB.SCN, USB\VID_04F9&PID_0318&MI_01
+
+[MODEL.NTamd64.6.0.1]
+%DCP7055.USB.SCN%   = DCP7055.USB.SCN,   USB\VID_04F9&PID_0248&MI_01
+%DCP7057.USB.SCN%   = DCP7057.USB.SCN,   USB\VID_04F9&PID_0273&MI_01
+%DCP7060D.USB.SCN%  = DCP7060D.USB.SCN,  USB\VID_04F9&PID_0249&MI_01
+%DCP7065DN.USB.SCN% = DCP7065DN.USB.SCN, USB\VID_04F9&PID_024A&MI_01
+%DCP7070DW.USB.SCN% = DCP7070DW.USB.SCN, USB\VID_04F9&PID_0277&MI_01
+%FAX7860DW.USB.SCN% = FAX7860DW.USB.SCN, USB\VID_04F9&PID_0275&MI_01
+%HL2280DW.USB.SCN%  = HL2280DW.USB.SCN,  USB\VID_04F9&PID_0272&MI_01
+%MFC7360.USB.SCN%   = MFC7360.USB.SCN,   USB\VID_04F9&PID_024D&MI_01
+%MFC7360N.USB.SCN%  = MFC7360N.USB.SCN,  USB\VID_04F9&PID_0270&MI_01
+%MFC7362N.USB.SCN%  = MFC7362N.USB.SCN,  USB\VID_04F9&PID_028B&MI_01
+%MFC7460DN.USB.SCN% = MFC7460DN.USB.SCN, USB\VID_04F9&PID_024E&MI_01
+%MFC7470D.USB.SCN%  = MFC7470D.USB.SCN,  USB\VID_04F9&PID_0271&MI_01
+%MFC7860DN.USB.SCN% = MFC7860DN.USB.SCN, USB\VID_04F9&PID_024C&MI_01
+%MFC7860DW.USB.SCN% = MFC7860DW.USB.SCN, USB\VID_04F9&PID_024F&MI_01
+%DCP7055W.USB.SCN%  = DCP7055W.USB.SCN,  USB\VID_04F9&PID_02CE&MI_01
+%DCP7057W.USB.SCN%  = DCP7057W.USB.SCN,  USB\VID_04F9&PID_02CF&MI_01
+%MFC7365DN.USB.SCN% = MFC7365DN.USB.SCN, USB\VID_04F9&PID_0318&MI_01
+
+[MODEL.NTx86.5.1]
+; XP and later (Server & DomainControler)
+
+[MODEL.NTamd64.5.2]
+; XP and later (Server & DomainControler)
+
+[ControlFlags]
+ExcludeFromSelect=*
+
+;----------------------------------------
+; DCP-7055
+;----------------------------------------
+;----------------------------------------
+; 2000
+;----------------------------------------
+[DCP7055.USB.SCN.W2K.NT]
+SubClass = StillImage
+DeviceType = 1
+DeviceSubType = 0x1
+Capabilities = 0x1
+Events = BrEvents.W2K
+DeviceData=DCP7055.USB.SCN.W2K.DeviceData
+ICMProfiles = "sRGB Color Space Profile.icm"
+CopyFiles = BrStiMiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.DCP7055.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+AddReg = BrStiUSB.AddReg,BrScnUsb.AddReg,BrModel.FB.AddReg
+
+[DCP7055.USB.SCN.W2K.NT.Services]
+Addservice = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[DCP7055.USB.SCN.W2K.DeviceData]
+TwainDS=%TWAINDS.Prefix.W2k%%DCP7055.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP32
+;----------------------------------------
+[DCP7055.USB.SCN.WXP32.NT]
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = DCP7055.USB.SCN.WXP32.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.DCP7055.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[DCP7055.USB.SCN.WXP32.NT.Services]
+AddService = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[DCP7055.USB.SCN.WXP32.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%DCP7055.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP64
+;----------------------------------------
+[DCP7055.USB.SCN.WXP64.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = DCP7055.USB.SCN.WXP64.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrTwdsFe.DCP7055.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[DCP7055.USB.SCN.WXP64.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[DCP7055.USB.SCN.WXP64.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%DCP7055.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; Vista / 7
+;----------------------------------------
+[DCP7055.USB.SCN.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = DCP7055.USB.SCN.DeviceData
+AddReg        = BrWia20USB.AddReg,BrModel.FB.AddReg
+CopyFiles     = BrWia20MiniDrv.CopyFiles,BrTwdsFe.DCP7055.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[DCP7055.USB.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[DCP7055.USB.SCN.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%DCP7055.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+ChangePaperSize=0
+
+;----------------------------------------
+; DCP-7055W
+;----------------------------------------
+;----------------------------------------
+; 2000
+;----------------------------------------
+[DCP7055W.USB.SCN.W2K.NT]
+SubClass = StillImage
+DeviceType = 1
+DeviceSubType = 0x1
+Capabilities = 0x1
+Events = BrEvents.W2K
+DeviceData=DCP7055W.USB.SCN.W2K.DeviceData
+ICMProfiles = "sRGB Color Space Profile.icm"
+CopyFiles = BrStiMiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.DCP7055W.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+AddReg = BrStiUSB.AddReg,BrScnUsb.AddReg,BrModel.FB.AddReg
+
+[DCP7055W.USB.SCN.W2K.NT.Services]
+Addservice = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[DCP7055W.USB.SCN.W2K.DeviceData]
+TwainDS=%TWAINDS.Prefix.W2k%%DCP7055W.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP32
+;----------------------------------------
+[DCP7055W.USB.SCN.WXP32.NT]
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = DCP7055W.USB.SCN.WXP32.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.DCP7055W.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[DCP7055W.USB.SCN.WXP32.NT.Services]
+AddService = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[DCP7055W.USB.SCN.WXP32.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%DCP7055W.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP64
+;----------------------------------------
+[DCP7055W.USB.SCN.WXP64.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = DCP7055W.USB.SCN.WXP64.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrTwdsFe.DCP7055W.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[DCP7055W.USB.SCN.WXP64.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[DCP7055W.USB.SCN.WXP64.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%DCP7055W.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; Vista / 7
+;----------------------------------------
+[DCP7055W.USB.SCN.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = DCP7055W.USB.SCN.DeviceData
+AddReg        = BrWia20USB.AddReg,BrModel.FB.AddReg
+CopyFiles     = BrWia20MiniDrv.CopyFiles,BrTwdsFe.DCP7055W.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[DCP7055W.USB.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[DCP7055W.USB.SCN.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%DCP7055W.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+ChangePaperSize=0
+
+;----------------------------------------
+; DCP-7057
+;----------------------------------------
+;----------------------------------------
+; 2000
+;----------------------------------------
+[DCP7057.USB.SCN.W2K.NT]
+SubClass = StillImage
+DeviceType = 1
+DeviceSubType = 0x1
+Capabilities = 0x1
+Events = BrEvents.W2K
+DeviceData=DCP7057.USB.SCN.W2K.DeviceData
+ICMProfiles = "sRGB Color Space Profile.icm"
+CopyFiles = BrStiMiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.DCP7057.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+AddReg = BrStiUSB.AddReg,BrScnUsb.AddReg,BrModel.FB.AddReg
+
+[DCP7057.USB.SCN.W2K.NT.Services]
+Addservice = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[DCP7057.USB.SCN.W2K.DeviceData]
+TwainDS=%TWAINDS.Prefix.W2k%%DCP7057.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP32
+;----------------------------------------
+[DCP7057.USB.SCN.WXP32.NT]
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = DCP7057.USB.SCN.WXP32.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.DCP7057.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[DCP7057.USB.SCN.WXP32.NT.Services]
+AddService = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[DCP7057.USB.SCN.WXP32.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%DCP7057.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP64
+;----------------------------------------
+[DCP7057.USB.SCN.WXP64.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = DCP7057.USB.SCN.WXP64.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrTwdsFe.DCP7057.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[DCP7057.USB.SCN.WXP64.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[DCP7057.USB.SCN.WXP64.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%DCP7057.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; Vista / 7
+;----------------------------------------
+[DCP7057.USB.SCN.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = DCP7057.USB.SCN.DeviceData
+AddReg        = BrWia20USB.AddReg,BrModel.FB.AddReg
+CopyFiles     = BrWia20MiniDrv.CopyFiles,BrTwdsFe.DCP7057.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[DCP7057.USB.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[DCP7057.USB.SCN.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%DCP7057.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+ChangePaperSize=0
+
+;----------------------------------------
+; DCP-7057W
+;----------------------------------------
+;----------------------------------------
+; 2000
+;----------------------------------------
+[DCP7057W.USB.SCN.W2K.NT]
+SubClass = StillImage
+DeviceType = 1
+DeviceSubType = 0x1
+Capabilities = 0x1
+Events = BrEvents.W2K
+DeviceData=DCP7057W.USB.SCN.W2K.DeviceData
+ICMProfiles = "sRGB Color Space Profile.icm"
+CopyFiles = BrStiMiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.DCP7057W.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+AddReg = BrStiUSB.AddReg,BrScnUsb.AddReg,BrModel.FB.AddReg
+
+[DCP7057W.USB.SCN.W2K.NT.Services]
+Addservice = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[DCP7057W.USB.SCN.W2K.DeviceData]
+TwainDS=%TWAINDS.Prefix.W2k%%DCP7057W.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP32
+;----------------------------------------
+[DCP7057W.USB.SCN.WXP32.NT]
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = DCP7057W.USB.SCN.WXP32.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.DCP7057W.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[DCP7057W.USB.SCN.WXP32.NT.Services]
+AddService = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[DCP7057W.USB.SCN.WXP32.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%DCP7057W.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP64
+;----------------------------------------
+[DCP7057W.USB.SCN.WXP64.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = DCP7057W.USB.SCN.WXP64.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrTwdsFe.DCP7057W.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[DCP7057W.USB.SCN.WXP64.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[DCP7057W.USB.SCN.WXP64.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%DCP7057W.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; Vista / 7
+;----------------------------------------
+[DCP7057W.USB.SCN.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = DCP7057W.USB.SCN.DeviceData
+AddReg        = BrWia20USB.AddReg,BrModel.FB.AddReg
+CopyFiles     = BrWia20MiniDrv.CopyFiles,BrTwdsFe.DCP7057W.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[DCP7057W.USB.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[DCP7057W.USB.SCN.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%DCP7057W.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+ChangePaperSize=0
+
+
+;----------------------------------------
+; DCP-7060D
+;----------------------------------------
+;----------------------------------------
+; 2000
+;----------------------------------------
+[DCP7060D.USB.SCN.W2K.NT]
+SubClass = StillImage
+DeviceType = 1
+DeviceSubType = 0x1
+Capabilities = 0x1
+Events = BrEvents.W2K
+DeviceData=DCP7060D.USB.SCN.W2K.DeviceData
+ICMProfiles = "sRGB Color Space Profile.icm"
+CopyFiles = BrStiMiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.DCP7060D.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+AddReg = BrStiUSB.AddReg,BrScnUsb.AddReg,BrModel.FB.AddReg
+
+[DCP7060D.USB.SCN.W2K.NT.Services]
+Addservice = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[DCP7060D.USB.SCN.W2K.DeviceData]
+TwainDS=%TWAINDS.Prefix.W2k%%DCP7060D.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP32
+;----------------------------------------
+[DCP7060D.USB.SCN.WXP32.NT]
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = DCP7060D.USB.SCN.WXP32.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.DCP7060D.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[DCP7060D.USB.SCN.WXP32.NT.Services]
+AddService = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[DCP7060D.USB.SCN.WXP32.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%DCP7060D.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP64
+;----------------------------------------
+[DCP7060D.USB.SCN.WXP64.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = DCP7060D.USB.SCN.WXP64.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrTwdsFe.DCP7060D.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[DCP7060D.USB.SCN.WXP64.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[DCP7060D.USB.SCN.WXP64.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%DCP7060D.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; Vista / 7
+;----------------------------------------
+[DCP7060D.USB.SCN.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = DCP7060D.USB.SCN.DeviceData
+AddReg        = BrWia20USB.AddReg,BrModel.FB.AddReg
+CopyFiles     = BrWia20MiniDrv.CopyFiles,BrTwdsFe.DCP7060D.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[DCP7060D.USB.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[DCP7060D.USB.SCN.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%DCP7060D.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+ChangePaperSize=0
+
+;----------------------------------------
+; DCP-7065DN
+;----------------------------------------
+;----------------------------------------
+; 2000
+;----------------------------------------
+[DCP7065DN.USB.SCN.W2K.NT]
+SubClass = StillImage
+DeviceType = 1
+DeviceSubType = 0x1
+Capabilities = 0x1
+Events = BrEvents.W2K
+DeviceData=DCP7065DN.USB.SCN.W2K.DeviceData
+ICMProfiles = "sRGB Color Space Profile.icm"
+CopyFiles = BrStiMiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.DCP7065DN.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+AddReg = BrStiUSB.AddReg,BrScnUsb.AddReg,BrModel.ADF.FB.AddReg
+
+[DCP7065DN.USB.SCN.W2K.NT.Services]
+Addservice = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[DCP7065DN.USB.SCN.W2K.DeviceData]
+TwainDS=%TWAINDS.Prefix.W2k%%DCP7065DN.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP32
+;----------------------------------------
+[DCP7065DN.USB.SCN.WXP32.NT]
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = DCP7065DN.USB.SCN.WXP32.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.DCP7065DN.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[DCP7065DN.USB.SCN.WXP32.NT.Services]
+AddService = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[DCP7065DN.USB.SCN.WXP32.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%DCP7065DN.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP64
+;----------------------------------------
+[DCP7065DN.USB.SCN.WXP64.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = DCP7065DN.USB.SCN.WXP64.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrTwdsFe.DCP7065DN.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[DCP7065DN.USB.SCN.WXP64.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[DCP7065DN.USB.SCN.WXP64.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%DCP7065DN.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; Vista / 7
+;----------------------------------------
+[DCP7065DN.USB.SCN.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = DCP7065DN.USB.SCN.DeviceData
+AddReg        = BrWia20USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia20MiniDrv.CopyFiles,BrTwdsFe.DCP7065DN.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[DCP7065DN.USB.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[DCP7065DN.USB.SCN.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%DCP7065DN.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+ChangePaperSize=0
+
+;----------------------------------------
+; DCP-7070DW
+;----------------------------------------
+;----------------------------------------
+; 2000
+;----------------------------------------
+[DCP7070DW.USB.SCN.W2K.NT]
+SubClass = StillImage
+DeviceType = 1
+DeviceSubType = 0x1
+Capabilities = 0x1
+Events = BrEvents.W2K
+DeviceData=DCP7070DW.USB.SCN.W2K.DeviceData
+ICMProfiles = "sRGB Color Space Profile.icm"
+CopyFiles = BrStiMiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.DCP7070DW.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+AddReg = BrStiUSB.AddReg,BrScnUsb.AddReg,BrModel.FB.AddReg
+
+[DCP7070DW.USB.SCN.W2K.NT.Services]
+Addservice = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[DCP7070DW.USB.SCN.W2K.DeviceData]
+TwainDS=%TWAINDS.Prefix.W2k%%DCP7070DW.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP32
+;----------------------------------------
+[DCP7070DW.USB.SCN.WXP32.NT]
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = DCP7070DW.USB.SCN.WXP32.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.DCP7070DW.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[DCP7070DW.USB.SCN.WXP32.NT.Services]
+AddService = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[DCP7070DW.USB.SCN.WXP32.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%DCP7070DW.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP64
+;----------------------------------------
+[DCP7070DW.USB.SCN.WXP64.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = DCP7070DW.USB.SCN.WXP64.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrTwdsFe.DCP7070DW.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[DCP7070DW.USB.SCN.WXP64.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[DCP7070DW.USB.SCN.WXP64.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%DCP7070DW.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; Vista / 7
+;----------------------------------------
+[DCP7070DW.USB.SCN.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = DCP7070DW.USB.SCN.DeviceData
+AddReg        = BrWia20USB.AddReg,BrModel.FB.AddReg
+CopyFiles     = BrWia20MiniDrv.CopyFiles,BrTwdsFe.DCP7070DW.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[DCP7070DW.USB.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[DCP7070DW.USB.SCN.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%DCP7070DW.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+ChangePaperSize=0
+
+;----------------------------------------
+; FAX-7860DW
+;----------------------------------------
+;----------------------------------------
+; 2000
+;----------------------------------------
+[FAX7860DW.USB.SCN.W2K.NT]
+SubClass = StillImage
+DeviceType = 1
+DeviceSubType = 0x1
+Capabilities = 0x1
+Events = BrEvents.W2K
+DeviceData=FAX7860DW.USB.SCN.W2K.DeviceData
+ICMProfiles = "sRGB Color Space Profile.icm"
+CopyFiles = BrStiMiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.FAX7860DW.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+AddReg = BrStiUSB.AddReg,BrScnUsb.AddReg,BrModel.ADF.FB.AddReg
+
+[FAX7860DW.USB.SCN.W2K.NT.Services]
+Addservice = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[FAX7860DW.USB.SCN.W2K.DeviceData]
+TwainDS=%TWAINDS.Prefix.W2k%%FAX7860DW.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP32
+;----------------------------------------
+[FAX7860DW.USB.SCN.WXP32.NT]
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = FAX7860DW.USB.SCN.WXP32.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.FAX7860DW.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[FAX7860DW.USB.SCN.WXP32.NT.Services]
+AddService = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[FAX7860DW.USB.SCN.WXP32.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%FAX7860DW.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP64
+;----------------------------------------
+[FAX7860DW.USB.SCN.WXP64.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = FAX7860DW.USB.SCN.WXP64.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrTwdsFe.FAX7860DW.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[FAX7860DW.USB.SCN.WXP64.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[FAX7860DW.USB.SCN.WXP64.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%FAX7860DW.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; Vista / 7
+;----------------------------------------
+[FAX7860DW.USB.SCN.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = FAX7860DW.USB.SCN.DeviceData
+AddReg        = BrWia20USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia20MiniDrv.CopyFiles,BrTwdsFe.FAX7860DW.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[FAX7860DW.USB.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[FAX7860DW.USB.SCN.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%FAX7860DW.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+ChangePaperSize=0
+
+;----------------------------------------
+; HL-2280DW
+;----------------------------------------
+;----------------------------------------
+; 2000
+;----------------------------------------
+[HL2280DW.USB.SCN.W2K.NT]
+SubClass = StillImage
+DeviceType = 1
+DeviceSubType = 0x1
+Capabilities = 0x1
+Events = BrEvents.W2K
+DeviceData=HL2280DW.USB.SCN.W2K.DeviceData
+ICMProfiles = "sRGB Color Space Profile.icm"
+CopyFiles = BrStiMiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.HL2280DW.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+AddReg = BrStiUSB.AddReg,BrScnUsb.AddReg,BrModel.FB.AddReg
+
+[HL2280DW.USB.SCN.W2K.NT.Services]
+Addservice = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[HL2280DW.USB.SCN.W2K.DeviceData]
+TwainDS=%TWAINDS.Prefix.W2k%%HL2280DW.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP32
+;----------------------------------------
+[HL2280DW.USB.SCN.WXP32.NT]
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = HL2280DW.USB.SCN.WXP32.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.HL2280DW.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[HL2280DW.USB.SCN.WXP32.NT.Services]
+AddService = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[HL2280DW.USB.SCN.WXP32.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%HL2280DW.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP64
+;----------------------------------------
+[HL2280DW.USB.SCN.WXP64.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = HL2280DW.USB.SCN.WXP64.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrTwdsFe.HL2280DW.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[HL2280DW.USB.SCN.WXP64.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[HL2280DW.USB.SCN.WXP64.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%HL2280DW.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; Vista / 7
+;----------------------------------------
+[HL2280DW.USB.SCN.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = HL2280DW.USB.SCN.DeviceData
+AddReg        = BrWia20USB.AddReg,BrModel.FB.AddReg
+CopyFiles     = BrWia20MiniDrv.CopyFiles,BrTwdsFe.HL2280DW.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[HL2280DW.USB.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[HL2280DW.USB.SCN.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%HL2280DW.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+ChangePaperSize=0
+
+;----------------------------------------
+; MFC-7360
+;----------------------------------------
+;----------------------------------------
+; 2000
+;----------------------------------------
+[MFC7360.USB.SCN.W2K.NT]
+SubClass = StillImage
+DeviceType = 1
+DeviceSubType = 0x1
+Capabilities = 0x1
+Events = BrEvents.W2K
+DeviceData=MFC7360.USB.SCN.W2K.DeviceData
+ICMProfiles = "sRGB Color Space Profile.icm"
+CopyFiles = BrStiMiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.MFC7360.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+AddReg = BrStiUSB.AddReg,BrScnUsb.AddReg,BrModel.ADF.FB.AddReg
+
+[MFC7360.USB.SCN.W2K.NT.Services]
+Addservice = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[MFC7360.USB.SCN.W2K.DeviceData]
+TwainDS=%TWAINDS.Prefix.W2k%%MFC7360.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP32
+;----------------------------------------
+[MFC7360.USB.SCN.WXP32.NT]
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7360.USB.SCN.WXP32.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.MFC7360.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7360.USB.SCN.WXP32.NT.Services]
+AddService = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[MFC7360.USB.SCN.WXP32.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7360.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP64
+;----------------------------------------
+[MFC7360.USB.SCN.WXP64.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7360.USB.SCN.WXP64.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrTwdsFe.MFC7360.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7360.USB.SCN.WXP64.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[MFC7360.USB.SCN.WXP64.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7360.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; Vista / 7
+;----------------------------------------
+[MFC7360.USB.SCN.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7360.USB.SCN.DeviceData
+AddReg        = BrWia20USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia20MiniDrv.CopyFiles,BrTwdsFe.MFC7360.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7360.USB.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[MFC7360.USB.SCN.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7360.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+ChangePaperSize=0
+
+;----------------------------------------
+; MFC-7360N
+;----------------------------------------
+;----------------------------------------
+; 2000
+;----------------------------------------
+[MFC7360N.USB.SCN.W2K.NT]
+SubClass = StillImage
+DeviceType = 1
+DeviceSubType = 0x1
+Capabilities = 0x1
+Events = BrEvents.W2K
+DeviceData=MFC7360N.USB.SCN.W2K.DeviceData
+ICMProfiles = "sRGB Color Space Profile.icm"
+CopyFiles = BrStiMiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.MFC7360N.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+AddReg = BrStiUSB.AddReg,BrScnUsb.AddReg,BrModel.ADF.FB.AddReg
+
+[MFC7360N.USB.SCN.W2K.NT.Services]
+Addservice = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[MFC7360N.USB.SCN.W2K.DeviceData]
+TwainDS=%TWAINDS.Prefix.W2k%%MFC7360N.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP32
+;----------------------------------------
+[MFC7360N.USB.SCN.WXP32.NT]
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7360N.USB.SCN.WXP32.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.MFC7360N.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7360N.USB.SCN.WXP32.NT.Services]
+AddService = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[MFC7360N.USB.SCN.WXP32.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7360N.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP64
+;----------------------------------------
+[MFC7360N.USB.SCN.WXP64.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7360N.USB.SCN.WXP64.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrTwdsFe.MFC7360N.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7360N.USB.SCN.WXP64.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[MFC7360N.USB.SCN.WXP64.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7360N.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; Vista / 7
+;----------------------------------------
+[MFC7360N.USB.SCN.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7360N.USB.SCN.DeviceData
+AddReg        = BrWia20USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia20MiniDrv.CopyFiles,BrTwdsFe.MFC7360N.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7360N.USB.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[MFC7360N.USB.SCN.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7360N.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+ChangePaperSize=0
+
+;----------------------------------------
+; MFC-7362N
+;----------------------------------------
+;----------------------------------------
+; 2000
+;----------------------------------------
+[MFC7362N.USB.SCN.W2K.NT]
+SubClass = StillImage
+DeviceType = 1
+DeviceSubType = 0x1
+Capabilities = 0x1
+Events = BrEvents.W2K
+DeviceData=MFC7362N.USB.SCN.W2K.DeviceData
+ICMProfiles = "sRGB Color Space Profile.icm"
+CopyFiles = BrStiMiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.MFC7362N.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+AddReg = BrStiUSB.AddReg,BrScnUsb.AddReg,BrModel.ADF.FB.AddReg
+
+[MFC7362N.USB.SCN.W2K.NT.Services]
+Addservice = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[MFC7362N.USB.SCN.W2K.DeviceData]
+TwainDS=%TWAINDS.Prefix.W2k%%MFC7362N.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP32
+;----------------------------------------
+[MFC7362N.USB.SCN.WXP32.NT]
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7362N.USB.SCN.WXP32.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.MFC7362N.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7362N.USB.SCN.WXP32.NT.Services]
+AddService = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[MFC7362N.USB.SCN.WXP32.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7362N.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP64
+;----------------------------------------
+[MFC7362N.USB.SCN.WXP64.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7362N.USB.SCN.WXP64.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrTwdsFe.MFC7362N.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7362N.USB.SCN.WXP64.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[MFC7362N.USB.SCN.WXP64.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7362N.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; Vista / 7
+;----------------------------------------
+[MFC7362N.USB.SCN.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7362N.USB.SCN.DeviceData
+AddReg        = BrWia20USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia20MiniDrv.CopyFiles,BrTwdsFe.MFC7362N.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7362N.USB.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[MFC7362N.USB.SCN.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7362N.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+ChangePaperSize=0
+
+;----------------------------------------
+; MFC-7460DN
+;----------------------------------------
+;----------------------------------------
+; 2000
+;----------------------------------------
+[MFC7460DN.USB.SCN.W2K.NT]
+SubClass = StillImage
+DeviceType = 1
+DeviceSubType = 0x1
+Capabilities = 0x1
+Events = BrEvents.W2K
+DeviceData=MFC7460DN.USB.SCN.W2K.DeviceData
+ICMProfiles = "sRGB Color Space Profile.icm"
+CopyFiles = BrStiMiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.MFC7460DN.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+AddReg = BrStiUSB.AddReg,BrScnUsb.AddReg,BrModel.ADF.FB.AddReg
+
+[MFC7460DN.USB.SCN.W2K.NT.Services]
+Addservice = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[MFC7460DN.USB.SCN.W2K.DeviceData]
+TwainDS=%TWAINDS.Prefix.W2k%%MFC7460DN.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP32
+;----------------------------------------
+[MFC7460DN.USB.SCN.WXP32.NT]
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7460DN.USB.SCN.WXP32.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.MFC7460DN.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7460DN.USB.SCN.WXP32.NT.Services]
+AddService = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[MFC7460DN.USB.SCN.WXP32.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7460DN.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP64
+;----------------------------------------
+[MFC7460DN.USB.SCN.WXP64.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7460DN.USB.SCN.WXP64.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrTwdsFe.MFC7460DN.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7460DN.USB.SCN.WXP64.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[MFC7460DN.USB.SCN.WXP64.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7460DN.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; Vista / 7
+;----------------------------------------
+[MFC7460DN.USB.SCN.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7460DN.USB.SCN.DeviceData
+AddReg        = BrWia20USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia20MiniDrv.CopyFiles,BrTwdsFe.MFC7460DN.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7460DN.USB.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[MFC7460DN.USB.SCN.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7460DN.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+ChangePaperSize=0
+
+;----------------------------------------
+; MFC-7470D
+;----------------------------------------
+;----------------------------------------
+; 2000
+;----------------------------------------
+[MFC7470D.USB.SCN.W2K.NT]
+SubClass = StillImage
+DeviceType = 1
+DeviceSubType = 0x1
+Capabilities = 0x1
+Events = BrEvents.W2K
+DeviceData=MFC7470D.USB.SCN.W2K.DeviceData
+ICMProfiles = "sRGB Color Space Profile.icm"
+CopyFiles = BrStiMiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.MFC7470D.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+AddReg = BrStiUSB.AddReg,BrScnUsb.AddReg,BrModel.ADF.FB.AddReg
+
+[MFC7470D.USB.SCN.W2K.NT.Services]
+Addservice = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[MFC7470D.USB.SCN.W2K.DeviceData]
+TwainDS=%TWAINDS.Prefix.W2k%%MFC7470D.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP32
+;----------------------------------------
+[MFC7470D.USB.SCN.WXP32.NT]
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7470D.USB.SCN.WXP32.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.MFC7470D.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7470D.USB.SCN.WXP32.NT.Services]
+AddService = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[MFC7470D.USB.SCN.WXP32.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7470D.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP64
+;----------------------------------------
+[MFC7470D.USB.SCN.WXP64.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7470D.USB.SCN.WXP64.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrTwdsFe.MFC7470D.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7470D.USB.SCN.WXP64.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[MFC7470D.USB.SCN.WXP64.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7470D.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; Vista / 7
+;----------------------------------------
+[MFC7470D.USB.SCN.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7470D.USB.SCN.DeviceData
+AddReg        = BrWia20USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia20MiniDrv.CopyFiles,BrTwdsFe.MFC7470D.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7470D.USB.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[MFC7470D.USB.SCN.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7470D.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+ChangePaperSize=0
+
+;----------------------------------------
+; MFC-7860DN
+;----------------------------------------
+;----------------------------------------
+; 2000
+;----------------------------------------
+[MFC7860DN.USB.SCN.W2K.NT]
+SubClass = StillImage
+DeviceType = 1
+DeviceSubType = 0x1
+Capabilities = 0x1
+Events = BrEvents.W2K
+DeviceData=MFC7860DN.USB.SCN.W2K.DeviceData
+ICMProfiles = "sRGB Color Space Profile.icm"
+CopyFiles = BrStiMiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.MFC7860DN.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+AddReg = BrStiUSB.AddReg,BrScnUsb.AddReg,BrModel.ADF.FB.AddReg
+
+[MFC7860DN.USB.SCN.W2K.NT.Services]
+Addservice = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[MFC7860DN.USB.SCN.W2K.DeviceData]
+TwainDS=%TWAINDS.Prefix.W2k%%MFC7860DN.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP32
+;----------------------------------------
+[MFC7860DN.USB.SCN.WXP32.NT]
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7860DN.USB.SCN.WXP32.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.MFC7860DN.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7860DN.USB.SCN.WXP32.NT.Services]
+AddService = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[MFC7860DN.USB.SCN.WXP32.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7860DN.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP64
+;----------------------------------------
+[MFC7860DN.USB.SCN.WXP64.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7860DN.USB.SCN.WXP64.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrTwdsFe.MFC7860DN.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7860DN.USB.SCN.WXP64.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[MFC7860DN.USB.SCN.WXP64.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7860DN.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; Vista / 7
+;----------------------------------------
+[MFC7860DN.USB.SCN.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7860DN.USB.SCN.DeviceData
+AddReg        = BrWia20USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia20MiniDrv.CopyFiles,BrTwdsFe.MFC7860DN.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7860DN.USB.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[MFC7860DN.USB.SCN.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7860DN.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+ChangePaperSize=0
+
+;----------------------------------------
+; MFC-7860DW
+;----------------------------------------
+;----------------------------------------
+; 2000
+;----------------------------------------
+[MFC7860DW.USB.SCN.W2K.NT]
+SubClass = StillImage
+DeviceType = 1
+DeviceSubType = 0x1
+Capabilities = 0x1
+Events = BrEvents.W2K
+DeviceData=MFC7860DW.USB.SCN.W2K.DeviceData
+ICMProfiles = "sRGB Color Space Profile.icm"
+CopyFiles = BrStiMiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.MFC7860DW.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+AddReg = BrStiUSB.AddReg,BrScnUsb.AddReg,BrModel.ADF.FB.AddReg
+
+[MFC7860DW.USB.SCN.W2K.NT.Services]
+Addservice = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[MFC7860DW.USB.SCN.W2K.DeviceData]
+TwainDS=%TWAINDS.Prefix.W2k%%MFC7860DW.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP32
+;----------------------------------------
+[MFC7860DW.USB.SCN.WXP32.NT]
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7860DW.USB.SCN.WXP32.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.MFC7860DW.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7860DW.USB.SCN.WXP32.NT.Services]
+AddService = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[MFC7860DW.USB.SCN.WXP32.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7860DW.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP64
+;----------------------------------------
+[MFC7860DW.USB.SCN.WXP64.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7860DW.USB.SCN.WXP64.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrTwdsFe.MFC7860DW.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7860DW.USB.SCN.WXP64.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[MFC7860DW.USB.SCN.WXP64.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7860DW.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; Vista / 7
+;----------------------------------------
+[MFC7860DW.USB.SCN.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7860DW.USB.SCN.DeviceData
+AddReg        = BrWia20USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia20MiniDrv.CopyFiles,BrTwdsFe.MFC7860DW.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7860DW.USB.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[MFC7860DW.USB.SCN.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7860DW.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+ChangePaperSize=0
+
+;----------------------------------------
+; MFC-7365DN
+;----------------------------------------
+;----------------------------------------
+; 2000
+;----------------------------------------
+[MFC7365DN.USB.SCN.W2K.NT]
+SubClass = StillImage
+DeviceType = 1
+DeviceSubType = 0x1
+Capabilities = 0x1
+Events = BrEvents.W2K
+DeviceData=MFC7365DN.USB.SCN.W2K.DeviceData
+ICMProfiles = "sRGB Color Space Profile.icm"
+CopyFiles = BrStiMiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.MFC7365DN.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+AddReg = BrStiUSB.AddReg,BrScnUsb.AddReg,BrModel.ADF.FB.AddReg
+
+[MFC7365DN.USB.SCN.W2K.NT.Services]
+Addservice = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[MFC7365DN.USB.SCN.W2K.DeviceData]
+TwainDS=%TWAINDS.Prefix.W2k%%MFC7365DN.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP32
+;----------------------------------------
+[MFC7365DN.USB.SCN.WXP32.NT]
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7365DN.USB.SCN.WXP32.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFe.MFC7365DN.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7365DN.USB.SCN.WXP32.NT.Services]
+AddService = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[MFC7365DN.USB.SCN.WXP32.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7365DN.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; XP64
+;----------------------------------------
+[MFC7365DN.USB.SCN.WXP64.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7365DN.USB.SCN.WXP64.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia10MiniDrv.CopyFiles,BrTwdsFe.MFC7365DN.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7365DN.USB.SCN.WXP64.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[MFC7365DN.USB.SCN.WXP64.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7365DN.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+
+;----------------------------------------
+; Vista / 7
+;----------------------------------------
+[MFC7365DN.USB.SCN.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = MFC7365DN.USB.SCN.DeviceData
+AddReg        = BrWia20USB.AddReg,BrModel.ADF.FB.AddReg
+CopyFiles     = BrWia20MiniDrv.CopyFiles,BrTwdsFe.MFC7365DN.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[MFC7365DN.USB.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[MFC7365DN.USB.SCN.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%MFC7365DN.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileName%
+ChangePaperSize=0
+
+;----------------------------------------
+; Add reg DeviceData
+;
+[BrModel.FB.AddReg]
+HKR,DeviceData,ScannerType     ,0x00000,2
+HKR,DeviceData,DocHandling     ,0x00000,2
+HKR,DeviceData,ResoType        ,0x00000,2
+HKR,DeviceData,MaxResoNo       ,0x00000,8
+HKR,DeviceData,MaxResoCatalog  ,0x00000,12
+HKR,DeviceData,OpticalResoX    ,0x00000,600
+HKR,DeviceData,OpticalResoY    ,0x00000,2400
+HKR,DeviceData,BedDocWidth     ,0x00000,8268
+HKR,DeviceData,FeederDocWidth  ,0x00000,8268
+HKR,DeviceData,FeederDocHeight ,0x00000,13763
+HKR,DeviceData,EventImage      ,0x00000,1
+HKR,DeviceData,EventOcr        ,0x00000,1
+HKR,DeviceData,EventEmail      ,0x00000,1
+HKR,DeviceData,EventFile2      ,0x00000,1
+HKR,DeviceData,SetupInit       ,0x00000,1
+HKR,DeviceData,EnCmpJ          ,0x00000,1
+HKR,DeviceData,CmpRate         ,0x00000,2
+HKR,DeviceData,Command-S       ,0x00000,1
+HKR,DeviceData,Command-D       ,0x00000,1
+HKR,DeviceData,Command-K       ,0x00000,0
+HKR,DeviceData,SkeyHandling    ,0x00000,1
+HKR,DeviceData,DuplexScn       ,0x00000,0
+HKR,DeviceData,BedHReg         ,0x00000,1
+
+[BrModel.ADF.FB.AddReg]
+HKR,DeviceData,ScannerType     ,0x00000,2
+HKR,DeviceData,DocHandling     ,0x00000,3
+HKR,DeviceData,ResoType        ,0x00000,2
+HKR,DeviceData,MaxResoNo       ,0x00000,8
+HKR,DeviceData,MaxResoCatalog  ,0x00000,12
+HKR,DeviceData,OpticalResoX    ,0x00000,600
+HKR,DeviceData,OpticalResoY    ,0x00000,2400
+HKR,DeviceData,BedDocWidth     ,0x00000,8268
+HKR,DeviceData,FeederDocWidth  ,0x00000,8268
+HKR,DeviceData,FeederDocHeight ,0x00000,13763
+HKR,DeviceData,EventImage      ,0x00000,1
+HKR,DeviceData,EventOcr        ,0x00000,1
+HKR,DeviceData,EventEmail      ,0x00000,1
+HKR,DeviceData,EventFile2      ,0x00000,1
+HKR,DeviceData,SetupInit       ,0x00000,1
+HKR,DeviceData,EnCmpJ          ,0x00000,1
+HKR,DeviceData,CmpRate         ,0x00000,2
+HKR,DeviceData,Command-S       ,0x00000,1
+HKR,DeviceData,Command-D       ,0x00000,1
+HKR,DeviceData,Command-K       ,0x00000,0
+HKR,DeviceData,SkeyHandling    ,0x00000,1
+HKR,DeviceData,DuplexScn       ,0x00000,0
+HKR,DeviceData,BedHReg         ,0x00000,1
+
+;----------------------------------------
+; Add reg USB
+;
+[BrScnUsb.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,BrScnUsb.sys
+
+[BrStiUSB.AddReg]
+HKR,,HardwareConfig,1,1
+HKR,,USDClass,,"{34AC4185-B4C8-4e5b-BC39-6ECBC5083FBB}"
+HKCR,CLSID\{34AC4185-B4C8-4e5b-BC39-6ECBC5083FBB} ,,,%BrStiUsd%
+HKCR,CLSID\{34AC4185-B4C8-4e5b-BC39-6ECBC5083FBB}\InProcServer32,,,%11%\%StiFileName%
+HKCR,CLSID\{34AC4185-B4C8-4e5b-BC39-6ECBC5083FBB}\InProcServer32,ThreadingModel,,"Both"
+
+[BrWia10USB.AddReg]
+HKR,,HardwareConfig,1,4
+HKR,,USDClass,,"{9F167095-4B9C-47d0-B74A-92C97597E721}"
+HKR,DeviceData,OpenTimeout,0x10001,360000
+HKCR,CLSID\{9F167095-4B9C-47d0-B74A-92C97597E721} ,,,%BrWiaUsd%
+HKCR,CLSID\{9F167095-4B9C-47d0-B74A-92C97597E721}\InProcServer32,,,%11%\%Wia10FileName%
+HKCR,CLSID\{9F167095-4B9C-47d0-B74A-92C97597E721}\InProcServer32,ThreadingModel,,"Both"
+
+[BrWia20USB.AddReg]
+HKR,,HardwareConfig,1,4
+HKR,,USDClass,,"{FA4665BD-ADC8-428f-A50B-E18425BA23AD}"
+HKR,DeviceData,OpenTimeout,0x10001,360000
+HKCR,CLSID\{FA4665BD-ADC8-428f-A50B-E18425BA23AD} ,,,%BrWiaUsd%
+HKCR,CLSID\{FA4665BD-ADC8-428f-A50B-E18425BA23AD}\InProcServer32,,,%11%\%Wia20FileName%
+HKCR,CLSID\{FA4665BD-ADC8-428f-A50B-E18425BA23AD}\InProcServer32,ThreadingModel,,"Both"
+
+;----------------------------------------
+; Add Service
+;
+[BrScnUsb.AddService]
+DisplayName    = %BrScnUsb.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\BrScnUsb.sys
+LoadOrderGroup = Base
+
+;----------------------------------------
+; Events
+;
+[BrEvents.W2K]
+ScanToOcr   = %ScanToOcr%,{9d095b89-37d6-4877-afed-62a297dc6dbe},ControlCenter4
+ScanToSpApp = %ScanToSpApp%,{a6c5a715-8c6e-11d2-977a-0000f87a926f},ControlCenter4
+ScanToEmail = %ScanToEmail%,{c686dcee-54f2-419e-9a27-2fc7f2e98f9e},ControlCenter4
+ScanToFile  = %ScanToFile%,{fc4767c1-c8b3-48a2-9cfa-2e90cb3d3590},ControlCenter4
+
+[BrEvents]
+ScanToOcr   = %ScanToOcr%,{9d095b89-37d6-4877-afed-62a297dc6dbe},*
+ScanToSpApp = %ScanToSpApp%,{a6c5a715-8c6e-11d2-977a-0000f87a926f},*
+ScanToEmail = %ScanToEmail%,{c686dcee-54f2-419e-9a27-2fc7f2e98f9e},*
+ScanToFile  = %ScanToFile%,{fc4767c1-c8b3-48a2-9cfa-2e90cb3d3590},*
+
+;----------------------------------------
+; Copy Files
+;
+[BrScnUsb.CopyFiles]
+BrScnUsb.sys
+
+[BrStiMiniDrv.CopyFiles]
+BrSti09d.dll
+BrUsi09d.dll
+
+[BrWia10MiniDrv.CopyFiles]
+BrWia09d.dll
+BrUsi09d.dll
+BrJDec.dll
+
+[BrWia20MiniDrv.CopyFiles]
+BrWi209d.dll
+BrUsi09d.dll
+BrJDec.dll
+
+[BrTwdsMain.CopyFiles]
+BrTwds.dll
+BrTwdsUi.dll
+BrTwdScn.dll
+BrScnDev.dll
+BrStiIf.dll
+BrScnFlt.dll
+BrTwJDec.dll
+
+[BrTwdsLang.CopyFiles]
+BRScnBul.chm
+BRScnChn.chm
+BRScnCht.chm
+BRScnCze.chm
+BRScnDan.chm
+BRScnDut.chm
+BRScnEng.chm
+BRScnFin.chm
+BRScnFrc.chm
+BRScnFre.chm
+BRScnGer.chm
+BRScnHun.chm
+BRScnIta.chm
+BRScnJpn.chm
+BRScnKor.chm
+BRScnNor.chm
+BRScnPol.chm
+BRScnPor.chm
+BRScnPtb.chm
+BRScnRom.chm
+BRScnRus.chm
+BRScnSpa.chm
+BRScnSvk.chm
+BRScnSwe.chm
+BRScnTrk.chm
+BRScnUsa.chm
+BrTwdBul.dll
+BrTwdChn.dll
+BrTwdCht.dll
+BrTwdCze.dll
+BrTwdDan.dll
+BrTwdDut.dll
+BrTwdEng.dll
+BrTwdFin.dll
+BrTwdfrc.dll
+BrTwdFre.dll
+BrTwdGer.dll
+BrTwdHun.dll
+BrTwdIta.dll
+BrTwdJpn.dll
+BrTwdKor.dll
+BrTwdNor.dll
+BrTwdPol.dll
+BrTwdPor.dll
+BrTwdPtb.dll
+BrTwdRom.dll
+BrTwdRus.dll
+BrTwdSpa.dll
+BrTwdSvk.dll
+BrTwdSwe.dll
+BrTwdTrk.dll
+BrTwdUsa.dll
+
+[BrTwdsFe.DCP7055.CopyFiles]
+BrTwdFe.ds
+TWDC7055U.ini
+
+[BrTwdsFe.DCP7057.CopyFiles]
+BrTwdFe.ds
+TWDC7057U.ini
+
+[BrTwdsFe.DCP7055W.CopyFiles]
+BrTwdFe.ds
+TWDC7055WU.ini
+
+[BrTwdsFe.DCP7057W.CopyFiles]
+BrTwdFe.ds
+TWDC7057WU.ini
+
+[BrTwdsFe.DCP7060D.CopyFiles]
+BrTwdFe.ds
+TWDC7060DU.ini
+
+[BrTwdsFe.DCP7065DN.CopyFiles]
+BrTwdFe.ds
+TWDC7065DNU.ini
+
+[BrTwdsFe.DCP7070DW.CopyFiles]
+BrTwdFe.ds
+TWDC7070DWU.ini
+
+[BrTwdsFe.FAX7860DW.CopyFiles]
+BrTwdFe.ds
+TWFAX7860DWU.ini
+
+[BrTwdsFe.HL2280DW.CopyFiles]
+BrTwdFe.ds
+TWHL2280DWU.ini
+
+[BrTwdsFe.MFC7360.CopyFiles]
+BrTwdFe.ds
+TWMF7360U.ini
+
+[BrTwdsFe.MFC7360N.CopyFiles]
+BrTwdFe.ds
+TWMF7360NU.ini
+
+[BrTwdsFe.MFC7362N.CopyFiles]
+BrTwdFe.ds
+TWMF7362NU.ini
+
+[BrTwdsFe.MFC7460DN.CopyFiles]
+BrTwdFe.ds
+TWMF7460DNU.ini
+
+[BrTwdsFe.MFC7470D.CopyFiles]
+BrTwdFe.ds
+TWMF7470DU.ini
+
+[BrTwdsFe.MFC7860DN.CopyFiles]
+BrTwdFe.ds
+TWMF7860DNU.ini
+
+[BrTwdsFe.MFC7860DW.CopyFiles]
+BrTwdFe.ds
+TWMF7860DWU.ini
+
+[BrTwdsFe.MFC7365DN.CopyFiles]
+BrTwdFe.ds
+TWMF7365DNU.ini
+
+;----------------------------------------
+; Destination Directories
+;
+[DestinationDirs]
+DefaultDestDir       = 11
+BrScnUsb.CopyFiles   = 12
+BrTwdsMain.CopyFiles = 10,TWAIN_32\%TwainDirName%\Common
+BrTwdsLang.CopyFiles = 10,TWAIN_32\%TwainDirName%\Lang
+
+BrTwdsFe.DCP7055.CopyFiles   = 10,TWAIN_32\%TwainDirName%\DC7055U
+BrTwdsFe.DCP7057.CopyFiles   = 10,TWAIN_32\%TwainDirName%\DC7057U
+BrTwdsFe.DCP7055W.CopyFiles  = 10,TWAIN_32\%TwainDirName%\DC7055WU
+BrTwdsFe.DCP7057W.CopyFiles  = 10,TWAIN_32\%TwainDirName%\DC7057WU
+BrTwdsFe.DCP7060D.CopyFiles  = 10,TWAIN_32\%TwainDirName%\DC7060DU
+BrTwdsFe.DCP7065DN.CopyFiles = 10,TWAIN_32\%TwainDirName%\DC7065DNU
+BrTwdsFe.DCP7070DW.CopyFiles = 10,TWAIN_32\%TwainDirName%\DC7070DWU
+BrTwdsFe.FAX7860DW.CopyFiles = 10,TWAIN_32\%TwainDirName%\FAX7860DWU
+BrTwdsFe.HL2280DW.CopyFiles  = 10,TWAIN_32\%TwainDirName%\HL2280DWU
+BrTwdsFe.MFC7360.CopyFiles   = 10,TWAIN_32\%TwainDirName%\MF7360U
+BrTwdsFe.MFC7360N.CopyFiles  = 10,TWAIN_32\%TwainDirName%\MF7360NU
+BrTwdsFe.MFC7362N.CopyFiles  = 10,TWAIN_32\%TwainDirName%\MF7362NU
+BrTwdsFe.MFC7460DN.CopyFiles = 10,TWAIN_32\%TwainDirName%\MF7460DNU
+BrTwdsFe.MFC7470D.CopyFiles  = 10,TWAIN_32\%TwainDirName%\MF7470DU
+BrTwdsFe.MFC7860DN.CopyFiles = 10,TWAIN_32\%TwainDirName%\MF7860DNU
+BrTwdsFe.MFC7860DW.CopyFiles = 10,TWAIN_32\%TwainDirName%\MF7860DWU
+BrTwdsFe.MFC7365DN.CopyFiles = 10,TWAIN_32\%TwainDirName%\MF7365DNU
+
+;----------------------------------------
+; Source Disks
+;
+[SourceDisksNames]
+1 = %BrDrvDisk1%
+
+[SourceDisksNames.x86]
+3 = %BrDrvDisk1%,,,x86
+
+[SourceDisksNames.amd64]
+4 = %BrDrvDisk1%,,,amd64
+
+[SourceDisksFiles]
+;; System
+BrScnUsb.sys = 1,,
+;; Sti
+BrSti09d.dll = 1,,
+;; StiCore
+BrUsi09d.dll = 1,,
+
+;; Twain
+BrTwdFe.ds     = 1,,
+BrTwds.dll     = 1,,
+BrTwdsUi.dll   = 1,,
+BrTwdScn.dll   = 1,,
+BrScnDev.dll   = 1,,
+BrStiIf.dll    = 1,,
+BrScnFlt.dll   = 1,,
+BrTwJDec.dll   = 1,,
+;; Twain Lang
+BRScnBul.chm = 1,,
+BRScnChn.chm = 1,,
+BRScnCht.chm = 1,,
+BRScnCze.chm = 1,,
+BRScnDan.chm = 1,,
+BRScnDut.chm = 1,,
+BRScnEng.chm = 1,,
+BRScnFin.chm = 1,,
+BRScnFrc.chm = 1,,
+BRScnFre.chm = 1,,
+BRScnGer.chm = 1,,
+BRScnHun.chm = 1,,
+BRScnIta.chm = 1,,
+BRScnJpn.chm = 1,,
+BRScnKor.chm = 1,,
+BRScnNor.chm = 1,,
+BRScnPol.chm = 1,,
+BRScnPor.chm = 1,,
+BRScnPtb.chm = 1,,
+BRScnRom.chm = 1,,
+BRScnRus.chm = 1,,
+BRScnSpa.chm = 1,,
+BRScnSvk.chm = 1,,
+BRScnSwe.chm = 1,,
+BRScnTrk.chm = 1,,
+BRScnUsa.chm = 1,,
+BrTwdBul.dll = 1,,
+BrTwdChn.dll = 1,,
+BrTwdCht.dll = 1,,
+BrTwdCze.dll = 1,,
+BrTwdDan.dll = 1,,
+BrTwdDut.dll = 1,,
+BrTwdEng.dll = 1,,
+BrTwdFin.dll = 1,,
+BrTwdfrc.dll = 1,,
+BrTwdFre.dll = 1,,
+BrTwdGer.dll = 1,,
+BrTwdHun.dll = 1,,
+BrTwdIta.dll = 1,,
+BrTwdJpn.dll = 1,,
+BrTwdKor.dll = 1,,
+BrTwdNor.dll = 1,,
+BrTwdPol.dll = 1,,
+BrTwdPor.dll = 1,,
+BrTwdPtb.dll = 1,,
+BrTwdRom.dll = 1,,
+BrTwdRus.dll = 1,,
+BrTwdSpa.dll = 1,,
+BrTwdSvk.dll = 1,,
+BrTwdSwe.dll = 1,,
+BrTwdTrk.dll = 1,,
+BrTwdUsa.dll = 1,,
+;; Twain Setting
+TWDC7055U.ini    = 1,,
+TWDC7057U.ini    = 1,,
+TWDC7055WU.ini   = 1,,
+TWDC7057WU.ini   = 1,,
+TWDC7060DU.ini   = 1,,
+TWDC7065DNU.ini  = 1,,
+TWDC7070DWU.ini  = 1,,
+TWFAX7860DWU.ini = 1,,
+TWHL2280DWU.ini  = 1,,
+TWMF7360U.ini    = 1,,
+TWMF7360NU.ini   = 1,,
+TWMF7362NU.ini   = 1,,
+TWMF7460DNU.ini  = 1,,
+TWMF7470DU.ini   = 1,,
+TWMF7860DNU.ini  = 1,,
+TWMF7860DWU.ini  = 1,,
+TWMF7365DNU.ini  = 1,,
+
+[SourceDisksFiles.x86]
+;; WIA 1.0
+BrWia09d.dll = 3,,
+;; WIA 2.0
+BrWi209d.dll = 3,,
+;; other
+BrJDec.dll   = 3,,
+
+[SourceDisksFiles.amd64]
+;; WIA 1.0
+BrWia09d.dll = 4,,
+;; WIA 2.0
+BrWi209d.dll = 4,,
+;; StiCore
+BrUsi09d.dll = 4,,
+;; other
+BrJDec.dll   = 4,,
+
+;----------------------------------------
+; Localizable Strings
+;
+[Strings]
+Provider = "Brother"
+Manufact = "Brother"
+DriverPackageDisplayName = "DCP-7055, DCP-7057, DCP-7055W, DCP-7057W, DCP-7060D, DCP-7065DN, DCP-7070DW, FAX-7860DW, HL-2280DW, MFC-7360, MFC-7360N, MFC-7362N, MFC-7365DN, MFC-7460DN, MFC-7470D, MFC-7860DN, MFC-7860DW"
+BrDrvDisk1       = "Brother MFC Driver Disk"
+BrScnUsb.SvcDesc = "Brother USB Still Image driver"
+BrStiUsd         = "Brother Sti Scanner minidriver"
+BrWiaUsd         = "Brother Wia Scanner minidriver"
+
+;; Events
+ScanToOcr   = "Scan To OCR - Button Press"
+ScanToSpApp = "Scan To Image - Button Press"
+ScanToEmail = "Scan To E-mail - Button Press"
+ScanToFile  = "Scan To File - Button Press"
+
+;; 
+TWAINDS.Prefix.W2k = "TW-"          ;; Prefix of Sti Device Name
+TWAINDS.Prefix     = "TW-"          ;; Prefix of Wia Device Name
+StiCoreFileName    = "BrUsi09d.dll"	;; STI CORE FILE NAME
+Wia10FileName      = "BrWia09d.dll"	;; WIA 1.0 FILE NAME
+Wia20FileName      = "BrWi209d.dll"	;; WIA 2.0 FILE NAME
+StiFileName        = "BrSti09d.dll"	;; STI FILE NAME
+TwainDirName       = "BrSc09d"      ;; TWAIN Directory Name
+
+;; Device Name
+DCP7055.USB.SCN   = "Brother DCP-7055"
+DCP7057.USB.SCN   = "Brother DCP-7057"
+DCP7055W.USB.SCN  = "Brother DCP-7055W"
+DCP7057W.USB.SCN  = "Brother DCP-7057W"
+DCP7060D.USB.SCN  = "Brother DCP-7060D"
+DCP7065DN.USB.SCN = "Brother DCP-7065DN"
+DCP7070DW.USB.SCN = "Brother DCP-7070DW"
+FAX7860DW.USB.SCN = "Brother FAX-7860DW"
+HL2280DW.USB.SCN  = "Brother HL-2280DW"
+MFC7360.USB.SCN   = "Brother MFC-7360"
+MFC7360N.USB.SCN  = "Brother MFC-7360N"
+MFC7362N.USB.SCN  = "Brother MFC-7362N"
+MFC7460DN.USB.SCN = "Brother MFC-7460DN"
+MFC7470D.USB.SCN  = "Brother MFC-7470D"
+MFC7860DN.USB.SCN = "Brother MFC-7860DN"
+MFC7860DW.USB.SCN = "Brother MFC-7860DW"
+MFC7365DN.USB.SCN = "Brother MFC-7365DN"

@@ -35,8 +35,6 @@ public class JoystickController {
     public void Loop() {
 
 
-        //Logger.getInstance().WriteMessage("leftstick"  + _gamepad.left_stick_y);
-        //Logger.getInstance().WriteMessage("rightstick'" +  _gamepad.right_stick_y);
         _leftMotor.setPower(-_gamepad.right_stick_y);
         _rightMotor.setPower(_gamepad.left_stick_y);
 

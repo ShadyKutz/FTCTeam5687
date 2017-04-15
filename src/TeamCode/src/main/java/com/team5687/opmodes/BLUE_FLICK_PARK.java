@@ -32,6 +32,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package com.team5687.opmodes;
 
+import com.ftdi.j2xx.FT_EEPROM_X_Series;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -110,6 +111,7 @@ public class BLUE_FLICK_PARK extends LinearOpMode {
         _motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         _sweeper = map.dcMotor.get(Constants.SWEEPER_MOTOR);
         _sweeper.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        _sweeper.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     @Override

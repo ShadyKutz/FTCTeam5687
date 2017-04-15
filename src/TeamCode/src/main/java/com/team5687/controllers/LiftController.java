@@ -59,7 +59,7 @@ public class LiftController {
 
 
         if (_gamepad.x) {
-            _arm.setPower(.95);
+            _arm.setPower(.75);
         } else if (_gamepad.b) {
             _arm.setPower(-.45);
         }
@@ -69,7 +69,7 @@ public class LiftController {
         }
         else if (_gamepad.y)
         {
-            _arm.setPower(.3);
+            _arm.setPower(.2);
         }
 
 

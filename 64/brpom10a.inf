@@ -1,0 +1,129 @@
+;=======================================================================
+;  Brother MFC Setup File
+;  Copyright (c)  2010 Brother Industries,LTD.
+;  FileName   :   brpom10a.inf
+;  Function   :   Ports
+;  I/F        :   USB
+;  OS         :   Windows2000/XP/Vista/Windows7
+;  Model      :   m10a
+;=======================================================================
+[Version]
+Signature  = "$Windows NT$"
+Class      = Ports
+ClassGUID  = {4d36e978-e325-11ce-bfc1-08002be10318}
+Provider   = %Provider%
+DriverPackageType=PlugAndPlay
+DriverPackageDisplayName=%DriverPackageDisplayName%
+DriverVer= 04/08/2013, 01.00.00.05
+CatalogFile= brpom10a.cat
+
+[Manufacturer]
+%Manufact% = MFC_SER, NTx86, NTamd64
+
+[ControlFlags]
+ExcludeFromSelect=*
+
+[MFC_SER]
+"Brother FAX-7860DW Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_0275&MI_02
+"Brother MFC-7362N Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_028B&MI_02
+"Brother MFC-7470D Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_0271&MI_02
+"Brother MFC-7360N Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_0270&MI_02
+"Brother MFC-7860DW Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_024F&MI_02
+"Brother MFC-7460DN Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_024E&MI_02
+"Brother MFC-7360 Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_024D&MI_02
+"Brother MFC-7860DN Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_024C&MI_02
+"Brother MFC-7365DN Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_0318&MI_02
+
+[MFC_SER.NTx86]
+"Brother FAX-7860DW Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_0275&MI_02
+"Brother MFC-7362N Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_028B&MI_02
+"Brother MFC-7470D Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_0271&MI_02
+"Brother MFC-7360N Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_0270&MI_02
+"Brother MFC-7860DW Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_024F&MI_02
+"Brother MFC-7460DN Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_024E&MI_02
+"Brother MFC-7360 Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_024D&MI_02
+"Brother MFC-7860DN Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_024C&MI_02
+"Brother MFC-7365DN Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_0318&MI_02
+
+[MFC_SER.NTamd64]
+"Brother FAX-7860DW Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_0275&MI_02
+"Brother MFC-7362N Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_028B&MI_02
+"Brother MFC-7470D Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_0271&MI_02
+"Brother MFC-7360N Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_0270&MI_02
+"Brother MFC-7860DW Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_024F&MI_02
+"Brother MFC-7460DN Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_024E&MI_02
+"Brother MFC-7360 Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_024D&MI_02
+"Brother MFC-7860DN Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_024C&MI_02
+"Brother MFC-7365DN Remote Setup Port" = BROTHER.USB.SERIAL, USB\VID_04F9&PID_0318&MI_02
+
+[BROTHER.USB.SERIAL]
+CopyFiles=BROTHER.USB.SERIAL.CopyFiles
+
+[BROTHER.USB.SERIAL.Services]
+Addservice = BrSerIb , 0x00000002, BrSerIb.AddService
+Addservice = BrUsbSIb, 0x00000000, BrUsbSIb.AddService
+
+[BROTHER.USB.SERIAL.HW]
+AddReg=BROTHER.USB.SERIAL.AddReg.HW
+
+[BROTHER.USB.SERIAL.CopyFiles]
+BrSerIb.sys
+BrUsbSib.sys
+
+;-------------------------------------------------------------------------------
+; Lower Filter Driver 
+;
+[BROTHER.USB.SERIAL.AddReg.HW]
+HKR,,"LowerFilters", 0x00010000, "BrUsbSIb"
+
+;--------------------------------------------------
+; Add Service
+;
+[BrSerIb.AddService]
+DisplayName    = %BrSerIb.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\BrSerIb.sys
+
+[BrUsbSIb.AddService]
+DisplayName    = %BrUsbSIb.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\BrUsbSIb.sys
+
+;----------------------------------------------------------------------
+
+[DestinationDirs]
+DefaultDestDir = 12
+
+[SourceDisksNames]
+1 = %BrDrvDisk1%
+
+[SourceDisksNames.x86]
+2 = %BrDrvDisk1%,,,x86
+
+[SourceDisksNames.amd64]
+3 = %BrDrvDisk1%,,,amd64
+
+[SourceDisksFiles]
+
+[SourceDisksFiles.x86]
+BrSerIb.sys=2
+BrUsbSib.sys=2
+
+[SourceDisksFiles.amd64]
+BrSerIb.sys=3
+BrUsbSib.sys=3
+
+[Strings]
+Manufact = "Brother"
+Provider = "Brother"
+DriverPackageDisplayName="FAX-7860DW,MFC-7362N,MFC-7470D,MFC-7360N,MFC-7860DW,MFC-7460DN,MFC-7360,MFC-7860DN,MFC-7365DN"
+
+BrDrvDisk1 = "Brother Driver Disk"
+
+BrSerIb.SvcDesc = "Brother Serial Interface Driver(WDM)"
+BrUsbSIb.SvcDesc = "Brother Serial USB Driver(WDM)"
+

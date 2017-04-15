@@ -55,6 +55,7 @@ public class DELAY_BLUE_RAMP_FLICK extends LinearOpMode {
         _motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         _sweeper = map.dcMotor.get(Constants.SWEEPER_MOTOR);
         _sweeper.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        _sweeper.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     @Override

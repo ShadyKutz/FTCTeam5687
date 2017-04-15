@@ -8,8 +8,8 @@ import com.team5687.helpers.Logger;
 
 public class PusherController {
     private final double MID = 0.36;
-    private final double LEFT = 0.6;
-    private final double RIGHT = 0.1;
+    private final double LEFT = 0.67;
+    private final double RIGHT = 0;
 
     private double _value = 0.0;
     private Boolean _isActive = false;
@@ -17,18 +17,15 @@ public class PusherController {
     private Gamepad _gamepad;
 
     public void Init(HardwareMap map, Gamepad gampad) {
-        _servo = map.servo.get(Constants.PUSHER_SERVO);
+        _servo = map.servo.get(Constants.GATE_SERVO);
         _gamepad = gampad;
     }
 
     public void Loop() {
-        if(_gamepad.x)
+        if(_gamepad.dpad_left)
             _value = LEFT;
-        else if(_gamepad.b)
+        else if(_gamepad.dpad_right)
             _value = RIGHT;
-        else
-            _value = MID;
-
 
         _servo.setPosition(_value);
 
