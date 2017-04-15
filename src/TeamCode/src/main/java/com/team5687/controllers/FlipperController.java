@@ -66,9 +66,13 @@ public class FlipperController {
             BallTicks.reset();
         }
 
-        if (BallTicks.milliseconds() > 200)
+        if (BallTicks.milliseconds() > 150)
         {
             _ballPresent = true;
+        }
+        if (_ballPresent == true && BallTicks.milliseconds() < 500)
+        {
+            _ballPresent = false;
         }
 
         if (_ballPresent == true)

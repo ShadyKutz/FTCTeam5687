@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.team5687.Constants;
 import com.team5687.controllers.FlipperController;
@@ -45,11 +46,13 @@ public class DELAY_BLUE_RAMP_FLICK extends LinearOpMode {
     private DcMotor _sweeper;
     private DcMotor FLIPPER_MOTOR;
     private DcMotor _motor;
+    private Servo _arm;
     private ElapsedTime period  = new ElapsedTime();
 
 
     public void Init(HardwareMap map) {
         _left = map.dcMotor.get(Constants.LEFT_DRIVE_MOTOR);
+        _arm = map.servo.get(Constants.GATE_SERVO);
         _right = map.dcMotor.get(Constants.RIGHT_DRIVE_MOTOR);
         _motor = map.dcMotor.get(Constants.FLIPPER_MOTOR);
         _motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -99,11 +102,16 @@ public class DELAY_BLUE_RAMP_FLICK extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         sleep(10000);
+        _arm.setPosition(0);
         encoderDrive(DRIVE_TICKS,  10,  10, 5.0);
 
+
         flipper(1);
+        _arm.setPosition(0);
         sweep(8);
-        flipper(1);// S1: Forward 47 Inches with 5 Sec timeout
+
+        flipper(1);
+        // S1: Forward 47 Inches with 5 Sec timeout
         encoderDrive(TURN_TICKS,   -6, 6, 4.0);
         encoderDrive(DRIVE_TICKS, 15, 15, 4.0);
 
