@@ -86,21 +86,14 @@ public class BLUE_FLICK_PARK extends LinearOpMode {
             (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double    DRIVE_TICKS             = .5;
     static final double     TURN_TICKS              = .3;
-    private static final int LAUNCH_TIME_IN_MS = 1500;
-    private static final int LAUNCH_POWER = 100;
-    private static final int REVERSING_LAUNCH_TIME_IN_MS = 750;
-    private static final int REVERSING_LAUNCH_POWER = 10;
-    private static final int RESET_POSITION_TIME_IN_MS = 750;
-    private static final int RESET_POSITION_POWER = 20;
-    FlipperController _flipper = new FlipperController();
-    SpinnerController sweep = new SpinnerController();
+
     /* Declare OpMode members. */
     // Use a Pushbot's hardware
     private ElapsedTime     runtime = new ElapsedTime();
     private DcMotor _left;
     private DcMotor _right;
     private DcMotor _sweeper;
-    private DcMotor FLIPPER_MOTOR;
+
     private DcMotor _motor;
     private Servo _arm;
     private ElapsedTime period  = new ElapsedTime();
