@@ -27,6 +27,7 @@ public class UltrasonicTestOpMode  extends LinearOpMode {
             telemetry.addData("d_l", distance);
             telemetry.addData("delta  ", difference);
             telemetry.update();
+
         }
     }
 }

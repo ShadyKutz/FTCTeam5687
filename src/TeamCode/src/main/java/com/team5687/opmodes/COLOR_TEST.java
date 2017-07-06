@@ -44,6 +44,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
 import com.qualcomm.robotcore.hardware.DigitalChannelController;
+import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 import com.team5687.Constants;
 
 
@@ -83,6 +84,8 @@ public class COLOR_TEST extends LinearOpMode {
 
     ColorSensor sensorRGB;
     ColorSensor sensorRGB2;
+
+
    // DeviceInterfaceModule cdim;
 
     // we assume that the LED pin of the RGB sensor is connected to
